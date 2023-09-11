@@ -23,12 +23,11 @@
 		A2FAC9E02AAF0DB900779CAA /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = A2FAC9DF2AAF0DB900779CAA /* FirebaseStorageCombine-Community */; };
 		A2FAC9E52AAF0E1B00779CAA /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9E42AAF0E1B00779CAA /* UserModel.swift */; };
 		A2FAC9E72AAF0E2300779CAA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9E62AAF0E2300779CAA /* User.swift */; };
-		A2FAC9E92AAF0E4300779CAA /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9E82AAF0E4300779CAA /* UserContentView.swift */; };
 		A2FAC9EB2AAF0E6000779CAA /* FireBaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9EA2AAF0E6000779CAA /* FireBaseDB.swift */; };
-		A2FAC9EE2AAF0EF200779CAA /* UserSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9ED2AAF0EF200779CAA /* UserSignUpView.swift */; };
 		A2FAC9F02AAF0F0700779CAA /* UserSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */; };
 		A2FAC9F22AAF0F6F00779CAA /* FireBaseAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9F12AAF0F6F00779CAA /* FireBaseAuthentication.swift */; };
 		A2FAC9F42AAF0FC200779CAA /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9F32AAF0FC200779CAA /* UserProfileView.swift */; };
+		A2FAC9F62AAF16E200779CAA /* UserSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,12 +39,11 @@
 		A2FAC9CC2AAF0D4200779CAA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A2FAC9E42AAF0E1B00779CAA /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A2FAC9E62AAF0E2300779CAA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		A2FAC9E82AAF0E4300779CAA /* UserContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserContentView.swift; sourceTree = "<group>"; };
 		A2FAC9EA2AAF0E6000779CAA /* FireBaseDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseDB.swift; sourceTree = "<group>"; };
-		A2FAC9ED2AAF0EF200779CAA /* UserSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpView.swift; sourceTree = "<group>"; };
 		A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignInView.swift; sourceTree = "<group>"; };
 		A2FAC9F12AAF0F6F00779CAA /* FireBaseAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseAuthentication.swift; sourceTree = "<group>"; };
 		A2FAC9F32AAF0FC200779CAA /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,10 +108,9 @@
 			isa = PBXGroup;
 			children = (
 				954557892AAF0C32003F1C7E /* ContentView.swift */,
-				A2FAC9E82AAF0E4300779CAA /* UserContentView.swift */,
-				A2FAC9ED2AAF0EF200779CAA /* UserSignUpView.swift */,
 				A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */,
 				A2FAC9F32AAF0FC200779CAA /* UserProfileView.swift */,
+				A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -221,8 +218,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2FAC9E92AAF0E4300779CAA /* UserContentView.swift in Sources */,
 				A2FAC9F02AAF0F0700779CAA /* UserSignInView.swift in Sources */,
+				A2FAC9F62AAF16E200779CAA /* UserSignUpView.swift in Sources */,
 				A2FAC9E72AAF0E2300779CAA /* User.swift in Sources */,
 				9545578A2AAF0C32003F1C7E /* ContentView.swift in Sources */,
 				A2FAC9E52AAF0E1B00779CAA /* UserModel.swift in Sources */,
@@ -230,7 +227,6 @@
 				A2FAC9F22AAF0F6F00779CAA /* FireBaseAuthentication.swift in Sources */,
 				A2FAC9EB2AAF0E6000779CAA /* FireBaseDB.swift in Sources */,
 				954557882AAF0C32003F1C7E /* BookDiscoveryApp.swift in Sources */,
-				A2FAC9EE2AAF0EF200779CAA /* UserSignUpView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
