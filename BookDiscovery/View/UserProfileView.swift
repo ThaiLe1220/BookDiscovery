@@ -14,20 +14,10 @@ struct UserProfileView: View {
     var body: some View {
         Button("Sign Out") {
             // Handle sign out
-            signOut()
         }
         .padding()
     }
-    
-    // function to handle user sign out
-    func signOut() {
-        do {
-            try Auth.auth().signOut()
-            isSignedOut = true
-        } catch let signOutError as NSError {
-            print("Error signing out: \(signOutError.localizedDescription)")
-        }
-    }
+
 }
 
 struct UserProfileView_Previews: PreviewProvider {

@@ -24,7 +24,7 @@ func addUser(user: User, completion: @escaping (Bool) -> Void) {
                     completion(false)
                 } else {
                     // Username is unique; add the user
-                    var userData = user.toDictionary()
+                    var userData = UserModel().toDictionary()
                     userData.removeValue(forKey: "id")
                     
                     db.collection("users").addDocument(data: userData) { error in
@@ -62,7 +62,7 @@ func fetchUserByUsername(email: String, completion: @escaping (User?) -> Void) {
 // MARK: - Update
 func updateUser(user: User, completion: @escaping (Bool) -> Void) {
     if let userID = user.id {
-        var userData = user.toDictionary()
+        var userData = UserModel().toDictionary()
         userData.removeValue(forKey: "id")
         db.collection("users").document(userID).setData(userData) { error in
             if error != nil {

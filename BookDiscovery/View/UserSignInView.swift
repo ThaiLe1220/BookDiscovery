@@ -24,24 +24,11 @@ struct UserSignInView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
 
             Button("Sign In") {
-                signIn()
             }
             .padding()
 
             NavigationLink(destination: UserSignUpView()) {
                 Text("Don't have an account? Sign Up")
-            }
-        }
-    }
-    
-    // Function to handle user sign in
-    func signIn() {
-        Auth.auth().signIn(withEmail: email, password: password) { (result,error) in
-            if let error = error {
-                print("Error signing in user: \(error.localizedDescription)")
-            } else {
-                print("User Signed In")
-                signInSuccess = true
             }
         }
     }
