@@ -14,30 +14,14 @@ let db = Firestore.firestore()
 
 class FireBaseDB {
     // MARK: - Add User
-    func addUser(user: User, completion: @escaping (Bool) -> Void) {
-        db.collection("users")
-            .whereField("email", isEqualTo: user.email)
-            .getDocuments { querySnapshot, error in
-                if error != nil {
-                    completion(false)
-                } else {
-                    if let _ = querySnapshot?.documents.first {
-                        completion(false)
-                    } else {
-                        // Username is unique; add the user
-                        var userData = UserModel().toDictionary()
-                        userData.removeValue(forKey: "id")
-                        
-                        db.collection("users").addDocument(data: userData) { error in
-                            if error != nil {
-                                completion(false)
-                            } else {
-                                completion(true)
-                            }
-                        }
-                    }
-                }
+    func addUser(userID: String, userEmail: String, completion: @escaping (Bool) -> Void) {
+        db.collection("users").addDocument(data: ["id" : userID, "email" : userEmail]) { error in
+            if error != nil {
+                completion(false)
+            } else {
+                completion(true)
             }
+        }
     }
 
 
@@ -62,20 +46,33 @@ class FireBaseDB {
 
     // MARK: - Update
     func updateUser(user: User, completion: @escaping (Bool) -> Void) {
-        if let userID = user.id {
-            var userData = UserModel().toDictionary()
-            userData.removeValue(forKey: "id")
-            db.collection("users").document(userID).setData(userData) { error in
-                if error != nil {
-                    completion(false)
+        let userEmail = user.email
+
+        var userData = UserModel(user: user).toDictionary()
+        userData.removeValue(forKey: "id")
+        
+        db.collection("users").whereField("email", isEqualTo: userEmail).getDocuments { (querySnapshot, error) in
+            if error != nil{
+                completion(false)
+            } else {
+                if let document = querySnapshot?.documents.first {
+                    let userID = document.documentID
+                    db.collection("users").document(userID).setData(userData) { error in
+                        if error != nil {
+                            completion(false)
+                        } else {
+                            completion(true)
+                        }
+                    }
                 } else {
-                    completion(true)
+                    print("User with email \(userEmail) not found.")
+                    completion(false)
                 }
             }
-        } else {
-            completion(false)
         }
     }
+
+
 
     // MARK: - Delete
     func deleteUser(userID: String, completion: @escaping (Bool) -> Void) {

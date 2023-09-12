@@ -10,14 +10,13 @@ import Firebase
 
 class FirebaseAuthService {
     func signUp(email: String, password: String, completion: @escaping (Bool, Error?) -> Void) {
-        print("FirebaseAuthService().signUp() evoked", terminator: ", ")
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
                 completion(false, error)
-                print("failed")
-            } else {
+            } else if let user = result?.user {
+                let userID = user.uid
+                FireBaseDB().addUser(userID: userID, userEmail: email) { _ in }
                 completion(true, nil)
-                print("succeed")
             }
         }
     }

@@ -12,13 +12,7 @@ struct User: Codable, Identifiable {
     var id: String?
     var email: String
     var password: String
-    // Add other properties as needed
-    // TODO: Add them struct Address(Country, City, Street)
-    // var address: Address
-    
-
-
+    var address: Address
 }
 
-
-let emptyUser = User(id: "", email: "", password: "")
+let emptyUser = User(id: "", email: "", password: "", address: Address(street: "", city: "", country: ""))
