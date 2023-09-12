@@ -11,14 +11,10 @@ import FirebaseFirestoreSwift
 struct User: Codable, Identifiable {
     var id: String?
     var email: String
-    var password: String
-    // Add other properties as needed
-    // TODO: Add them struct Address(Country, City, Street)
-    // var address: Address
-    
-
-
+    var name: String
+    var address: Address
+    var bio: String
+    var image: String
 }
 
-
-let emptyUser = User(id: "", email: "", password: "")
+let emptyUser = User(id: "", email: "", name: "", address: Address(street: "", city: "", country: ""), bio: "", image: "")
