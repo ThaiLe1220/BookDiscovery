@@ -8,7 +8,7 @@
 import Foundation
 
 struct Address : Codable {
-    var street: String?
-    var city: String?
-    var country: String?
+    var street: String
+    var city: String
+    var country: String
 }

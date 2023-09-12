@@ -26,19 +26,19 @@ class FireBaseDB {
 
 
     // MARK: - Read
-    func fetchUserByUsername(email: String, completion: @escaping (User?) -> Void) {
+    func fetchUser(userID: String, completion: @escaping (User?) -> Void) {
         db.collection("users")
-            .whereField("email", isEqualTo: email)
+            .whereField("id", isEqualTo: userID)
             .getDocuments { querySnapshot, error in
                 if error != nil {
                     completion(nil)
                 } else {
                     if let document = querySnapshot?.documents.first,
-                       var user = try? document.data(as: User.self) {
-                        user.id = document.documentID
+                       let user = try? document.data(as: User.self) {
                         completion(user)
                     } else {
                         completion(nil)
+                        
                     }
                 }
             }
@@ -48,8 +48,7 @@ class FireBaseDB {
     func updateUser(user: User, completion: @escaping (Bool) -> Void) {
         let userEmail = user.email
 
-        var userData = UserModel(user: user).toDictionary()
-        userData.removeValue(forKey: "id")
+        let userData = UserModel(user: user).toDictionary()
         
         db.collection("users").whereField("email", isEqualTo: userEmail).getDocuments { (querySnapshot, error) in
             if error != nil{
