@@ -12,6 +12,7 @@ import FirebaseFirestoreSwift
 
 let db = Firestore.firestore()
 
+
 class FireBaseDB {
     // MARK: - Add User
     func addUser(userID: String, userEmail: String, completion: @escaping (Bool) -> Void) {

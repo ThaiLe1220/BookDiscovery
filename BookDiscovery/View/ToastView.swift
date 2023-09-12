@@ -21,6 +21,6 @@ struct ToastView: View {
                 .padding(.horizontal, 20)
         }
         .transition(.move(edge: .top))
-        .animation(.easeInOut)
+//        .animation(.easeInOut)
     }
 }

@@ -266,8 +266,6 @@ struct ProfileView: View {
                     }
                     .padding()
                 }
-                
-                
 
             }
             .edgesIgnoringSafeArea(.all)

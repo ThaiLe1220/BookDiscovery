@@ -181,6 +181,7 @@ struct UserSignUpView: View {
         }
     }
     
+    // function to handle user sign up
     func userSignUp() {
         if isValidInput() {
             FirebaseAuthService().signUp(email: email, password: password) { (success, error) in
