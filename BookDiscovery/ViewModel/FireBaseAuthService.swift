@@ -15,7 +15,6 @@ class FirebaseAuthService {
             if let error = error {
                 completion(false, error)
                 print("failed")
-
             } else {
                 completion(true, nil)
                 print("succeed")
@@ -33,7 +32,7 @@ class FirebaseAuthService {
         }
     }
     
-    func signIn(completion: @escaping (Bool, Error?) -> Void) {
+    func signOut(completion: @escaping (Bool, Error?) -> Void) {
         do {
             try Auth.auth().signOut()
             completion(true, nil)
@@ -41,6 +40,25 @@ class FirebaseAuthService {
             print("Error signing out: \(signOutError.localizedDescription)")
             completion(false, signOutError)
 
+        }
+    }
+
+    func changePassword(currentPassword: String, newPassword: String, completion: @escaping (Bool, Error?) -> Void) {
+        let user = Auth.auth().currentUser
+        let credential = EmailAuthProvider.credential(withEmail: user?.email ?? "", password: currentPassword)
+        
+        user?.reauthenticate(with: credential) { _, error in
+            if let error = error {
+                completion(false, error)
+            } else {
+                user?.updatePassword(to: newPassword) { error in
+                    if let error = error {
+                        completion(false, error)
+                    } else {
+                        completion(true, nil)
+                    }
+                }
+            }
         }
     }
 

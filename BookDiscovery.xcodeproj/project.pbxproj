@@ -28,6 +28,7 @@
 		A2FAC9F22AAF0F6F00779CAA /* FireBaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9F12AAF0F6F00779CAA /* FireBaseAuthService.swift */; };
 		A2FAC9F42AAF0FC200779CAA /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9F32AAF0FC200779CAA /* UserProfileView.swift */; };
 		A2FAC9F62AAF16E200779CAA /* UserSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */; };
+		CD24DD1B2AAFF9E2001BF2A6 /* TestBEView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD1A2AAFF9E1001BF2A6 /* TestBEView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		A2FAC9F12AAF0F6F00779CAA /* FireBaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseAuthService.swift; sourceTree = "<group>"; };
 		A2FAC9F32AAF0FC200779CAA /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpView.swift; sourceTree = "<group>"; };
+		CD24DD1A2AAFF9E1001BF2A6 /* TestBEView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestBEView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		A2FAC9E12AAF0DE100779CAA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CD24DD1A2AAFF9E1001BF2A6 /* TestBEView.swift */,
 				954557892AAF0C32003F1C7E /* ContentView.swift */,
 				A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */,
 				A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */,
@@ -223,6 +226,7 @@
 				A2FAC9E72AAF0E2300779CAA /* User.swift in Sources */,
 				9545578A2AAF0C32003F1C7E /* ContentView.swift in Sources */,
 				A2FAC9E52AAF0E1B00779CAA /* UserModel.swift in Sources */,
+				CD24DD1B2AAFF9E2001BF2A6 /* TestBEView.swift in Sources */,
 				A2FAC9F42AAF0FC200779CAA /* UserProfileView.swift in Sources */,
 				A2FAC9F22AAF0F6F00779CAA /* FireBaseAuthService.swift in Sources */,
 				A2FAC9EB2AAF0E6000779CAA /* FireBaseDB.swift in Sources */,
