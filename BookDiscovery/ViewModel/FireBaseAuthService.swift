@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import LocalAuthentication
 
 class FirebaseAuthService {
     func signUp(email: String, password: String, completion: @escaping (Bool, Error?) -> Void) {
@@ -58,6 +59,24 @@ class FirebaseAuthService {
                     }
                 }
             }
+        }
+    }
+    
+    func biometricAuthentication() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "This is for security reasons") { success, authenticationError in
+                
+                if success {
+                    print("Face ID Confirmed. User Signed In.")
+                } else {
+                    print("Face ID not found. Please try again.")
+                }
+            }
+        } else {
+            print("Device does not have biometrics!")
         }
     }
 
