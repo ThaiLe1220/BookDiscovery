@@ -17,3 +17,4 @@ struct User: Codable, Identifiable {
 }
 
 let emptyUser = User(id: "", email: "", name: "", address: Address(street: "", city: "", country: ""), bio: "")
+let testUser = User(id: "-1", email: "thai@gmail.com", name: "eugene", address: Address(street: "nguyen huu canh", city: "ho chi minh city", country: "viet nam"), bio: "I love books in general")
