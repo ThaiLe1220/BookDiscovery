@@ -19,20 +19,41 @@ struct ProfileView: View {
     @State private var isCityFocused: Bool = false
     @State private var isCountryFocused: Bool = false
     @State private var isBioFocused: Bool = true
-    
     @State private var showToast: Bool = false
+    
+    @State private var userBGImage: UIImage = UIImage(named: "background")!
+    @State private var userImage: UIImage = UIImage(named: "profile")!
+    
+    func fetchUserImage() {
+        ImageStorage().getProfile() { result in
+            DispatchQueue.main.async {
+                if let image = result {
+                    self.userImage = image
+                }
+            }
+        }
+        
+        ImageStorage().getBackground() { result in
+            DispatchQueue.main.async {
+                if let image = result {
+                    self.userBGImage = image
+                }
+            }
+        }
+    }
     
     var body: some View {
         ZStack {
             ScrollView {
                 VStack {
-                    Image("background")
-                        .resizable()
-                        .frame(height: 250)
+                    ProfileBackgroundView(bgImage: userBGImage)
+                    
                     HStack {
-                        ProfileImageView(image: "")
+                        ProfileImageView(profileImage: userImage)
                             .offset(y: -55)
                             .padding(.bottom, -55)
+                        
+                        
                         if enabledEdit {
                             TextField("Name", text: Binding<String>(
                                 get: { user?.name ?? "" },
@@ -225,6 +246,7 @@ struct ProfileView: View {
                 
                 HStack {
                     Spacer()
+                    
                     Button {
                         enabledEdit.toggle()
                         isNameFocused = false
@@ -271,6 +293,7 @@ struct ProfileView: View {
             .edgesIgnoringSafeArea(.all)
             .onAppear {
                 fetchUserData()
+                fetchUserImage()
             }
             
             if showToast {
