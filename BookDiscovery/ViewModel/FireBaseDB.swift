@@ -84,4 +84,74 @@ class FireBaseDB {
         }
     }
 
+
+
+    // MARK: - Book #####################
+    func addBook(book: Book, completion: @escaping (Bool) -> Void) {
+        let bookData = BookViewModel(book: book).toDictionary()
+        db.collection("books").addDocument(data: bookData) { error in
+            if error != nil {
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
+
+    func getBook(bookID: String, completion: @escaping (Book?) -> Void) {
+        db.collection("books")
+            .whereField("id", isEqualTo: bookD)
+            .getDocuments { querySnapshot, error in
+                if error != nil {
+                    completion(nil)
+                } else {
+                    if let document = querySnapshot?.documents.first,
+                       let book = try? document.data(as: Book.self) {
+                        completion(book)
+                    } else {
+                        completion(nil)
+                        
+                    }
+                }
+            }
+    }
+
+    func deleteBook(bookID: String, completion: @escaping (Bool) -> Void) {
+         db.collection("books").document(bookID).delete { error in
+            if error != nil {
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
+
+    func updateBook(book: Book, completion: @escaping (Bool) -> Void) {
+
+        let bookData = BookViewModel(book: book).toDictionary()
+        
+        db.collection("books").whereField("email", isEqualTo: userEmail).getDocuments { (querySnapshot, error) in
+            if error != nil{
+                completion(false)
+            } else {
+                if let document = querySnapshot?.documents.first {
+                    let userID = document.documentID
+                    db.collection("users").document(userID).setData(userData) { error in
+                        if error != nil {
+                            completion(false)
+                        } else {
+                            completion(true)
+                        }
+                    }
+                } else {
+                    print("User with email \(userEmail) not found.")
+                    completion(false)
+                }
+            }
+        }
+    }
+
+
+
+
 }
