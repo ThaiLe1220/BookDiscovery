@@ -26,7 +26,6 @@ class UserModel: ObservableObject {
         self.currentUser.address.country = address["country"] as? String ?? ""
         
         self.currentUser.bio = dictionary["bio"] as? String ?? ""
-        self.currentUser.image = dictionary["image"] as? String ?? ""
     }
     
     func toDictionary() -> [String: Any] {
@@ -40,7 +39,6 @@ class UserModel: ObservableObject {
             "country" : self.currentUser.address.country
         ]
         dictionary["bio"] = self.currentUser.bio
-        dictionary["image"] = self.currentUser.image
         
         return dictionary
     }
