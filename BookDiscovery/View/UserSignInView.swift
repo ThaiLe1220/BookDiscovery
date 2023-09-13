@@ -54,10 +54,10 @@ struct UserSignInView: View {
                     .padding()
                     .foregroundColor(.gray)
                     .background(Color.white)
-                 
                     .overlay(
-                        RoundedRectangle(cornerRadius: 15)
+                        RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.gray, lineWidth: 1)
+                            .frame(width: 38, height: 38)
                     )
                 }
             }
