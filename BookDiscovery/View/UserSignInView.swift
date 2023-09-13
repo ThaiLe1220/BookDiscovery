@@ -27,35 +27,46 @@ struct UserSignInView: View {
                 .autocapitalization(.none)  // Disable automatic capitalization
                 .disableAutocorrection(true) // Disable autocorrection
 
-            Button("Sign In") {
-                FirebaseAuthService().signIn(email: email, password: password) { (success, error) in
-                    if success {
-                        print("User signed in successfully")
-                    } else {
-                        print("Failed to sign in")
+            HStack {
+                Button("Sign In") {
+                    FirebaseAuthService().signIn(email: email, password: password) { (success, error) in
+                        if success {
+                            print("User signed in successfully")
+                        } else {
+                            print("Failed to sign in")
+                        }
                     }
                 }
+                .padding()
+                
+                // Button to test biometric authentication feature
+                // Test on simulator. Use Features -> FaceID -> Matching Face
+                Button {
+                    FirebaseAuthService().biometricAuthentication()
+                    print("Face ID button tapped")
+                } label: {
+                    HStack {
+                        Image(systemName: "faceid")  // Face ID icon
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 20, height: 20)
+                    }
+                    .padding()
+                    .foregroundColor(.gray)
+                    .background(Color.white)
+                 
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+                }
             }
-            .padding()
-
             NavigationLink(destination: UserSignUpView()) {
                 Text("Don't have an account? Sign Up")
             }
         }
     }
     
-    
-//    // Function to handle user sign in
-//    func UserSignIn() {
-//        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-//            if let error = error {
-//                print("Error signing in user: \(error.localizedDescription)")
-//            } else {
-//                print("User Signed In")
-//
-//            }
-//        }
-//    }
 }
 
 struct UserSignInView_Previews: PreviewProvider {
