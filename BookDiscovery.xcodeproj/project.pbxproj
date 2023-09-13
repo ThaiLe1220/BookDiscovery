@@ -34,6 +34,9 @@
 		CD24DD252AB037A6001BF2A6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD242AB037A6001BF2A6 /* ImagePicker.swift */; };
 		CD24DD272AB047A9001BF2A6 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD262AB047A9001BF2A6 /* ToastView.swift */; };
 		CD24DD292AB04E09001BF2A6 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD282AB04E09001BF2A6 /* ImagePickerView.swift */; };
+		CDD200022AB18AC10016A86D /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD200012AB18AC10016A86D /* RatingView.swift */; };
+		CDD200042AB18CEB0016A86D /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD200032AB18CEB0016A86D /* CommentView.swift */; };
+		CDD200062AB18E0C0016A86D /* CommentProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD200052AB18E0C0016A86D /* CommentProfileView.swift */; };
 		CDD2FFF92AB16C140016A86D /* ImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD2FFF82AB16C140016A86D /* ImageStorage.swift */; };
 		CDD2FFFB2AB181F50016A86D /* ProfileBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD2FFFA2AB181F50016A86D /* ProfileBackgroundView.swift */; };
 /* End PBXBuildFile section */
@@ -58,6 +61,9 @@
 		CD24DD242AB037A6001BF2A6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		CD24DD262AB047A9001BF2A6 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		CD24DD282AB04E09001BF2A6 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		CDD200012AB18AC10016A86D /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		CDD200032AB18CEB0016A86D /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		CDD200052AB18E0C0016A86D /* CommentProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentProfileView.swift; sourceTree = "<group>"; };
 		CDD2FFF82AB16C140016A86D /* ImageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorage.swift; sourceTree = "<group>"; };
 		CDD2FFFA2AB181F50016A86D /* ProfileBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,6 +107,7 @@
 		954557862AAF0C32003F1C7E /* BookDiscovery */ = {
 			isa = PBXGroup;
 			children = (
+				CDD200002AB18A9C0016A86D /* Rating */,
 				A2FAC9E32AAF0DFC00779CAA /* Model */,
 				A2FAC9E22AAF0DE900779CAA /* ViewModel */,
 				A2FAC9E12AAF0DE100779CAA /* View */,
@@ -150,6 +157,16 @@
 				CD24DD1C2AB00821001BF2A6 /* Address.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		CDD200002AB18A9C0016A86D /* Rating */ = {
+			isa = PBXGroup;
+			children = (
+				CDD200012AB18AC10016A86D /* RatingView.swift */,
+				CDD200032AB18CEB0016A86D /* CommentView.swift */,
+				CDD200052AB18E0C0016A86D /* CommentProfileView.swift */,
+			);
+			path = Rating;
 			sourceTree = "<group>";
 		};
 		CDD2FFFC2AB185370016A86D /* Profile */ = {
@@ -275,8 +292,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD24DD272AB047A9001BF2A6 /* ToastView.swift in Sources */,
+				CDD200042AB18CEB0016A86D /* CommentView.swift in Sources */,
+				CDD200062AB18E0C0016A86D /* CommentProfileView.swift in Sources */,
 				A2FAC9F02AAF0F0700779CAA /* UserSignInView.swift in Sources */,
 				A2FAC9F62AAF16E200779CAA /* UserSignUpView.swift in Sources */,
+				CDD200022AB18AC10016A86D /* RatingView.swift in Sources */,
 				A2FAC9E72AAF0E2300779CAA /* User.swift in Sources */,
 				9545578A2AAF0C32003F1C7E /* ContentView.swift in Sources */,
 				CDD2FFFB2AB181F50016A86D /* ProfileBackgroundView.swift in Sources */,

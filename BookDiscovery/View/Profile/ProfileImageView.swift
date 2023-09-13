@@ -20,7 +20,7 @@ struct ProfileImageView: View {
             } label: {
                 Image(uiImage: profileImage)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .scaledToFit()
                     .frame(width: 150, height: 100)
                     .clipShape(Circle())
                     .overlay(
