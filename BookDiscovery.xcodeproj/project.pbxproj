@@ -21,7 +21,7 @@
 		A2FAC9DC2AAF0DB900779CAA /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A2FAC9DB2AAF0DB900779CAA /* FirebaseFirestoreSwift */; };
 		A2FAC9DE2AAF0DB900779CAA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A2FAC9DD2AAF0DB900779CAA /* FirebaseStorage */; };
 		A2FAC9E02AAF0DB900779CAA /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = A2FAC9DF2AAF0DB900779CAA /* FirebaseStorageCombine-Community */; };
-		A2FAC9E52AAF0E1B00779CAA /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9E42AAF0E1B00779CAA /* UserModel.swift */; };
+		A2FAC9E52AAF0E1B00779CAA /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9E42AAF0E1B00779CAA /* UserViewModel.swift */; };
 		A2FAC9E72AAF0E2300779CAA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9E62AAF0E2300779CAA /* User.swift */; };
 		A2FAC9EB2AAF0E6000779CAA /* FireBaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9EA2AAF0E6000779CAA /* FireBaseDB.swift */; };
 		A2FAC9F02AAF0F0700779CAA /* UserSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */; };
@@ -29,7 +29,6 @@
 		A2FAC9F42AAF0FC200779CAA /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9F32AAF0FC200779CAA /* UserProfileView.swift */; };
 		A2FAC9F62AAF16E200779CAA /* UserSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */; };
 		CD24DD1D2AB00821001BF2A6 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD1C2AB00821001BF2A6 /* Address.swift */; };
-		CD24DD1F2AB017A3001BF2A6 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD1E2AB017A3001BF2A6 /* ProfileView.swift */; };
 		CD24DD212AB01855001BF2A6 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD202AB01855001BF2A6 /* ProfileImageView.swift */; };
 		CD24DD252AB037A6001BF2A6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD242AB037A6001BF2A6 /* ImagePicker.swift */; };
 		CD24DD272AB047A9001BF2A6 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD262AB047A9001BF2A6 /* ToastView.swift */; };
@@ -45,7 +44,7 @@
 		9545578B2AAF0C34003F1C7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9545578E2AAF0C34003F1C7E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		954557972AAF186D003F1C7E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		A2FAC9E42AAF0E1B00779CAA /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		A2FAC9E42AAF0E1B00779CAA /* UserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		A2FAC9E62AAF0E2300779CAA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A2FAC9EA2AAF0E6000779CAA /* FireBaseDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseDB.swift; sourceTree = "<group>"; };
 		A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignInView.swift; sourceTree = "<group>"; };
@@ -53,7 +52,6 @@
 		A2FAC9F32AAF0FC200779CAA /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpView.swift; sourceTree = "<group>"; };
 		CD24DD1C2AB00821001BF2A6 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
-		CD24DD1E2AB017A3001BF2A6 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		CD24DD202AB01855001BF2A6 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		CD24DD242AB037A6001BF2A6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		CD24DD262AB047A9001BF2A6 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
@@ -136,7 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				A2FAC9EA2AAF0E6000779CAA /* FireBaseDB.swift */,
-				A2FAC9E42AAF0E1B00779CAA /* UserModel.swift */,
+				A2FAC9E42AAF0E1B00779CAA /* UserViewModel.swift */,
 				A2FAC9F12AAF0F6F00779CAA /* FireBaseAuthService.swift */,
 				CDD2FFF82AB16C140016A86D /* ImageStorage.swift */,
 			);
@@ -155,7 +153,6 @@
 		CDD2FFFC2AB185370016A86D /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				CD24DD1E2AB017A3001BF2A6 /* ProfileView.swift */,
 				CD24DD202AB01855001BF2A6 /* ProfileImageView.swift */,
 				CDD2FFFA2AB181F50016A86D /* ProfileBackgroundView.swift */,
 			);
@@ -281,8 +278,7 @@
 				9545578A2AAF0C32003F1C7E /* ContentView.swift in Sources */,
 				CDD2FFFB2AB181F50016A86D /* ProfileBackgroundView.swift in Sources */,
 				CD24DD212AB01855001BF2A6 /* ProfileImageView.swift in Sources */,
-				CD24DD1F2AB017A3001BF2A6 /* ProfileView.swift in Sources */,
-				A2FAC9E52AAF0E1B00779CAA /* UserModel.swift in Sources */,
+				A2FAC9E52AAF0E1B00779CAA /* UserViewModel.swift in Sources */,
 				A2FAC9F42AAF0FC200779CAA /* UserProfileView.swift in Sources */,
 				A2FAC9F22AAF0F6F00779CAA /* FireBaseAuthService.swift in Sources */,
 				A2FAC9EB2AAF0E6000779CAA /* FireBaseDB.swift in Sources */,

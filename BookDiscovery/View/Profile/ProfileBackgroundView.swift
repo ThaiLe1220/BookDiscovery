@@ -20,10 +20,16 @@ struct ProfileBackgroundView: View {
                     .resizable()
                     .frame(height: 250)
             }
-            
         }
         .sheet(isPresented: $isShowingImagePicker) {
             ImagePickerView(isPresented: $isShowingImagePicker, isProfileImage: false, selectedImage: bgImage)
         }
+    }
+}
+
+
+struct ProfileBackgroundView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfileBackgroundView(bgImage: UIImage(named: "background")!)
     }
 }

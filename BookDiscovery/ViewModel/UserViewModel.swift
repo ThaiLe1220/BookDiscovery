@@ -7,9 +7,10 @@
 
 import Foundation
 
-class UserModel: ObservableObject {
+class UserViewModel: ObservableObject {
     @Published var currentUser: User
-    
+    @Published var isSignedIn: Bool = false
+
     init (user: User = emptyUser) {
         currentUser = user
     }

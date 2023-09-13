@@ -49,7 +49,7 @@ class FireBaseDB {
     func updateUser(user: User, completion: @escaping (Bool) -> Void) {
         let userEmail = user.email
 
-        let userData = UserModel(user: user).toDictionary()
+        let userData = UserViewModel(user: user).toDictionary()
         
         db.collection("users").whereField("email", isEqualTo: userEmail).getDocuments { (querySnapshot, error) in
             if error != nil{

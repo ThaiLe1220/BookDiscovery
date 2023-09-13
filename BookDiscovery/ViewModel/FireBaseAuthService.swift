@@ -39,7 +39,6 @@ class FirebaseAuthService {
         } catch let signOutError as NSError {
             print("Error signing out: \(signOutError.localizedDescription)")
             completion(false, signOutError)
-
         }
     }
 
@@ -62,17 +61,18 @@ class FirebaseAuthService {
         }
     }
     
-    func biometricAuthentication() {
+    func biometricAuthentication(completion: @escaping (Bool, Error?) -> Void) {
         let context = LAContext()
         var error: NSError?
         
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "This is for security reasons") { success, authenticationError in
-                
                 if success {
                     print("Face ID Confirmed. User Signed In.")
+                    completion(true, nil)
                 } else {
                     print("Face ID not found. Please try again.")
+                    completion(false, error)
                 }
             }
         } else {

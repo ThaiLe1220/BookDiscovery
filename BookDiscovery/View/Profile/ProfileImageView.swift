@@ -37,3 +37,9 @@ struct ProfileImageView: View {
         }
     }
 }
+
+struct ProfileImageView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfileImageView(profileImage: UIImage(named: "profile")!)
+    }
+}

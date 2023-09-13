@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var userViewModel = UserViewModel()
+
     var body: some View {
         NavigationView {
-            VStack {
-                UserSignInView()
+            if userViewModel.isSignedIn {
+                UserProfileView(userViewModel: userViewModel)
+            } else {
+                UserSignInView(userViewModel: userViewModel)
             }
         }
     }
