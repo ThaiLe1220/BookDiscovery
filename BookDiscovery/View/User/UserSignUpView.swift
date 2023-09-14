@@ -41,10 +41,18 @@ struct UserSignUpView: View {
                     Spacer()
                     // Title
                     Text("Create Account")
-                        .font(.system(size: 36, weight: .semibold))
+                        .font(.system(size: 36, weight: .semibold, design: .default))
                         .padding(.vertical, 20)
                         .foregroundColor(.white)
-                    
+                        .overlay(
+                            LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
+                                           startPoint: .leading,
+                                           endPoint: .trailing)
+                        )
+                        .mask(
+                            Text("Create Account")
+                                .font(.system(size: 34, weight: .bold, design: .serif))
+                        )
                     // Form Fields
                     VStack (spacing: 12) {
                         
@@ -55,7 +63,7 @@ struct UserSignUpView: View {
                                     .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(.white) // Fallback color
                                     .overlay(
-                                        LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
+                                        LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
                                                        startPoint: .leading,
                                                        endPoint: .trailing)
                                     )
@@ -74,7 +82,7 @@ struct UserSignUpView: View {
                                         RoundedRectangle(cornerRadius: 7)
                                             .stroke(Color.clear, lineWidth: 1)
                                             .overlay(
-                                                LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
+                                                LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
                                                                startPoint: .leading,
                                                                endPoint: .trailing)
                                             )
@@ -93,7 +101,7 @@ struct UserSignUpView: View {
        
                             // Validation logic for email
                             .onChange(of: email) { _ in
-                                isValidEmail = validateEmail(email)
+                                isValidEmail = userViewModel.validateEmail(email)
                             }
                         }
                         
@@ -104,7 +112,7 @@ struct UserSignUpView: View {
                                     .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(.white) // Fallback color
                                     .overlay(
-                                        LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
+                                        LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
                                                        startPoint: .leading,
                                                        endPoint: .trailing)
                                     )
@@ -123,7 +131,7 @@ struct UserSignUpView: View {
                                         RoundedRectangle(cornerRadius: 7)
                                             .stroke(Color.clear, lineWidth: 1)
                                             .overlay(
-                                                LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
+                                                LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
                                                                startPoint: .leading,
                                                                endPoint: .trailing)
                                             )
@@ -168,7 +176,7 @@ struct UserSignUpView: View {
                                     .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(.white) // Fallback color
                                     .overlay(
-                                        LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
+                                        LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
                                                        startPoint: .leading,
                                                        endPoint: .trailing)
                                     )
@@ -187,7 +195,7 @@ struct UserSignUpView: View {
                                         RoundedRectangle(cornerRadius: 7)
                                             .stroke(Color.clear, lineWidth: 1)
                                             .overlay(
-                                                LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
+                                                LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
                                                                startPoint: .leading,
                                                                endPoint: .trailing)
                                             )
@@ -239,7 +247,7 @@ struct UserSignUpView: View {
                     }
                     .background(
                         LinearGradient(
-                            gradient: Gradient(colors: [Color.blue, Color.purple]),
+                            gradient: Gradient(colors: [Color.orange, Color.red]),
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
@@ -257,6 +265,8 @@ struct UserSignUpView: View {
                 }
                 .frame(width: geometry.size.width, height: 750)
             }
+            .offset(y: -UIScreen.main.bounds.height*0.08)
+
         }
     }
     
@@ -276,13 +286,6 @@ struct UserSignUpView: View {
         } else {
             self.showAlert = true
         }
-    }
-    
-    // Function to validate email
-    func validateEmail(_ email: String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegex)
-        return emailTest.evaluate(with: email)
     }
     
     // Function to validate the form input

@@ -38,9 +38,18 @@ struct UserSignInView: View {
                     Spacer()
                     // "Sign In" header.
                     Text("Sign In")
-                        .font(.system(size: 36, weight: .semibold))
+                        .font(.system(size: 40, weight: .semibold, design: .default))
                         .padding(.vertical, 20)
                         .foregroundColor(.white)
+                        .overlay(
+                            LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
+                                           startPoint: .leading,
+                                           endPoint: .trailing)
+                        )
+                        .mask(
+                            Text("Sign In")
+                                .font(.system(size: 34, weight: .bold, design: .serif))
+                        )
                     
                     // VStack containing Email and Password text fields.
                     VStack (spacing: 12) {
@@ -50,28 +59,28 @@ struct UserSignInView: View {
                               Text("Email")
                                   .font(.system(size: 18, weight: .semibold))
                                   .foregroundColor(.white) // Fallback color
-//                                  .overlay(
-//                                      LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
-//                                                     startPoint: .leading,
-//                                                     endPoint: .trailing)
-//                                  )
-//                                  .mask(
-//                                      Text("Email")
-//                                          .font(.system(size: 18, weight: .semibold))
-//                                  )
-
+                                  .overlay(
+                                    LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
+                                                     startPoint: .leading,
+                                                     endPoint: .trailing)
+                                  )
+                                  .mask(
+                                      Text("Email")
+                                          .font(.system(size: 18, weight: .semibold))
+                                  )
 
                               Spacer()
                           }
                           ZStack {
                               RoundedRectangle(cornerRadius: 7)
-                                  .fill(Color.clear)
+//                                  .fill(Color(UIColor.clear))
+                                  .foregroundColor(Color(UIColor.tertiaryLabel))
                                   .frame(width: geometry.size.width * 0.8 + 18, height: 46)
                                   .overlay(
                                       RoundedRectangle(cornerRadius: 7)
                                           .stroke(Color.clear, lineWidth: 1)
                                           .overlay(
-                                              LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
+                                            LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
                                                              startPoint: .leading,
                                                              endPoint: .trailing)
                                           )
@@ -99,26 +108,27 @@ struct UserSignInView: View {
                               Text("Password")
                                   .font(.system(size: 18, weight: .semibold))
                                   .foregroundColor(.white)
-//                                  .overlay(
-//                                      LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
-//                                                     startPoint: .leading,
-//                                                     endPoint: .trailing)
-//                                  )
-//                                  .mask(
-//                                      Text("Password")
-//                                          .font(.system(size: 18, weight: .semibold))
-//                                  )
+                                  .overlay(
+                                    LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
+                                                     startPoint: .leading,
+                                                     endPoint: .trailing)
+                                  )
+                                  .mask(
+                                      Text("Password")
+                                          .font(.system(size: 18, weight: .semibold))
+                                  )
                               Spacer()
                           }
                           ZStack {
                               RoundedRectangle(cornerRadius: 7)
-                                  .fill(Color.clear)
+//                                  .fill(Color.clear)
+                                  .foregroundColor(Color(UIColor.tertiaryLabel))
                                   .frame(width: geometry.size.width * 0.8 + 18, height: 46)
                                   .overlay(
                                       RoundedRectangle(cornerRadius: 7)
                                           .stroke(Color.clear, lineWidth: 1)
                                           .overlay(
-                                              LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
+                                            LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
                                                              startPoint: .leading,
                                                              endPoint: .trailing)
                                           )
@@ -149,7 +159,7 @@ struct UserSignInView: View {
                                       self.showPassword.toggle()
                                   }) {
                                       Image(systemName: self.showPassword ? "eye.slash.fill" : "eye.fill")
-                                          .foregroundColor(.white)
+                                          .foregroundColor(.orange)
                                   }
                                   .padding(.horizontal)
                               }
@@ -160,8 +170,8 @@ struct UserSignInView: View {
                         HStack {
                             Spacer()
                             Text("Forgot Password")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.white)
+                                .font(.system(size: 15, weight: .semibold))
+                                .foregroundColor(.orange)
                                 .italic()
                         }
                       }
@@ -197,8 +207,7 @@ struct UserSignInView: View {
                                 .padding(.horizontal, 40)
                         }
                         .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color.blue, Color.purple]),
+                            LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
@@ -235,10 +244,10 @@ struct UserSignInView: View {
                                         .frame(width: 30, height: 30)
                                 }
                                 .padding(8)
-                                .foregroundColor(.white)
+                                .foregroundColor(.orange)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .stroke(.white, lineWidth: 1)
+                                        .stroke(.orange, lineWidth: 1)
                                 )
                                 .padding(.horizontal, geometry.size.width * 0.1 - 8)
                             }
@@ -250,7 +259,9 @@ struct UserSignInView: View {
                     // Navigation link to UserSignUpView.
                     NavigationLink(destination: UserSignUpView(userViewModel: userViewModel)) {
                         Text("Don't have an account? Sign Up")
-                            .foregroundColor(.white)
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.orange)
+
                     }
                     
 
@@ -259,6 +270,7 @@ struct UserSignInView: View {
                 }
                 .frame(width: geometry.size.width, height: 750)
             }
+                .offset(y: -UIScreen.main.bounds.height*0.08)
         }
     }
 }

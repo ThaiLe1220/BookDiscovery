@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseDatabase
 
 
 // Initialize Firestore database instance
@@ -142,14 +143,12 @@ class FireBaseDB {
         let booksRef = databaseRef.child("books")
 
         // Retrieve the data at the specified path
-        
         booksRef.observe(.childAdded, with: { (snapshot) in
             guard let childData = snapshot.value as? [String: Any] else {
                 print("No data found for child node: \(snapshot.key)")
                 return
             }
-
-            completion(childData)
+            completion([snapshot.key: childData])
         })
     }
 }

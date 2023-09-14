@@ -8,17 +8,34 @@
 import SwiftUI
 
 struct BookView: View {
-    
+    var bookID: String
+    var bookName: String
+    var bookRating: Double
+    var bookReviews: Int
     
     var body: some View {
-        VStack {
-            Image("thumbnail")
-                .resizable()
-                .scaledToFit()
-            Text("Book's Name")
-            RatingView(rating: 2.5)
-                .padding(.horizontal)
+        Button {
+            print(bookID)
+        } label: {
+            VStack {
+                Image("thumbnail")
+                    .resizable()
+                    .scaledToFit()
+                Text(bookName)
+                RatingView(rating: bookRating)
+                    .frame(width: 125)
+                Text("Reviews: \(bookReviews)")
+            }
+            .frame(width: 150)
+            .padding()
         }
-        .frame(width: 150)
+        
+    }
+}
+
+
+struct BookView_Previews: PreviewProvider {
+    static var previews: some View {
+        BookView(bookID: "1", bookName: "", bookRating: 4.0, bookReviews: 1)
     }
 }

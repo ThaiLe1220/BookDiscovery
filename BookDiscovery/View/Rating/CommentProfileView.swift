@@ -27,3 +27,9 @@ struct CommentProfileView: View {
     }
 }
 
+
+struct CommentProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        CommentProfileView(profileImage: UIImage(named: "profile")!)
+    }
+}

@@ -6,14 +6,42 @@
 //
 
 import Foundation
+import FirebaseDatabase
 
-class BookViewModel {
+class BookViewModel: ObservableObject {
     @Published var currentBook: Book
+    @Published var books: [String: Book] = [:]
 
     init (book: Book = emptyBook) {
         currentBook = book
+        initAllBooks()
     }
+    
+    func initAllBooks() {
+        FireBaseDB().getAllBooks() { result in
+            DispatchQueue.main.async {
+                if let bookData = result {
+                    let key = Array(bookData.keys)[0]
+                    let bookInfo = bookData[key] as? [String: Any]
+                    var book: Book = emptyBook
+                    
+                    book.id = key
+                    book.name = bookInfo!["name"] as? String ?? ""
+                    book.category = bookInfo!["category"] as? String ?? ""
+                    book.headline = bookInfo!["headline"] as? String ?? ""
+                    book.description = bookInfo!["description"] as? String ?? ""
+                    book.price = bookInfo!["price"] as? Double ?? 0.0
+                    book.rating = bookInfo!["rating"] as? Double ?? 0.0
 
+                    let author = bookInfo!["author"] as? [String : Any] ?? [:]
+                    book.author.name = author["name"] as? String ?? ""
+                    
+                    self.books[key] = book
+                }
+            }
+        }
+    }
+    
     func initBook(from dictionary: [String: Any]) {
         self.currentBook.id = dictionary["id"] as? String ?? ""
         self.currentBook.name = dictionary["name"] as? String ?? ""
