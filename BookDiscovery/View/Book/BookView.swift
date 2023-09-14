@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct BookView: View {
+    
+    
     var body: some View {
         VStack {
             Image("thumbnail")
+                .resizable()
+                .scaledToFit()
+            Text("Book's Name")
+            RatingView(rating: 2.5)
+                .padding(.horizontal)
         }
-    }
-}
-
-struct BookView_Previews: PreviewProvider {
-    static var previews: some View {
-        BookView()
+        .frame(width: 150)
     }
 }
