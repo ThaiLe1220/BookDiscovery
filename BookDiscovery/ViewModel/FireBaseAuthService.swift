@@ -82,6 +82,17 @@ class FirebaseAuthService {
         }
     }
     
+    // MARK: - Reset Password
+    func resetPassword(email: String, completion: @escaping (Bool, Error?) -> Void) {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                completion(false, error)
+            } else {
+                completion(true, nil)
+            }
+        }
+    }
+    
     // MARK: - Biometric Authentication
     // Function to handle biometric authentication (Face ID/Touch ID)
     func biometricAuthentication(completion: @escaping (Bool, Error?) -> Void) {
