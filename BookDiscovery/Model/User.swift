@@ -5,16 +5,35 @@
 //  Created by Loc Phan Vinh on 11/09/2023.
 //
 
+// Importing the Foundation library for basic Swift types and functions
+// Importing FirebaseFirestoreSwift for Firebase integration
 import Foundation
 import FirebaseFirestoreSwift
 
+// User struct that conforms to the Codable and Identifiable protocols
 struct User: Codable, Identifiable {
-    var id: String?
-    var email: String
-    var name: String
-    var address: Address
-    var bio: String
+    // Properties
+    var id: String? // Optional ID, to be set by Firebase most likely
+    var email: String // User's email address
+    var name: String  // User's name
+    var address: Address // Struct containing address details
+    var bio: String  // User's bio or description
+    
+    // Initialize with default empty values
+    static let emptyUser = User(
+        id: "",
+        email: "",
+        name: "",
+        address: Address(street: "", city: "", country: ""),
+        bio: ""
+    )
+    
+    // A sample user for testing purposes
+    static let testUser = User(
+        id: "-1",
+        email: "thai@gmail.com",
+        name: "eugene",
+        address: Address(street: "nguyen huu canh", city: "ho chi minh city", country: "viet nam"),
+        bio: "I love books in general"
+    )
 }
-
-let emptyUser = User(id: "", email: "", name: "", address: Address(street: "", city: "", country: ""), bio: "")
-let testUser = User(id: "-1", email: "thai@gmail.com", name: "eugene", address: Address(street: "nguyen huu canh", city: "ho chi minh city", country: "viet nam"), bio: "I love books in general")

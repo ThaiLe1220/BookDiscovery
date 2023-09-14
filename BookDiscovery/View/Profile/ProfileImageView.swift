@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 
+// UserSignUpView is responsible for handling user registration
 struct ProfileImageView: View {
     var profileImage: UIImage
     

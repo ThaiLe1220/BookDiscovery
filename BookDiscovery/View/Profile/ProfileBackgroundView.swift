@@ -18,9 +18,12 @@ struct ProfileBackgroundView: View {
             } label: {
                 Image(uiImage: bgImage)
                     .resizable()
-                    .frame(height: 250)
+                    .clipped()
+                    .frame(height: 240)
             }
         }
+        .frame(height: 240)
+
         .sheet(isPresented: $isShowingImagePicker) {
             ImagePickerView(isPresented: $isShowingImagePicker, isProfileImage: false, selectedImage: bgImage)
         }
