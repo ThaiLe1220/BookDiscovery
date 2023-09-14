@@ -1,6 +1,14 @@
+//
+//  Author.swift
+//  BookDiscovery
+//
+//  Created by Loc Phan Vinh on 14/09/2023.
+//
+
 import Foundation
 
-struct Author {
-    var id: String
+import Foundation
+
+struct Author: Codable {
     var name: String
 }

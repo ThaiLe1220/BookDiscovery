@@ -1,7 +1,14 @@
+//
+//  Book.swift
+//  BookDiscovery
+//
+//  Created by Loc Phan Vinh on 14/09/2023.
+//
+
 import Foundation
 
-struct Book {
-    var id: String
+struct Book: Codable, Identifiable {
+    var id: String?
     var name: String
     var category: String
     var headline: String
@@ -12,15 +19,14 @@ struct Book {
 }
 
 let emptyBook = Book(
-    id: "", 
-    name: "", 
+    id: "",
+    name: "",
     category: "",
     headline: "",
     price: 0.0,
     rating: 0.0,
     description: "",
     author: Author(
-        id:"",
         name: ""
     )
 )

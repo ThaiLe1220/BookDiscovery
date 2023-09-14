@@ -1,3 +1,10 @@
+//
+//  BookViewModel.swift
+//  BookDiscovery
+//
+//  Created by Loc Phan Vinh on 14/09/2023.
+//
+
 import Foundation
 
 class BookViewModel {
@@ -19,7 +26,7 @@ class BookViewModel {
 
 
         let author = dictionary["author"] as? [String : Any] ?? [:]
-        self.currentBook.author.id = author["id"] as? String ?? ""
+//        self.currentBook.author.id = author["id"] as? String ?? ""
         self.currentBook.author.name = author["name"] as? String ?? ""
     }
     
@@ -35,7 +42,7 @@ class BookViewModel {
         dictionary["rating"] = self.currentBook.rating
 
         dictionary["author"] = [
-            "id" : self.currentBook.author.id,
+//            "id" : self.currentBook.author.id,
             "name" : self.currentBook.author.name
         ]
         
