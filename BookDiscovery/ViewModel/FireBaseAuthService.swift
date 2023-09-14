@@ -43,24 +43,24 @@ class FirebaseAuthService {
         }
     }
 
-//    func resetPassword(currentPassword: String, newPassword: String, completion: @escaping (Bool, Error?) -> Void) {
-//        let user = Auth.auth().currentUser
-//        let credential = EmailAuthProvider.credential(withEmail: user?.email ?? "", password: currentPassword)
-//
-//        user?.reauthenticate(with: credential) { _, error in
-//            if let error = error {
-//                completion(false, error)
-//            } else {
-//                user?.updatePassword(to: newPassword) { error in
-//                    if let error = error {
-//                        completion(false, error)
-//                    } else {
-//                        completion(true, nil)
-//                    }
-//                }
-//            }
-//        }
-//    }
+    func changePassword(currentPassword: String, newPassword: String, completion: @escaping (Bool, Error?) -> Void) {
+        let user = Auth.auth().currentUser
+        let credential = EmailAuthProvider.credential(withEmail: user?.email ?? "", password: currentPassword)
+
+        user?.reauthenticate(with: credential) { _, error in
+            if let error = error {
+                completion(false, error)
+            } else {
+                user?.updatePassword(to: newPassword) { error in
+                    if let error = error {
+                        completion(false, error)
+                    } else {
+                        completion(true, nil)
+                    }
+                }
+            }
+        }
+    }
     
     func resetPassword(email: String, completion: @escaping (Bool, Error?) -> Void) {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
