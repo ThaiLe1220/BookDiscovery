@@ -8,7 +8,7 @@
 import SwiftUI
 import Firebase
 
-struct UserProfileView: View {
+struct UserAccountSettingView: View {
     @State private var isSignedOut = false
     
     var body: some View {
@@ -20,8 +20,8 @@ struct UserProfileView: View {
 
 }
 
-struct UserProfileView_Previews: PreviewProvider {
+struct UserAccountSettingView_Previews: PreviewProvider {
     static var previews: some View {
-        UserProfileView()
+        UserAccountSettingView()
     }
 }

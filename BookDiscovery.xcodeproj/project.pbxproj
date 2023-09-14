@@ -28,7 +28,7 @@
 		A2FAC9EB2AAF0E6000779CAA /* FireBaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9EA2AAF0E6000779CAA /* FireBaseDB.swift */; };
 		A2FAC9F02AAF0F0700779CAA /* UserSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */; };
 		A2FAC9F22AAF0F6F00779CAA /* FireBaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9F12AAF0F6F00779CAA /* FireBaseAuthService.swift */; };
-		A2FAC9F42AAF0FC200779CAA /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9F32AAF0FC200779CAA /* UserProfileView.swift */; };
+		A2FAC9F42AAF0FC200779CAA /* UserAccountSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9F32AAF0FC200779CAA /* UserAccountSettingView.swift */; };
 		A2FAC9F62AAF16E200779CAA /* UserSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */; };
 		CD24DD1D2AB00821001BF2A6 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD1C2AB00821001BF2A6 /* Address.swift */; };
 		CD24DD1F2AB017A3001BF2A6 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD1E2AB017A3001BF2A6 /* ProfileView.swift */; };
@@ -61,7 +61,7 @@
 		A2FAC9EA2AAF0E6000779CAA /* FireBaseDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseDB.swift; sourceTree = "<group>"; };
 		A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignInView.swift; sourceTree = "<group>"; };
 		A2FAC9F12AAF0F6F00779CAA /* FireBaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseAuthService.swift; sourceTree = "<group>"; };
-		A2FAC9F32AAF0FC200779CAA /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		A2FAC9F32AAF0FC200779CAA /* UserAccountSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountSettingView.swift; sourceTree = "<group>"; };
 		A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpView.swift; sourceTree = "<group>"; };
 		CD24DD1C2AB00821001BF2A6 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		CD24DD1E2AB017A3001BF2A6 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 			children = (
 				A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */,
 				A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */,
-				A2FAC9F32AAF0FC200779CAA /* UserProfileView.swift */,
+				A2FAC9F32AAF0FC200779CAA /* UserAccountSettingView.swift */,
 				A25385CA2AB2D9D700A38E5E /* ResetPasswordView.swift */,
 				A25385CC2AB2F51300A38E5E /* ChangePasswordView.swift */,
 			);
@@ -331,7 +331,7 @@
 				CD24DD1F2AB017A3001BF2A6 /* ProfileView.swift in Sources */,
 				A2FAC9E52AAF0E1B00779CAA /* UserModel.swift in Sources */,
 				CDD36CCF2AB2B41E00A35421 /* Author.swift in Sources */,
-				A2FAC9F42AAF0FC200779CAA /* UserProfileView.swift in Sources */,
+				A2FAC9F42AAF0FC200779CAA /* UserAccountSettingView.swift in Sources */,
 				CDD36CD62AB2CEFB00A35421 /* BookView.swift in Sources */,
 				CDD36CD12AB2B43500A35421 /* Book.swift in Sources */,
 				A2FAC9F22AAF0F6F00779CAA /* FireBaseAuthService.swift in Sources */,
