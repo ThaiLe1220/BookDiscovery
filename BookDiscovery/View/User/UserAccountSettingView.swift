@@ -4,8 +4,8 @@ import SwiftUI
 import Firebase
 import UserNotifications
 
-// UserProfileView SwiftUI View
-struct UserProfileView: View {
+// UserAccountSettingView SwiftUI View
+struct UserAccountSettingView: View {
     // ViewModel to manage user state
     @ObservedObject var userViewModel: UserViewModel
 
@@ -304,8 +304,8 @@ struct UserProfileView: View {
 }
 
 // Preview for SwiftUI
-struct UserProfileView_Previews: PreviewProvider {
+struct UserAccountSettingView_Previews: PreviewProvider {
     static var previews: some View {
-        UserProfileView(userViewModel: UserViewModel())
+        UserAccountSettingView(userViewModel: UserViewModel())
     }
 }

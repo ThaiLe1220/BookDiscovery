@@ -14,7 +14,7 @@ struct SettingView: View {
                 
                 // Settings Options List
                 List {
-                   settingRow(name: "Account", destination: UserAccountSettingView())
+                    settingRow(name: "Account", destination: UserAccountSettingView(userViewModel: userViewModel))
                    settingRow(name: "Notifications", destination: UserNotificationSettingView())
                    settingRow(name: "Appearances", destination: UserAppearanceSettingView())
                    settingRow(name: "Help & Support", destination: UserHelpSettingView())
@@ -52,13 +52,6 @@ struct SettingView: View {
                 Spacer()
             }
         }
-    }
-}
-
-// Dummy Views, replace these with your actual implementations
-struct UserAccountSettingView: View {
-    var body: some View {
-        Text("User Account Settings")
     }
 }
 

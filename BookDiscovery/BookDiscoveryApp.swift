@@ -21,8 +21,7 @@ struct BookDiscoveryApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-            TestView()
+            ContentView()
         }
     }
 }

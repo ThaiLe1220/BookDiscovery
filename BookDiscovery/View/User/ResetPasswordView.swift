@@ -124,7 +124,7 @@ struct ResetPasswordView: View {
                     .padding()
                 Spacer()
             }
-            .offset(y:-UIScreen.main.bounds.height*0.44)
+            .offset(y:-UIScreen.main.bounds.height*0.4)
         }
         .navigationBarBackButtonHidden(true)
     }
