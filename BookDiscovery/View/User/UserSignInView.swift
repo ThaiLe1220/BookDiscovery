@@ -61,6 +61,11 @@ struct UserSignInView: View {
                     )
                 }
             }
+//            NavigationLink(destination: ResetPasswordView()) {
+//                Text("Forgot Password?")
+//            }
+//            .padding(.bottom, 5)
+            
             NavigationLink(destination: UserSignUpView()) {
                 Text("Don't have an account? Sign Up")
             }

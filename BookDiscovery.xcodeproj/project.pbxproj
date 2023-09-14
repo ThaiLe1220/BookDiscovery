@@ -12,6 +12,7 @@
 		9545578C2AAF0C34003F1C7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9545578B2AAF0C34003F1C7E /* Assets.xcassets */; };
 		9545578F2AAF0C34003F1C7E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9545578E2AAF0C34003F1C7E /* Preview Assets.xcassets */; };
 		954557982AAF186D003F1C7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 954557972AAF186D003F1C7E /* GoogleService-Info.plist */; };
+		A25385CB2AB2D9D700A38E5E /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25385CA2AB2D9D700A38E5E /* ResetPasswordView.swift */; };
 		A2FAC9D02AAF0DB900779CAA /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A2FAC9CF2AAF0DB900779CAA /* FirebaseAuth */; };
 		A2FAC9D22AAF0DB900779CAA /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = A2FAC9D12AAF0DB900779CAA /* FirebaseAuthCombine-Community */; };
 		A2FAC9D42AAF0DB900779CAA /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = A2FAC9D32AAF0DB900779CAA /* FirebaseDatabase */; };
@@ -52,6 +53,7 @@
 		9545578B2AAF0C34003F1C7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9545578E2AAF0C34003F1C7E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		954557972AAF186D003F1C7E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A25385CA2AB2D9D700A38E5E /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		A2FAC9E42AAF0E1B00779CAA /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A2FAC9E62AAF0E2300779CAA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A2FAC9EA2AAF0E6000779CAA /* FireBaseDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseDB.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */,
 				A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */,
 				A2FAC9F32AAF0FC200779CAA /* UserProfileView.swift */,
+				A25385CA2AB2D9D700A38E5E /* ResetPasswordView.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				CD24DD252AB037A6001BF2A6 /* ImagePicker.swift in Sources */,
 				CD24DD1D2AB00821001BF2A6 /* Address.swift in Sources */,
 				CDD2FFF92AB16C140016A86D /* ImageStorage.swift in Sources */,
+				A25385CB2AB2D9D700A38E5E /* ResetPasswordView.swift in Sources */,
 				954557882AAF0C32003F1C7E /* BookDiscoveryApp.swift in Sources */,
 				CD24DD292AB04E09001BF2A6 /* ImagePickerView.swift in Sources */,
 			);
