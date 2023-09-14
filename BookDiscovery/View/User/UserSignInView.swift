@@ -8,9 +8,12 @@
 import SwiftUI
 import Firebase
 
+// UserSignInView represents the sign-in screen in the app.
 struct UserSignInView: View {
+    // ViewModel to manage user-related data.
     @ObservedObject var userViewModel: UserViewModel
-
+    
+    // State variables to manage UI elements and actions.
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var showPassword: Bool = false
@@ -18,136 +21,156 @@ struct UserSignInView: View {
     @State private var alertMessage: String = ""
     @State private var buttonScale: CGFloat = 1.0
 
-
+    // Main View
     var body: some View {
+        // ZStack to overlay UI components.
         ZStack {
+            // Background image.
             Image("wall-e")
                 .resizable()
                 .ignoresSafeArea()
-            
+                .opacity(0.85)
+
+            // GeometryReader for adaptive layout.
             GeometryReader { geometry in
+                // Main VStack for vertically aligned UI components.
                 VStack (alignment: .center) {
                     Spacer()
+                    // "Sign In" header.
                     Text("Sign In")
                         .font(.system(size: 36, weight: .semibold))
                         .padding(.vertical, 20)
                         .foregroundColor(.white)
                     
+                    // VStack containing Email and Password text fields.
                     VStack (spacing: 12) {
-                          VStack (spacing: 4) {
-                              HStack {
-                                  Text("Email")
-                                      .font(.system(size: 18, weight: .semibold))
-                                      .foregroundColor(.white) // Fallback color
-                                      .overlay(
-                                          LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
-                                                         startPoint: .leading,
-                                                         endPoint: .trailing)
-                                      )
-                                      .mask(
-                                          Text("Email")
-                                              .font(.system(size: 18, weight: .semibold))
-                                      )
+                        // Email input section.
+                        VStack (spacing: 4) {
+                          HStack {
+                              Text("Email")
+                                  .font(.system(size: 18, weight: .semibold))
+                                  .foregroundColor(.white) // Fallback color
+//                                  .overlay(
+//                                      LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
+//                                                     startPoint: .leading,
+//                                                     endPoint: .trailing)
+//                                  )
+//                                  .mask(
+//                                      Text("Email")
+//                                          .font(.system(size: 18, weight: .semibold))
+//                                  )
 
 
-                                  Spacer()
-                              }
-                              ZStack {
-                                  RoundedRectangle(cornerRadius: 7)
-                                      .fill(Color.clear)
-                                      .frame(width: geometry.size.width * 0.8 + 18, height: 46)
-                                      .overlay(
-                                          RoundedRectangle(cornerRadius: 7)
-                                              .stroke(Color.clear, lineWidth: 1)
-                                              .overlay(
-                                                  LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
-                                                                 startPoint: .leading,
-                                                                 endPoint: .trailing)
-                                              )
-                                              .mask(
-                                                  RoundedRectangle(cornerRadius: 7)
-                                                      .stroke(lineWidth: 1)
-                                              )
-                                      )
+                              Spacer()
+                          }
+                          ZStack {
+                              RoundedRectangle(cornerRadius: 7)
+                                  .fill(Color.clear)
+                                  .frame(width: geometry.size.width * 0.8 + 18, height: 46)
+                                  .overlay(
+                                      RoundedRectangle(cornerRadius: 7)
+                                          .stroke(Color.clear, lineWidth: 1)
+                                          .overlay(
+                                              LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
+                                                             startPoint: .leading,
+                                                             endPoint: .trailing)
+                                          )
+                                          .mask(
+                                              RoundedRectangle(cornerRadius: 7)
+                                                  .stroke(lineWidth: 1)
+                                          )
+                                  )
 
-                                  
-                                  TextField("", text: $email)
+                              
+                              TextField("", text: $email)
+                                  .autocapitalization(.none)
+                                  .disableAutocorrection(true)
+                                  .padding(.horizontal)
+                                  .foregroundColor(.white)
+
+
+                          }
+                          .font(.system(size: 18))
+                        }
+                        
+                        // Password input section.
+                        VStack (spacing: 4) {
+                          HStack {
+                              Text("Password")
+                                  .font(.system(size: 18, weight: .semibold))
+                                  .foregroundColor(.white)
+//                                  .overlay(
+//                                      LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
+//                                                     startPoint: .leading,
+//                                                     endPoint: .trailing)
+//                                  )
+//                                  .mask(
+//                                      Text("Password")
+//                                          .font(.system(size: 18, weight: .semibold))
+//                                  )
+                              Spacer()
+                          }
+                          ZStack {
+                              RoundedRectangle(cornerRadius: 7)
+                                  .fill(Color.clear)
+                                  .frame(width: geometry.size.width * 0.8 + 18, height: 46)
+                                  .overlay(
+                                      RoundedRectangle(cornerRadius: 7)
+                                          .stroke(Color.clear, lineWidth: 1)
+                                          .overlay(
+                                              LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
+                                                             startPoint: .leading,
+                                                             endPoint: .trailing)
+                                          )
+                                          .mask(
+                                              RoundedRectangle(cornerRadius: 7)
+                                                  .stroke(lineWidth: 1)
+                                          )
+                                  )
+
+                              if showPassword {
+                                  TextField("", text: $password)
                                       .autocapitalization(.none)
                                       .disableAutocorrection(true)
                                       .padding(.horizontal)
                                       .foregroundColor(.white)
 
-
-                              }
-                              .font(.system(size: 18))
-                          }
-
-                          VStack (spacing: 4) {
-                              HStack {
-                                  Text("Password")
-                                      .font(.system(size: 18, weight: .semibold))
-                                      .foregroundColor(.white)
-                                      .overlay(
-                                          LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
-                                                         startPoint: .leading,
-                                                         endPoint: .trailing)
-                                      )
-                                      .mask(
-                                          Text("Password")
-                                              .font(.system(size: 18, weight: .semibold))
-                                      )
-                                  Spacer()
-                              }
-                              ZStack {
-                                  RoundedRectangle(cornerRadius: 7)
-                                      .fill(Color.clear)
-                                      .frame(width: geometry.size.width * 0.8 + 18, height: 46)
-                                      .overlay(
-                                          RoundedRectangle(cornerRadius: 7)
-                                              .stroke(Color.clear, lineWidth: 1)
-                                              .overlay(
-                                                  LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]),
-                                                                 startPoint: .leading,
-                                                                 endPoint: .trailing)
-                                              )
-                                              .mask(
-                                                  RoundedRectangle(cornerRadius: 7)
-                                                      .stroke(lineWidth: 1)
-                                              )
-                                      )
-
-                                  if showPassword {
-                                      TextField("", text: $password)
-                                          .autocapitalization(.none)
-                                          .disableAutocorrection(true)
-                                          .padding(.horizontal)
-                                          .foregroundColor(.white)
-
-                                  } else {
-                                      SecureField("", text: $password)
-                                          .autocapitalization(.none)
-                                          .disableAutocorrection(true)
-                                          .padding(.horizontal)
-                                          .foregroundColor(.white)
-                                  }
-
-                                  HStack {
-                                      Spacer()
-                                      Button(action: {
-                                          self.showPassword.toggle()
-                                      }) {
-                                          Image(systemName: self.showPassword ? "eye.slash.fill" : "eye.fill")
-                                              .foregroundColor(.white)
-                                      }
+                              } else {
+                                  SecureField("", text: $password)
+                                      .autocapitalization(.none)
+                                      .disableAutocorrection(true)
                                       .padding(.horizontal)
-                                  }
+                                      .foregroundColor(.white)
                               }
-                              .font(.system(size: 18))
+
+                              HStack {
+                                  Spacer()
+                                  Button(action: {
+                                      self.showPassword.toggle()
+                                  }) {
+                                      Image(systemName: self.showPassword ? "eye.slash.fill" : "eye.fill")
+                                          .foregroundColor(.white)
+                                  }
+                                  .padding(.horizontal)
+                              }
                           }
+                          .font(.system(size: 18))
+                        }
+                        
+                        HStack {
+                            Spacer()
+                            Text("Forgot Password")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.white)
+                                .italic()
+                        }
                       }
                       .frame(width: geometry.size.width * 0.8)
                     
+                    // Sign In button and Face ID button.
                     ZStack {
+                        
+                        // Sign In button
                         Button(action: {
                             self.buttonScale = 0.8
                             withAnimation {
@@ -188,7 +211,7 @@ struct UserSignInView: View {
                                   dismissButton: .default(Text("OK")))
                         }
                         
-                        // Button to test biometric authentication feature
+                        // Biometric authentication button.
                         // Test on simulator. Use Features -> FaceID -> Matching Face
                         HStack {
                             Spacer()
@@ -224,10 +247,14 @@ struct UserSignInView: View {
                     }
                     .padding(.vertical, 20)
 
+                    // Navigation link to UserSignUpView.
                     NavigationLink(destination: UserSignUpView(userViewModel: userViewModel)) {
                         Text("Don't have an account? Sign Up")
                             .foregroundColor(.white)
                     }
+                    
+
+
                     Spacer()
                 }
                 .frame(width: geometry.size.width, height: 750)
@@ -236,6 +263,7 @@ struct UserSignInView: View {
     }
 }
 
+// SwiftUI Preview
 struct UserSignInView_Previews: PreviewProvider {
     static var previews: some View {
         UserSignInView(userViewModel: UserViewModel())
