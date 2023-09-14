@@ -13,7 +13,9 @@ class UserViewModel: ObservableObject {
     // Declare observable properties
     @Published var currentUser: User  // Holds the current User object
     @Published var isSignedIn: Bool = false  // Tracks if the user is signed in
-    
+    @Published var showSettings: Bool = false 
+    @Published var searchText: String = ""
+
     // Initializer
     init(user: User = User.emptyUser) {
         currentUser = user  // Initialize currentUser with default or provided user object
