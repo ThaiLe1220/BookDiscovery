@@ -14,7 +14,6 @@ struct User: Codable, Identifiable {
     var name: String
     var address: Address
     var bio: String
-    var image: String
 }
 
-let emptyUser = User(id: "", email: "", name: "", address: Address(street: "", city: "", country: ""), bio: "", image: "")
+let emptyUser = User(id: "", email: "", name: "", address: Address(street: "", city: "", country: ""), bio: "")

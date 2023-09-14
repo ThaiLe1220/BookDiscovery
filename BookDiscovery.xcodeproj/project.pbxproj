@@ -34,6 +34,15 @@
 		CD24DD252AB037A6001BF2A6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD242AB037A6001BF2A6 /* ImagePicker.swift */; };
 		CD24DD272AB047A9001BF2A6 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD262AB047A9001BF2A6 /* ToastView.swift */; };
 		CD24DD292AB04E09001BF2A6 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD282AB04E09001BF2A6 /* ImagePickerView.swift */; };
+		CDD200022AB18AC10016A86D /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD200012AB18AC10016A86D /* RatingView.swift */; };
+		CDD200042AB18CEB0016A86D /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD200032AB18CEB0016A86D /* CommentView.swift */; };
+		CDD200062AB18E0C0016A86D /* CommentProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD200052AB18E0C0016A86D /* CommentProfileView.swift */; };
+		CDD2FFF92AB16C140016A86D /* ImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD2FFF82AB16C140016A86D /* ImageStorage.swift */; };
+		CDD2FFFB2AB181F50016A86D /* ProfileBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD2FFFA2AB181F50016A86D /* ProfileBackgroundView.swift */; };
+		CDD36CCF2AB2B41E00A35421 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD36CCE2AB2B41E00A35421 /* Author.swift */; };
+		CDD36CD12AB2B43500A35421 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD36CD02AB2B43500A35421 /* Book.swift */; };
+		CDD36CD32AB2B48500A35421 /* BookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD36CD22AB2B48500A35421 /* BookViewModel.swift */; };
+		CDD36CD62AB2CEFB00A35421 /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD36CD52AB2CEFB00A35421 /* BookView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +65,15 @@
 		CD24DD242AB037A6001BF2A6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		CD24DD262AB047A9001BF2A6 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		CD24DD282AB04E09001BF2A6 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		CDD200012AB18AC10016A86D /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		CDD200032AB18CEB0016A86D /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		CDD200052AB18E0C0016A86D /* CommentProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentProfileView.swift; sourceTree = "<group>"; };
+		CDD2FFF82AB16C140016A86D /* ImageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorage.swift; sourceTree = "<group>"; };
+		CDD2FFFA2AB181F50016A86D /* ProfileBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBackgroundView.swift; sourceTree = "<group>"; };
+		CDD36CCE2AB2B41E00A35421 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
+		CDD36CD02AB2B43500A35421 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		CDD36CD22AB2B48500A35421 /* BookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModel.swift; sourceTree = "<group>"; };
+		CDD36CD52AB2CEFB00A35421 /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,14 +137,13 @@
 		A2FAC9E12AAF0DE100779CAA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CDD36CD42AB2CEE800A35421 /* Book */,
+				CDD200002AB18A9C0016A86D /* Rating */,
 				954557892AAF0C32003F1C7E /* ContentView.swift */,
-				A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */,
-				A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */,
-				A2FAC9F32AAF0FC200779CAA /* UserProfileView.swift */,
-				CD24DD1E2AB017A3001BF2A6 /* ProfileView.swift */,
-				CD24DD202AB01855001BF2A6 /* ProfileImageView.swift */,
-				CD24DD262AB047A9001BF2A6 /* ToastView.swift */,
-				CD24DD282AB04E09001BF2A6 /* ImagePickerView.swift */,
+				CDD2FFFD2AB1854B0016A86D /* User */,
+				CDD2FFFC2AB185370016A86D /* Profile */,
+				CDD2FFFF2AB185830016A86D /* Toast */,
+				CDD2FFFE2AB185710016A86D /* ImagePicker */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -137,7 +154,8 @@
 				A2FAC9EA2AAF0E6000779CAA /* FireBaseDB.swift */,
 				A2FAC9E42AAF0E1B00779CAA /* UserModel.swift */,
 				A2FAC9F12AAF0F6F00779CAA /* FireBaseAuthService.swift */,
-				CD24DD242AB037A6001BF2A6 /* ImagePicker.swift */,
+				CDD2FFF82AB16C140016A86D /* ImageStorage.swift */,
+				CDD36CD22AB2B48500A35421 /* BookViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -147,8 +165,65 @@
 			children = (
 				A2FAC9E62AAF0E2300779CAA /* User.swift */,
 				CD24DD1C2AB00821001BF2A6 /* Address.swift */,
+				CDD36CCE2AB2B41E00A35421 /* Author.swift */,
+				CDD36CD02AB2B43500A35421 /* Book.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		CDD200002AB18A9C0016A86D /* Rating */ = {
+			isa = PBXGroup;
+			children = (
+				CDD200012AB18AC10016A86D /* RatingView.swift */,
+				CDD200032AB18CEB0016A86D /* CommentView.swift */,
+				CDD200052AB18E0C0016A86D /* CommentProfileView.swift */,
+			);
+			path = Rating;
+			sourceTree = "<group>";
+		};
+		CDD2FFFC2AB185370016A86D /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				CD24DD1E2AB017A3001BF2A6 /* ProfileView.swift */,
+				CD24DD202AB01855001BF2A6 /* ProfileImageView.swift */,
+				CDD2FFFA2AB181F50016A86D /* ProfileBackgroundView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		CDD2FFFD2AB1854B0016A86D /* User */ = {
+			isa = PBXGroup;
+			children = (
+				A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */,
+				A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */,
+				A2FAC9F32AAF0FC200779CAA /* UserProfileView.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		CDD2FFFE2AB185710016A86D /* ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				CD24DD242AB037A6001BF2A6 /* ImagePicker.swift */,
+				CD24DD282AB04E09001BF2A6 /* ImagePickerView.swift */,
+			);
+			path = ImagePicker;
+			sourceTree = "<group>";
+		};
+		CDD2FFFF2AB185830016A86D /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				CD24DD262AB047A9001BF2A6 /* ToastView.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
+		CDD36CD42AB2CEE800A35421 /* Book */ = {
+			isa = PBXGroup;
+			children = (
+				CDD36CD52AB2CEFB00A35421 /* BookView.swift */,
+			);
+			path = Book;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,18 +312,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD24DD272AB047A9001BF2A6 /* ToastView.swift in Sources */,
+				CDD200042AB18CEB0016A86D /* CommentView.swift in Sources */,
+				CDD200062AB18E0C0016A86D /* CommentProfileView.swift in Sources */,
 				A2FAC9F02AAF0F0700779CAA /* UserSignInView.swift in Sources */,
 				A2FAC9F62AAF16E200779CAA /* UserSignUpView.swift in Sources */,
+				CDD36CD32AB2B48500A35421 /* BookViewModel.swift in Sources */,
+				CDD200022AB18AC10016A86D /* RatingView.swift in Sources */,
 				A2FAC9E72AAF0E2300779CAA /* User.swift in Sources */,
 				9545578A2AAF0C32003F1C7E /* ContentView.swift in Sources */,
+				CDD2FFFB2AB181F50016A86D /* ProfileBackgroundView.swift in Sources */,
 				CD24DD212AB01855001BF2A6 /* ProfileImageView.swift in Sources */,
 				CD24DD1F2AB017A3001BF2A6 /* ProfileView.swift in Sources */,
 				A2FAC9E52AAF0E1B00779CAA /* UserModel.swift in Sources */,
+				CDD36CCF2AB2B41E00A35421 /* Author.swift in Sources */,
 				A2FAC9F42AAF0FC200779CAA /* UserProfileView.swift in Sources */,
+				CDD36CD62AB2CEFB00A35421 /* BookView.swift in Sources */,
+				CDD36CD12AB2B43500A35421 /* Book.swift in Sources */,
 				A2FAC9F22AAF0F6F00779CAA /* FireBaseAuthService.swift in Sources */,
 				A2FAC9EB2AAF0E6000779CAA /* FireBaseDB.swift in Sources */,
 				CD24DD252AB037A6001BF2A6 /* ImagePicker.swift in Sources */,
 				CD24DD1D2AB00821001BF2A6 /* Address.swift in Sources */,
+				CDD2FFF92AB16C140016A86D /* ImageStorage.swift in Sources */,
 				954557882AAF0C32003F1C7E /* BookDiscoveryApp.swift in Sources */,
 				CD24DD292AB04E09001BF2A6 /* ImagePickerView.swift in Sources */,
 			);

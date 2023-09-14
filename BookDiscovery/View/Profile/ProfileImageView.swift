@@ -6,22 +6,21 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ProfileImageView: View {
-    var image : String
+    var profileImage: UIImage
     
     @State private var isShowingImagePicker = false
-    @State private var isShowingImage = false
-    @State private var selectedImage: Image?
             
     var body: some View {
         VStack {
             Button {
                 isShowingImagePicker.toggle()
             } label: {
-                Image(image == "" ? "profile" : image)
+                Image(uiImage: profileImage)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .scaledToFit()
                     .frame(width: 150, height: 100)
                     .clipShape(Circle())
                     .overlay(
@@ -34,13 +33,7 @@ struct ProfileImageView: View {
             .buttonStyle(PlainButtonStyle())
         }
         .sheet(isPresented: $isShowingImagePicker) {
-            ImagePickerView(selectedImage: $selectedImage, isShowingImagePicker: $isShowingImagePicker)
+            ImagePickerView(isPresented: $isShowingImagePicker, isProfileImage: true, selectedImage: profileImage)
         }
-    }
-}
-
-struct ProfileImageView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileImageView(image: "")
     }
 }
