@@ -10,37 +10,46 @@ import UIKit
 
 // UserSignUpView is responsible for handling user registration
 struct ProfileImageView: View {
-    var profileImage: UIImage
-    
+    // ViewModel to manage user state
+    @ObservedObject var userViewModel: UserViewModel
     @State private var isShowingImagePicker = false
             
     var body: some View {
-        VStack {
+        ZStack {
+            Image(uiImage: userViewModel.userImage)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 130, height: 130)
+                .clipShape(Circle())
+                .overlay(
+                    Circle()
+                        .stroke(Color(.white), lineWidth: 4)
+                        .opacity(0.8)
+                )
+                .shadow(radius: 7)
+            
             Button {
                 isShowingImagePicker.toggle()
             } label: {
-                Image(uiImage: profileImage)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 150, height: 100)
-                    .clipShape(Circle())
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: 28, height: 28) // Adjust the size as needed
                     .overlay(
-                        Circle()
-                            .stroke(Color(.blue), lineWidth: 1)
-                            .opacity(0.8)
+                        Image(systemName: "camera")
+                            .font(.system(size: 15, weight: .regular))
+                            .foregroundColor(.black) // Customize the image color
                     )
-                    .shadow(radius: 7)
             }
-            .buttonStyle(PlainButtonStyle())
+            .offset(x: 45, y: 45)
         }
         .sheet(isPresented: $isShowingImagePicker) {
-            ImagePickerView(isPresented: $isShowingImagePicker, isProfileImage: true, selectedImage: profileImage)
+            ImagePickerView(userViewModel: userViewModel, isPresented: $isShowingImagePicker, isProfileImage: true, selectedImage: userViewModel.userImage)
         }
     }
 }
 
 struct ProfileImageView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileImageView(profileImage: UIImage(named: "profile")!)
+        ProfileImageView(userViewModel: UserViewModel())
     }
 }

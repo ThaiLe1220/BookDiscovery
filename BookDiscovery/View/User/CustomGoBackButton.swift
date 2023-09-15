@@ -9,18 +9,20 @@ import SwiftUI
 
 struct CustomBackButton: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    var buttonColor : Color
+    var text: String
+
     var body: some View {
         Button(action: {
             self.presentationMode.wrappedValue.dismiss()
         }) {
-            HStack {
+            HStack (spacing: 4) {
                 Image(systemName: "arrowshape.backward.fill") // Use your desired system image
-                    .font(.system(size: 20))
-                    .foregroundColor(.orange)
-                Text("Back")
-                    .foregroundColor(.orange)
-                    .font(.system(size: 20))
+                    .font(.system(size: 15))
+                    .foregroundColor(buttonColor)
+                Text("\(text)")
+                    .foregroundColor(buttonColor)
+                    .font(.system(size: 18))
             }
         }
     }

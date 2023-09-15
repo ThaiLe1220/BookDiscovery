@@ -7,6 +7,9 @@
 
 // Import the Foundation framework
 import Foundation
+import SwiftUI
+import Firebase
+import UserNotifications
 
 // Define UserViewModel class, which will be used to manage User data
 class UserViewModel: ObservableObject {
@@ -15,9 +18,17 @@ class UserViewModel: ObservableObject {
     @Published var isSignedIn: Bool = false  // Tracks if the user is signed in
     @Published var showSettings: Bool = false 
     @Published var searchText: String = ""
-
+    @Published var userBGImage: UIImage = UIImage(named: "background") ?? UIImage(named: "")!
+    @Published var userImage: UIImage = UIImage(named: "profile") ?? UIImage(named: "")!
+    @Published var selectedTheme: String = "System"
+    @Published var selectedFont: String = "San Francisco"
+    @Published var selectedFontSize: CGFloat = 16.0
+    
+    let themes = ["System", "Light", "Dark"]
+    let fonts = ["San Francisco", "Helvetica", "Arial"]
+    
     // Initializer
-    init(user: User = User.emptyUser) {
+    init(user: User = emptyUser) {
         currentUser = user  // Initialize currentUser with default or provided user object
     }
     
@@ -62,5 +73,33 @@ class UserViewModel: ObservableObject {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegex)
         return emailTest.evaluate(with: email)
+    }
+    
+    // Fetch profile and background images
+    func fetchUserImage() {
+        ImageStorage().getProfile() { result in
+            DispatchQueue.main.async {
+                if let image = result {
+                    self.userImage = image
+                }
+            }
+        }
+
+        ImageStorage().getBackground() { result in
+            DispatchQueue.main.async {
+                if let image = result {
+                    self.userBGImage = image
+                }
+            }
+        }
+    }
+
+    // Fetch user data from Firebase
+    func fetchUserData() {
+        if let userID = Auth.auth().currentUser?.uid {
+            FireBaseDB().fetchUser(userID: userID) { fetchedUser in
+                self.currentUser = fetchedUser ?? emptyUser
+            }
+        }
     }
 }

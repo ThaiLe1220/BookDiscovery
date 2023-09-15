@@ -54,6 +54,8 @@
 		DE4E3FE92AB333A50000EFEB /* CommentProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4E3FE82AB333A50000EFEB /* CommentProfileView.swift */; };
 		DE4E3FF62AB335510000EFEB /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4E3FF42AB335510000EFEB /* ResetPasswordView.swift */; };
 		DE4E3FF72AB335510000EFEB /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4E3FF52AB335510000EFEB /* ChangePasswordView.swift */; };
+		DE74AF6B2AB41D97008C0754 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE74AF6A2AB41D97008C0754 /* MainView.swift */; };
+		DE74AF6D2AB42741008C0754 /* UserAppearanceSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +98,8 @@
 		DE4E3FE82AB333A50000EFEB /* CommentProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentProfileView.swift; sourceTree = "<group>"; };
 		DE4E3FF42AB335510000EFEB /* ResetPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		DE4E3FF52AB335510000EFEB /* ChangePasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		DE74AF6A2AB41D97008C0754 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAppearanceSettingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +167,7 @@
 				DE4E3FE12AB333590000EFEB /* Rating */,
 				DE3B2FC02AB2EDE2000F8B93 /* TestView.swift */,
 				954557892AAF0C32003F1C7E /* ContentView.swift */,
+				DE74AF6A2AB41D97008C0754 /* MainView.swift */,
 				DE3B2FC22AB2F3DE000F8B93 /* NavigationBar.swift */,
 				DE3B2FC42AB2FA95000F8B93 /* HomeView.swift */,
 				DE3B2FC62AB2FB99000F8B93 /* BrowseView.swift */,
@@ -170,6 +175,7 @@
 				DE3B2FCA2AB2FBEA000F8B93 /* WishlistView.swift */,
 				DE3B2FCC2AB2FC12000F8B93 /* NotificationsView.swift */,
 				DE3B2FBE2AB2DDCC000F8B93 /* SettingView.swift */,
+				DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */,
 				CDD2FFFD2AB1854B0016A86D /* User */,
 				CDD2FFFC2AB185370016A86D /* Profile */,
 				CDD2FFFF2AB185830016A86D /* Toast */,
@@ -213,9 +219,9 @@
 		CDD2FFFD2AB1854B0016A86D /* User */ = {
 			isa = PBXGroup;
 			children = (
+				A2FAC9F32AAF0FC200779CAA /* UserAccountSettingView.swift */,
 				A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */,
 				A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */,
-				A2FAC9F32AAF0FC200779CAA /* UserAccountSettingView.swift */,
 				DE4E3FF52AB335510000EFEB /* ChangePasswordView.swift */,
 				DE4E3FF42AB335510000EFEB /* ResetPasswordView.swift */,
 				DE04C7C82AB34628003B24BE /* CustomGoBackButton.swift */,
@@ -345,6 +351,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD24DD272AB047A9001BF2A6 /* ToastView.swift in Sources */,
+				DE74AF6B2AB41D97008C0754 /* MainView.swift in Sources */,
 				A2FAC9F02AAF0F0700779CAA /* UserSignInView.swift in Sources */,
 				A2FAC9F62AAF16E200779CAA /* UserSignUpView.swift in Sources */,
 				DE4E3FF72AB335510000EFEB /* ChangePasswordView.swift in Sources */,
@@ -354,6 +361,7 @@
 				CDD2FFFB2AB181F50016A86D /* ProfileBackgroundView.swift in Sources */,
 				DE4E3FE72AB3338E0000EFEB /* CommentView.swift in Sources */,
 				DE3B2FC12AB2EDE2000F8B93 /* TestView.swift in Sources */,
+				DE74AF6D2AB42741008C0754 /* UserAppearanceSettingView.swift in Sources */,
 				DE3B2FBF2AB2DDCC000F8B93 /* SettingView.swift in Sources */,
 				CD24DD212AB01855001BF2A6 /* ProfileImageView.swift in Sources */,
 				A2FAC9E52AAF0E1B00779CAA /* UserViewModel.swift in Sources */,

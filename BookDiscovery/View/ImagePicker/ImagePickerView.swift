@@ -9,6 +9,9 @@ import SwiftUI
 import UIKit
 
 struct ImagePickerView: View {
+    // ViewModel to manage user state
+    @ObservedObject var userViewModel: UserViewModel
+
     @Binding var isPresented: Bool
     var isProfileImage: Bool
     @State var selectedImage: UIImage?
@@ -33,8 +36,11 @@ struct ImagePickerView: View {
                 if let image = selectedImage {
                     if isProfileImage {
                         ImageStorage().uploadProfile(image: image)
+                        userViewModel.userImage = image
                     } else {
                         ImageStorage().uploadBackground(image: image)
+                        userViewModel.userBGImage = image
+
                     }
                 }
             } label: {
@@ -43,5 +49,11 @@ struct ImagePickerView: View {
                 }
             })
         }
+    }
+}
+
+struct ImagePickerView_Previews: PreviewProvider {
+    static var previews: some View {
+        ImagePickerView(userViewModel: UserViewModel(), isPresented: .constant(true), isProfileImage: (UIImage(named: "background") != nil))
     }
 }

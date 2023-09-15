@@ -2,7 +2,6 @@
 // Import required modules
 import SwiftUI
 import Firebase
-import UserNotifications
 
 // UserAccountSettingView SwiftUI View
 struct UserAccountSettingView: View {
@@ -13,12 +12,11 @@ struct UserAccountSettingView: View {
     @State private var enabledEdit: Bool = false
     @State private var user: User?
     @State private var showToast: Bool = false
-    @State private var userBGImage: UIImage = UIImage(named: "background")!
-    @State private var userImage: UIImage = UIImage(named: "profile")!
+
 
     // Main View body
     var body: some View {
-        NavigationStack {
+        ZStack {
             // Main scroll view
             ScrollView {
                 // Toast message when data updated
@@ -33,91 +31,118 @@ struct UserAccountSettingView: View {
                 VStack {
                     // Profile and background image section
                     ZStack {
-                        ProfileBackgroundView(bgImage: userBGImage)
-                        ProfileImageView(profileImage: userImage)
-                    }
-                    
-                    // Name editing and button controls
-                    HStack {
-                        // Conditional TextField or Text based on editing mode
-                        if enabledEdit {
-                            TextField("Name", text: Binding<String>(
-                                get: { userViewModel.currentUser.name },
-                                set: { newValue in
-                                    userViewModel.currentUser.name = newValue
-                                }
-                            ))
-                            .font(.system(size: 24, weight: .semibold))
-                        }
-                        else {
-                            Text(userViewModel.currentUser.name == "" ? "Empty Name" : userViewModel.currentUser.name )
-                                .font(.system(size: 24, weight: .semibold))
-                                .foregroundColor(userViewModel.currentUser.name == "" ? .gray : .black)
-                        }
+                        ProfileBackgroundView(userViewModel: userViewModel)
+                        ProfileImageView(userViewModel: userViewModel)
+                            .offset(x: -UIScreen.main.bounds.width/2 + 80, y: 90)
                         
-                        Spacer()
-                        // Edit/Update button section
-                        
-                        // Cancel button appears only when editing
-                        Button {
-                            enabledEdit.toggle()
-                        } label: {
-                            Text("Cancel")
-                                .opacity(enabledEdit ? 1 : 0)
-                                .foregroundColor(.black)
-                        }
-                        .padding()
-                        
-                        // Edit/Update toggle button
-                        Button {
-                            enabledEdit.toggle()
-                            
-                            // Update user data
-                            if enabledEdit == false {
-                                if let user = user {
-                                    FireBaseDB().updateUser(user: user) { _ in
-                                        showToast = true
-                                        userViewModel.currentUser = user
-                                        
-                                        // Hide toast after 3 seconds
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                            showToast = false
-                                        }
+                        // Name editing and button controls
+                        HStack {
+                            // Conditional TextField or Text based on editing mode
+                            if enabledEdit {
+                                TextField("Name", text: Binding<String>(
+                                    get: { userViewModel.currentUser.name },
+                                    set: { newValue in
+                                        userViewModel.currentUser.name = newValue
                                     }
-                                } else {
-                                    
-                                }
+                                ))
+                                .font(.system(size: 26, weight: .semibold))
                             }
-                        } label: {
-                            Text(enabledEdit ? "Update" : "Edit")
-                                .foregroundColor(.black)
+                            else {
+                                Text(userViewModel.currentUser.name == "" ? "Empty Name" : userViewModel.currentUser.name )
+                                    .font(.system(size: 26, weight: .semibold))
+                                    .foregroundColor(userViewModel.currentUser.name == "" ? .black : .black)
+                            }
+                            Spacer()
                         }
-                    }
-                    .frame(height: 40)
-                    .padding(.horizontal, 20)
+                        .frame(width: UIScreen.main.bounds.width - 160)
+                        .offset(x: -UIScreen.main.bounds.width/2 + 80 + 190, y: 110)
+                        
+                        HStack {
+                            // Edit/Update button section
+                            // Cancel button appears only when editing
+                            Button {
+                                enabledEdit.toggle()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    userViewModel.fetchUserImage()
+                                    userViewModel.fetchUserData()
+                                }
+                            } label: {
+                                Text("Cancel")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.black)
+                            }
+                            .frame(width: 80, height: 5)
+                            .padding(.vertical, 12)
+                            .background(Color(UIColor.systemGray5))
+                            .cornerRadius(5)
+                            .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 3)
+                            .opacity(enabledEdit ? 1 : 0)
 
-                    // Separation divider
-                    Divider()
-                        .frame(width: UIScreen.main.bounds.width - 30, height: 1)
-                        .background(.gray)
-                        .padding(.vertical)
+                            // Edit/Update toggle button
+                            Button {
+                                enabledEdit.toggle()
+                                
+                                // Update user data
+                                if enabledEdit == false {
+                                    if let user = user {
+                                        FireBaseDB().updateUser(user: user) { _ in
+                                            showToast = true
+                                            userViewModel.currentUser = user
+                                            
+                                            // Hide toast after 3 seconds
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                                showToast = false
+                                            }
+                                        }
+                                    } else {
+                                        
+                                    }
+                                }
+                            } label: {
+                                Text(enabledEdit ? "Update" : "Edit")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.black)
+                            }
+                            .frame(width: enabledEdit ? 80 : 60, height: 5)
+                            .padding(.vertical, 12)
+                            .background(Color(UIColor.systemGray5))
+                            .cornerRadius(5)
+                            .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 3)
+                        }
+                        .offset(x: UIScreen.main.bounds.width/2 - 90, y: 65)
+
+                    }
+                    Spacer().frame(height: 80)
                     
                     // Email and Address section
-                    VStack (spacing: 16) {
+                    VStack (spacing: 8) {
                         // Email display
                         HStack {
-                            Text("Email: ")
-                                .font(.system(size: 20, weight: .semibold))
+                            HStack {
+                                Text("Email: ")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(Color("GreyMain"))
+                                Spacer()
+                            }
+                            .frame(width: 80)
+
                             Text(userViewModel.currentUser.email )
                                 .padding(.horizontal)
                                 .font(.system(size: 16, weight: .regular))
+                                .foregroundColor(Color("OrangeMain"))
+
                             Spacer()
                         }
                         
                         // Address (Street, City, Country) input/TextFields
                         HStack {
-                            Text("Street: ")
-                                .font(.system(size: 20, weight: .semibold))
+                            HStack {
+                                Text("Street: ")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(Color("GreyMain"))
+                                Spacer()
+                            }
+                            .frame(width: 80)
 
                             if enabledEdit {
                                 TextField("Street", text: Binding<String>(
@@ -128,23 +153,31 @@ struct UserAccountSettingView: View {
                                 ))
                                 .padding(.horizontal)
                                 .font(.system(size: 16, weight: .regular))
+                                .foregroundColor(Color("OrangeMain"))
                                 .background(
-                                    RoundedRectangle(cornerRadius: 7)
-                                        .stroke(Color.gray, lineWidth: 1)
-                                        .frame(height: 30)
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .foregroundColor(Color(UIColor.systemGray6))
+                                        .frame(height: 25)
                                 )
                                 
                             } else {
-                                Text(userViewModel.currentUser.address.country )
-                                    .padding(.horizontal)
-                                    .font(.system(size: 16, weight: .regular))
+                                Text(userViewModel.currentUser.address.street == "" ? "please update information" : userViewModel.currentUser.address.street)                                        .padding(.horizontal)
+                                    .font(.system(size: userViewModel.currentUser.address.street == "" ? 14 : 16, weight: .regular))
+                                    .foregroundColor(Color(userViewModel.currentUser.address.street == "" ? "GreyMain" : "OrangeMain"))
+                                    .italic(userViewModel.currentUser.address.street.isEmpty)
+                                
                             }
                             
                             Spacer()
                         }
                         HStack {
-                            Text("City: ")
-                                .font(.system(size: 20, weight: .semibold))
+                            HStack {
+                                Text("City: ")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(Color("GreyMain"))
+                                Spacer()
+                            }
+                            .frame(width: 80)
 
                             if enabledEdit {
                                 TextField("City", text: Binding<String>(
@@ -155,23 +188,30 @@ struct UserAccountSettingView: View {
                                 ))
                                 .padding(.horizontal)
                                 .font(.system(size: 16, weight: .regular))
+                                .foregroundColor(Color("OrangeMain"))
                                 .background(
-                                    RoundedRectangle(cornerRadius: 7)
-                                        .stroke(Color.gray, lineWidth: 1)
-                                        .frame(height: 30)
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .foregroundColor(Color(UIColor.systemGray6))
+                                        .frame(height: 25)
                                 )
-
                             } else {
-                                Text(userViewModel.currentUser.address.city )
-                                    .padding(.horizontal)
-                                    .font(.system(size: 16, weight: .regular))
+                                Text(userViewModel.currentUser.address.city == "" ? "please update information" : userViewModel.currentUser.address.city)                                    .padding(.horizontal)
+                                    .font(.system(size: userViewModel.currentUser.address.city == "" ? 14 : 16, weight: .regular))
+                                    .foregroundColor(Color(userViewModel.currentUser.address.city == "" ? "GreyMain" : "OrangeMain"))
+                                    .italic(userViewModel.currentUser.address.city.isEmpty)
                             }
                             
                             Spacer()
                         }
                         HStack {
-                            Text("Country: ")
-                                .font(.system(size: 20, weight: .semibold))
+                            HStack {
+                                Text("Country: ")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(Color("GreyMain"))
+                                Spacer()
+                            }
+                            .frame(width: 80)
+
                             if enabledEdit {
                                 TextField("Country", text: Binding<String>(
                                     get: { userViewModel.currentUser.address.country },
@@ -181,126 +221,116 @@ struct UserAccountSettingView: View {
                                 ))
                                 .padding(.horizontal)
                                 .font(.system(size: 16, weight: .regular))
+                                .foregroundColor(Color("OrangeMain"))
                                 .background(
-                                    RoundedRectangle(cornerRadius: 7)
-                                        .stroke(Color.gray, lineWidth: 1)
-                                        .frame(height: 30)
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .foregroundColor(Color(UIColor.systemGray6))
+                                        .frame(height: 25)
                                 )
                             } else {
-                                Text(userViewModel.currentUser.address.country )
+                                Text(userViewModel.currentUser.address.country == "" ? "please update information" : userViewModel.currentUser.address.country)
                                     .padding(.horizontal)
-                                    .font(.system(size: 16, weight: .regular))
+                                    .font(.system(size: userViewModel.currentUser.address.country == "" ? 14 : 16, weight: .regular))
+                                    .foregroundColor(Color(userViewModel.currentUser.address.country == "" ? "GreyMain" : "OrangeMain"))
+                                    .italic(userViewModel.currentUser.address.country.isEmpty)
                             }
                             
                             Spacer()
                         }
                     }
-                    .padding(.horizontal, 20)
-                    
-                    // Separation divider
-                    Divider()
-                        .frame(width: UIScreen.main.bounds.width - 30, height: 1)
-                        .background(.gray)
-                        .padding(.vertical)
+                    .padding(12)
+                    .background(.white)
+                    .cornerRadius(5)
+                    .padding(.horizontal, 16)
                     
                     // User bio section
-                    VStack (alignment: .center) {
-                        // Conditional TextEditor or Text based on editing mode
-                        if enabledEdit {
-                            TextEditor(text: Binding<String>(
-                                get: { userViewModel.currentUser.bio },
-                                set: { newValue in
-                                    userViewModel.currentUser.bio = newValue
-                                }
-                            ))
-                            .padding(.vertical, 4)
-                            .padding(.horizontal, 20)
-                        } else {
-                            Text(userViewModel.currentUser.bio )
-                                .font(.system(size: 16, weight: .regular))
-                                .padding(.vertical, 4)
-                                .padding(.horizontal, 20)
+                    Section {
+                        HStack (alignment: .center) {
+                            // Conditional TextEditor or Text based on editing mode
+                            if enabledEdit {
+                                TextEditor(text: Binding<String>(
+                                    get: { userViewModel.currentUser.bio },
+                                    set: { newValue in
+                                        userViewModel.currentUser.bio = newValue
+                                    }
+                                ))
+
+                            } else {
+                                Text(userViewModel.currentUser.bio )
+                                    .font(.system(size: 16, weight: .regular))
+                                    .foregroundColor(Color(UIColor.gray))
+                            }
+                            Spacer()
                         }
+                        .font(.system(size: 16, weight: .regular))
+                        .padding(12)
+                        .background(.white)
+                        .cornerRadius(5)
+                        .padding(.horizontal, 16)
                     }
-                    .font(.system(size: 16, weight: .regular))
-                    .frame(width: UIScreen.main.bounds.width, height: 100)
-                    .background(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color.gray, lineWidth: 1)
-                            .frame(height: 100)
-                            .padding()
-                    )
+//                    .frame(width: UIScreen.main.bounds.width, height: 100)
+
                 }
                 
                 // Buttons Section
                 VStack (spacing: 8) {
-
-                    // Button to go to ResetPasswordView
-                    NavigationLink(destination: ResetPasswordView(userViewModel: userViewModel)) {
-                        Text("Reset Password")
-                    }
-                    
                     // Button to go to ChangePasswordView
                     NavigationLink(destination: ChangePasswordView()) {
+                        Spacer()
                         Text("Change Password")
+                        Spacer()
                     }
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.red)
+                    .padding(12)
+                    .background(.white)
+                    .cornerRadius(5)
+                    .padding(.horizontal, 16)
                     
                     // Sign-out button
-                    Button("Sign Out") {
+                    Button {
                         FirebaseAuthService().signOut() { (success, error) in
                             if success {
                                 print("User signed out successfully")
-                                self.userViewModel.isSignedIn = false
+                                userViewModel.isSignedIn = false
 
                             } else {
                                 print (error?.localizedDescription ?? "Unknown error")
                             }
                         }
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text("Sign out")
+                            Spacer()
+                        }
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.red)
+                        .padding(12)
+                        .background(.white)
+                        .cornerRadius(5)
+                        .padding(.horizontal, 16)
                     }
                 }
-
              }
+            .background(Color(UIColor.secondarySystemBackground))
             .edgesIgnoringSafeArea(.all)
-            .onAppear {
-                
-                // Fetch current user data and images when view appears
-                user = userViewModel.currentUser
-                fetchUserData()
-                fetchUserImage()
-//                userViewModel.currentUser = testUser
-            }
-        }
-    }
-    
-    // Fetch profile and background images
-    func fetchUserImage() {
-        ImageStorage().getProfile() { result in
-            DispatchQueue.main.async {
-                if let image = result {
-                    self.userImage = image
-                }
-            }
-        }
-        
-        ImageStorage().getBackground() { result in
-            DispatchQueue.main.async {
-                if let image = result {
-                    self.userBGImage = image
-                }
-            }
-        }
-    }
-    
-    // Fetch user data from Firebase
-    func fetchUserData() {
-        if let userID = Auth.auth().currentUser?.uid {
-            FireBaseDB().fetchUser(userID: userID) { fetchedUser in
-                self.user = fetchedUser
-            }
-        }
-    }
-    
 
+            HStack {
+                CustomBackButton(buttonColor: Color(UIColor.black), text: "Settings")
+                    .padding()
+                Spacer()
+            }
+            .offset(y:-UIScreen.main.bounds.height*0.42)
+
+        }
+        .onAppear {
+//            userViewModel.currentUser = testUser
+        }
+        .navigationBarBackButtonHidden(true) // Hide the default back button
+    }
+    
+    
 }
 
 // Preview for SwiftUI
