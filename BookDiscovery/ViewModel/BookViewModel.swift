@@ -21,22 +21,31 @@ class BookViewModel: ObservableObject {
         FireBaseDB().getAllBooks() { result in
             DispatchQueue.main.async {
                 if let bookData = result {
-                    let key = Array(bookData.keys)[0]
-                    let bookInfo = bookData[key] as? [String: Any]
-                    var book: Book = emptyBook
-                    
-                    book.id = key
-                    book.name = bookInfo!["name"] as? String ?? ""
-                    book.category = bookInfo!["category"] as? String ?? ""
-                    book.headline = bookInfo!["headline"] as? String ?? ""
-                    book.description = bookInfo!["description"] as? String ?? ""
-                    book.price = bookInfo!["price"] as? Double ?? 0.0
-                    book.rating = bookInfo!["rating"] as? Double ?? 0.0
-
-                    let author = bookInfo!["author"] as? [String : Any] ?? [:]
-                    book.author.name = author["name"] as? String ?? ""
-                    
-                    self.books[key] = book
+                    for (key, bookInfo) in bookData {
+                        if let bookInfo = bookInfo as? [String: Any] {
+                            var book: Book = emptyBook
+                            
+                            book.id = key
+                            book.name = bookInfo["name"] as? String ?? ""
+                            book.category = bookInfo["category"] as? String ?? ""
+                            book.headline = bookInfo["headline"] as? String ?? ""
+                            book.description = bookInfo["description"] as? String ?? ""
+                            book.price = bookInfo["price"] as? Double ?? 0.0
+                            book.rating = bookInfo["rating"] as? Double ?? 0.0
+                            
+                            let author = bookInfo["author"] as? [String : Any] ?? [:]
+                            book.author.name = author["name"] as? String ?? ""
+                            
+                            // Handle image URL
+                            if let imageURLString = bookInfo["imageURL"] as? String, let imageURL = URL(string: imageURLString) {
+                                book.imageURL = imageURL
+                            } else {
+                                book.imageURL = nil
+                            }
+                            
+                            self.books[key] = book
+                        }
+                    }
                 }
             }
         }
@@ -56,6 +65,13 @@ class BookViewModel: ObservableObject {
         let author = dictionary["author"] as? [String : Any] ?? [:]
 //        self.currentBook.author.id = author["id"] as? String ?? ""
         self.currentBook.author.name = author["name"] as? String ?? ""
+        
+        // Handle image URL
+        if let imageURLString = dictionary["imageURL"] as? String, let imageURL = URL(string: imageURLString) {
+            self.currentBook.imageURL = imageURL
+        } else {
+            self.currentBook.imageURL = nil
+        }
     }
     
     func toDictionary() -> [String: Any] {

@@ -117,28 +117,33 @@ class FireBaseDB {
 
     // MARK: - Book ####################
     func getBook(bookID: String, completion: @escaping (Book?) -> Void) {
-        // Get a reference to the Firebase Realtime Database
-        let databaseRef = Database.database().reference()
-
-        // Construct the path to the book using the bookID
-        let bookRef = databaseRef.child("books") //.child(bookID)
-
-        // Retrieve the data at the specified path
-        bookRef.observeSingleEvent(of: .value, with: { snapshot in
-            let value = snapshot.value as? [String: Any]
-            var book: Book = emptyBook
-            book.id = bookID
-            book.name = value?["name"] as? String ?? ""
-            book.category = value?["category"] as? String ?? ""
-            book.headline = value?["headline"] as? String ?? ""
-            book.description = value?["description"] as? String ?? ""
-            book.price = value?["price"] as? Double ?? 0.0
-            book.rating = value?["rating"] as? Double ?? 0.0
-            let author = value?["author"] as? [String: Any] ?? [:]
-            book.author.name = author["name"] as? String ?? ""
+        // Fetch the image URL
+        fetchBookImageURL(bookID: bookID) { imageURL in
             
-            completion(book)
-        })
+            // Get a reference to the Firebase Realtime Database
+            let databaseRef = Database.database().reference()
+            
+            // Construct the path to the book using the bookID
+            let bookRef = databaseRef.child("books") //.child(bookID)
+            
+            // Retrieve the data at the specified path
+            bookRef.observeSingleEvent(of: .value, with: { snapshot in
+                let value = snapshot.value as? [String: Any]
+                var book: Book = emptyBook
+                book.id = bookID
+                book.name = value?["name"] as? String ?? ""
+                book.category = value?["category"] as? String ?? ""
+                book.headline = value?["headline"] as? String ?? ""
+                book.description = value?["description"] as? String ?? ""
+                book.price = value?["price"] as? Double ?? 0.0
+                book.rating = value?["rating"] as? Double ?? 0.0
+                let author = value?["author"] as? [String: Any] ?? [:]
+                book.author.name = author["name"] as? String ?? ""
+                book.imageURL = imageURL
+                
+                completion(book)
+            })
+        }
     }
 
     func getAllBooks(completion: @escaping ([String: Any]?) -> Void) {
@@ -156,5 +161,26 @@ class FireBaseDB {
             }
             completion([snapshot.key: childData])
         })
+    }
+    
+    
+    func fetchBookImageURL(bookID: String, completion: @escaping (URL?) -> Void) {
+    // Get a reference to the Firebase Realtime Database
+       let databaseRef = Database.database().reference()
+
+       // Construct the path to the book using the bookID
+       let bookRef = databaseRef.child("books").child(bookID)
+
+       // Retrieve the imageURL from the specified book
+       bookRef.observeSingleEvent(of: .value) { snapshot in
+           guard let bookData = snapshot.value as? [String: Any],
+                 let imageURLString = bookData["imageURL"] as? String,
+                 let imageURL = URL(string: imageURLString) else {
+               completion(nil)
+               return
+           }
+
+           completion(imageURL)
+       }
     }
 }
