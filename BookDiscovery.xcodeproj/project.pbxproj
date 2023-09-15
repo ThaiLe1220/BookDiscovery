@@ -56,6 +56,9 @@
 		DE4E3FF72AB335510000EFEB /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4E3FF52AB335510000EFEB /* ChangePasswordView.swift */; };
 		DE74AF6B2AB41D97008C0754 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE74AF6A2AB41D97008C0754 /* MainView.swift */; };
 		DE74AF6D2AB42741008C0754 /* UserAppearanceSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */; };
+		DEFC8B6F2AB462BE00A23D35 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFC8B6E2AB462BE00A23D35 /* Review.swift */; };
+		DEFC8B712AB462D100A23D35 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFC8B702AB462D100A23D35 /* BookDetailView.swift */; };
+		DEFC8B732AB4642100A23D35 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFC8B722AB4642100A23D35 /* ReviewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +103,9 @@
 		DE4E3FF52AB335510000EFEB /* ChangePasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		DE74AF6A2AB41D97008C0754 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAppearanceSettingView.swift; sourceTree = "<group>"; };
+		DEFC8B6E2AB462BE00A23D35 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		DEFC8B702AB462D100A23D35 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
+		DEFC8B722AB4642100A23D35 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				A2FAC9EA2AAF0E6000779CAA /* FireBaseDB.swift */,
+				DEFC8B722AB4642100A23D35 /* ReviewViewModel.swift */,
 				A2FAC9E42AAF0E1B00779CAA /* UserViewModel.swift */,
 				A2FAC9F12AAF0F6F00779CAA /* FireBaseAuthService.swift */,
 				CDD2FFF82AB16C140016A86D /* ImageStorage.swift */,
@@ -203,6 +210,7 @@
 				CD24DD1C2AB00821001BF2A6 /* Address.swift */,
 				DE3B2FCF2AB3253D000F8B93 /* Author.swift */,
 				DE3B2FCE2AB3253C000F8B93 /* Book.swift */,
+				DEFC8B6E2AB462BE00A23D35 /* Review.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -251,6 +259,7 @@
 			children = (
 				DE4E3FDF2AB333510000EFEB /* BookView.swift */,
 				DE4E3FE22AB333700000EFEB /* BookListView.swift */,
+				DEFC8B702AB462D100A23D35 /* BookDetailView.swift */,
 			);
 			path = Book;
 			sourceTree = "<group>";
@@ -364,6 +373,7 @@
 				DE74AF6D2AB42741008C0754 /* UserAppearanceSettingView.swift in Sources */,
 				DE3B2FBF2AB2DDCC000F8B93 /* SettingView.swift in Sources */,
 				CD24DD212AB01855001BF2A6 /* ProfileImageView.swift in Sources */,
+				DEFC8B732AB4642100A23D35 /* ReviewViewModel.swift in Sources */,
 				A2FAC9E52AAF0E1B00779CAA /* UserViewModel.swift in Sources */,
 				DE3B2FC92AB2FBC6000F8B93 /* SearchView.swift in Sources */,
 				A2FAC9F42AAF0FC200779CAA /* UserAccountSettingView.swift in Sources */,
@@ -383,9 +393,11 @@
 				CDD2FFF92AB16C140016A86D /* ImageStorage.swift in Sources */,
 				954557882AAF0C32003F1C7E /* BookDiscoveryApp.swift in Sources */,
 				DE3B2FD12AB3253D000F8B93 /* Author.swift in Sources */,
+				DEFC8B6F2AB462BE00A23D35 /* Review.swift in Sources */,
 				CD24DD292AB04E09001BF2A6 /* ImagePickerView.swift in Sources */,
 				DE3B2FC32AB2F3DE000F8B93 /* NavigationBar.swift in Sources */,
 				DE3B2FCD2AB2FC12000F8B93 /* NotificationsView.swift in Sources */,
+				DEFC8B712AB462D100A23D35 /* BookDetailView.swift in Sources */,
 				DE04C7C92AB34628003B24BE /* CustomGoBackButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CommentView: View {
+    var review: Review
+    
     var body: some View {
         VStack {
             HStack{
@@ -17,15 +19,15 @@ struct CommentView: View {
                     .offset(y: 5)
                 
                 VStack{
-                    Text("Username 1")
-                    RatingView(rating: 2.5)
+                    Text(review.userID)
+                    RatingView(rating: review.rating)
                         .frame(width: 100)
                 }
                 .padding(.horizontal)
                 Spacer()
             }
             
-            Text("This is a comment")
+            Text(review.comment)
                 .multilineTextAlignment(.leading)
         }
         .background(
@@ -38,6 +40,6 @@ struct CommentView: View {
 
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentView()
+        CommentView(review: testReview1)
     }
 }

@@ -19,7 +19,7 @@ struct BookListView: View {
 
                     if let book = bookViewModel.books[bookID] {
                         VStack {
-                            BookView(bookID: bookID,  bookName: book.name, bookRating: book.rating, bookReviews: 100, imageURL: book.imageURL)
+                            BookView(book: book)
                             Spacer()
                         }
                     }

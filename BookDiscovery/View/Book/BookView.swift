@@ -8,18 +8,15 @@
 import SwiftUI
 
 struct BookView: View {
-    var bookID: String
-    var bookName: String
-    var bookRating: Double
-    var bookReviews: Int
-    var imageURL: URL?
+    var book: Book
+    var bookReviews: Int = 100
     
     var body: some View {
         Button {
-            print(bookID)
+            print(book.id ?? "")
         } label: {
             VStack {
-                if let imageURL = imageURL {
+                if let imageURL = book.imageURL {
                     AsyncImage(url: imageURL) { phase in
                         switch phase {
                         case .empty:
@@ -50,9 +47,9 @@ struct BookView: View {
 //                Image("thumbnail")
 //                    .resizable()
 //                    .scaledToFit()
-                Text(bookName)
+                Text(book.name)
                     .lineLimit(2)
-                RatingView(rating: bookRating)
+                RatingView(rating: book.rating)
                     .frame(width: 125)
                 Text("Reviews: \(bookReviews)")
             }
@@ -66,6 +63,6 @@ struct BookView: View {
 
 struct BookView_Previews: PreviewProvider {
     static var previews: some View {
-        BookView(bookID: "1", bookName: "", bookRating: 4.0, bookReviews: 1)
+        BookView(book: testBook)
     }
 }
