@@ -73,8 +73,7 @@ struct UserSignInView: View {
                           }
                           ZStack {
                               RoundedRectangle(cornerRadius: 7)
-//                                  .fill(Color(UIColor.clear))
-                                  .foregroundColor(Color(UIColor.tertiaryLabel))
+                                  .foregroundColor(Color(UIColor.quaternaryLabel))
                                   .frame(width: geometry.size.width * 0.8 + 18, height: 46)
                                   .overlay(
                                       RoundedRectangle(cornerRadius: 7)
@@ -122,7 +121,7 @@ struct UserSignInView: View {
                           ZStack {
                               RoundedRectangle(cornerRadius: 7)
 //                                  .fill(Color.clear)
-                                  .foregroundColor(Color(UIColor.tertiaryLabel))
+                                  .foregroundColor(Color(UIColor.quaternaryLabel))
                                   .frame(width: geometry.size.width * 0.8 + 18, height: 46)
                                   .overlay(
                                       RoundedRectangle(cornerRadius: 7)
@@ -169,10 +168,13 @@ struct UserSignInView: View {
                         
                         HStack {
                             Spacer()
-                            Text("Forgot Password")
-                                .font(.system(size: 15, weight: .semibold))
-                                .foregroundColor(.orange)
-                                .italic()
+                            NavigationLink(destination: ResetPasswordView(userViewModel: userViewModel)) {
+                                Text("Forgot Password")
+                                    .font(.system(size: 15, weight: .semibold))
+                                    .foregroundColor(.orange)
+                                    .italic()
+                            }
+               
                         }
                       }
                       .frame(width: geometry.size.width * 0.8)

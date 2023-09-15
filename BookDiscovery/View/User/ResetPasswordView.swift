@@ -22,6 +22,12 @@ struct ResetPasswordView: View {
 
     var body: some View {
         ZStack {
+            // Background image
+            Image("wall-e")
+                .resizable()
+                .ignoresSafeArea()
+                .opacity(0.85)
+            
             GeometryReader { geometry in
                 VStack (alignment: .center) {
                     Text("Change Password")
@@ -120,7 +126,7 @@ struct ResetPasswordView: View {
             .offset(y: -UIScreen.main.bounds.height*0.08)
             
             HStack {
-                CustomBackButton()
+                CustomBackButton(buttonColor: Color(UIColor.orange), text: "Sign In")
                     .padding()
                 Spacer()
             }

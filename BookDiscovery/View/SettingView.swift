@@ -3,46 +3,60 @@ import SwiftUI
 struct SettingView: View {
     @ObservedObject var userViewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
+    @State private var userImage: UIImage = UIImage(named: "profile")!
 
     var body: some View {
-        NavigationView {
-            VStack {
-                // Title
-                Text("Settings")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                
+        ZStack {
+            VStack (spacing: 0) {
                 // Settings Options List
                 List {
-                    settingRow(name: "Account", destination: UserAccountSettingView(userViewModel: userViewModel))
-                   settingRow(name: "Notifications", destination: UserNotificationSettingView())
-                   settingRow(name: "Appearances", destination: UserAppearanceSettingView())
-                   settingRow(name: "Help & Support", destination: UserHelpSettingView())
-                   settingRow(name: "About", destination: UserAboutSettingView())
+                    NavigationLink(destination: UserAccountSettingView(userViewModel: userViewModel)) {
+                        HStack {
+                            Text("")
+                            ProfileImageView(userViewModel: userViewModel)
+                                .scaleEffect(0.55)
+                                .frame(width: 80, height: 80)
+                            
+                            VStack (alignment: .leading, spacing: 4) {
+                                Text("\(userViewModel.currentUser.name)")
+                                    .font(.system(size: 20, weight: .semibold))
+                                
+                                Text("\(userViewModel.currentUser.email)")
+                                    .font(.system(size: 14, weight: .light))
+                            }
+                            .foregroundColor(Color(UIColor.darkGray))
+                            Spacer()
+                        }
+                        .frame(height: 70)
+
+                    }
+
+                    settingRow(name: "Notifications", destination: UserNotificationSettingView())
+                    settingRow(name: "Appearances", destination: UserAppearanceSettingView(userViewModel: userViewModel))
+                    settingRow(name: "Help & Support", destination: UserHelpSettingView())
+                    settingRow(name: "About", destination: UserAboutSettingView())
                 }
-                .padding(.top, 10)
-                .listStyle(InsetGroupedListStyle())
+                .listStyle(PlainListStyle())
 
                 Spacer()
-                
-                // Logout Button
-                Button(action: {
-                   print("Logout tapped!")
-                }) {
-                   Text("Logout")
-                       .foregroundColor(.red)
-                }
-                .padding(.bottom, 20)
             }
+            .padding(.top, 45)
             .background(Color(UIColor.secondarySystemBackground))
-        }
-            .navigationBarItems(leading: EmptyView()) // Remove any leading navigation items
-//            .navigationBarBackButtonHidden(true) // Hide the default back button
-            .onReceive(userViewModel.$showSettings) { showSettings in
-                if !showSettings {
-                    presentationMode.wrappedValue.dismiss()
-                }
+
+            HStack {
+                CustomBackButton(buttonColor: Color(UIColor.black), text: "Back")
+                    .padding()
+                Spacer()
             }
+            .offset(y:-UIScreen.main.bounds.height*0.42)
+        }
+        .navigationBarBackButtonHidden(true) // Hide the default back button
+        .onReceive(userViewModel.$showSettings) { showSettings in
+            if !showSettings {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
     }
 
     private func settingRow<V: View>(name: String, destination: V) -> some View {
@@ -58,12 +72,6 @@ struct SettingView: View {
 struct UserNotificationSettingView: View {
     var body: some View {
         Text("User Notification Settings")
-    }
-}
-
-struct UserAppearanceSettingView: View {
-    var body: some View {
-        Text("User Appearance Settings")
     }
 }
 

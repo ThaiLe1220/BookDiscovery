@@ -21,9 +21,15 @@ let db = Firestore.firestore()
 class FireBaseDB {
     // MARK: - Add User
     // Function to add a new user to the Firestore "users" collection
-    func addUser(userID: String, userEmail: String, completion: @escaping (Bool) -> Void) {
+    func addUser(userID: String, userEmail: String, userName: String, completion: @escaping (Bool) -> Void) {
         // Create a new document in the "users" collection
-        db.collection("users").addDocument(data: ["id" : userID, "email" : userEmail]) { error in
+        var newUser = emptyUser
+        newUser.id = userID
+        newUser.email = userEmail
+        newUser.name = userName
+        newUser.bio = "Hello, I am new here ;D"
+        
+        db.collection("users").addDocument(data: UserViewModel(user: newUser).toDictionary()) { error in
             if error != nil {
                 // Return failure if an error occurs
                 completion(false)

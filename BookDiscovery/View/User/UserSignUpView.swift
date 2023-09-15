@@ -15,6 +15,7 @@ struct UserSignUpView: View {
 
     // State variables to hold form input and UI state
     @State private var email: String = ""
+    @State private var name: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     @State private var isValidEmail: Bool = false
@@ -55,7 +56,6 @@ struct UserSignUpView: View {
                         )
                     // Form Fields
                     VStack (spacing: 12) {
-                        
                         // Email field
                         VStack (spacing: 4) {
                             HStack {
@@ -76,7 +76,7 @@ struct UserSignUpView: View {
                             }
                             ZStack {
                                 RoundedRectangle(cornerRadius: 7)
-                                    .fill(Color.clear)
+                                    .foregroundColor(Color(UIColor.quaternaryLabel))
                                     .frame(width: geometry.size.width * 0.8 + 18, height: 46)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 7)
@@ -93,6 +93,57 @@ struct UserSignUpView: View {
                                     )
                                 
                                 TextField("", text: $email)
+                                    .foregroundColor(.white)
+                                    .autocapitalization(.none)  // Disable automatic capitalization
+                                    .disableAutocorrection(true) // Disable autocorrection
+                                    .padding(.horizontal)
+                            }
+                            .font(.system(size: 18))
+       
+                            // Validation logic for email
+                            .onChange(of: email) { _ in
+                                isValidEmail = userViewModel.validateEmail(email)
+                            }
+                        }
+                        
+                        // Username field
+                        VStack (spacing: 4) {
+                            HStack {
+                                Text("Username")
+                                    .font(.system(size: 18, weight: .semibold))
+                                    .foregroundColor(.white) // Fallback color
+                                    .overlay(
+                                        LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
+                                                       startPoint: .leading,
+                                                       endPoint: .trailing)
+                                    )
+                                    .mask(
+                                        Text("Username")
+                                            .font(.system(size: 18, weight: .semibold))
+                                    )
+
+                                Spacer()
+                            }
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 7)
+                                    .foregroundColor(Color(UIColor.quaternaryLabel))
+                                    .frame(width: geometry.size.width * 0.8 + 18, height: 46)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 7)
+                                            .stroke(Color.clear, lineWidth: 1)
+                                            .overlay(
+                                                LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
+                                                               startPoint: .leading,
+                                                               endPoint: .trailing)
+                                            )
+                                            .mask(
+                                                RoundedRectangle(cornerRadius: 7)
+                                                    .stroke(lineWidth: 1)
+                                            )
+                                    )
+                                
+                                TextField("", text: $name)
+                                    .foregroundColor(.white)
                                     .autocapitalization(.none)  // Disable automatic capitalization
                                     .disableAutocorrection(true) // Disable autocorrection
                                     .padding(.horizontal)
@@ -125,7 +176,7 @@ struct UserSignUpView: View {
                             }
                             ZStack {
                                 RoundedRectangle(cornerRadius: 7)
-                                    .fill(Color.clear)
+                                    .foregroundColor(Color(UIColor.quaternaryLabel))
                                     .frame(width: geometry.size.width * 0.8 + 18, height: 46)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 7)
@@ -143,11 +194,13 @@ struct UserSignUpView: View {
                                 
                                 if showPassword {
                                     TextField("", text: $password)
+                                        .foregroundColor(.white)
                                         .autocapitalization(.none)  // Disable automatic capitalization
                                         .disableAutocorrection(true) // Disable autocorrection
                                         .padding(.horizontal)
                                 } else {
                                     SecureField("", text: $password)
+                                        .foregroundColor(.white)
                                         .autocapitalization(.none)  // Disable automatic capitalization
                                         .disableAutocorrection(true) // Disable autocorrection
                                         .padding(.horizontal)
@@ -159,7 +212,7 @@ struct UserSignUpView: View {
                                         self.showPassword.toggle()
                                     }) {
                                         Image(systemName: self.showPassword ? "eye.slash.fill" : "eye.fill")
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.orange)
 
                                     }
                                     .padding(.horizontal)
@@ -189,7 +242,7 @@ struct UserSignUpView: View {
                             }
                             ZStack {
                                 RoundedRectangle(cornerRadius: 7)
-                                    .fill(Color.clear)
+                                    .foregroundColor(Color(UIColor.quaternaryLabel))
                                     .frame(width: geometry.size.width * 0.8 + 18, height: 46)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 7)
@@ -208,6 +261,7 @@ struct UserSignUpView: View {
                                 SecureField("", text: $confirmPassword, onCommit: {
                                     self.passwordsMatch = (password == confirmPassword)
                                 })
+                                .foregroundColor(.white)
                                 .font(.system(size: 20, weight: .regular))
                                 .autocapitalization(.none)  // Disable automatic capitalization
                                 .disableAutocorrection(true) // Disable autocorrection
@@ -263,18 +317,26 @@ struct UserSignUpView: View {
                     .padding(.vertical, 20)
                     Spacer()
                 }
-                .frame(width: geometry.size.width, height: 750)
+                .frame(width: geometry.size.width, height: 800)
             }
             .offset(y: -UIScreen.main.bounds.height*0.08)
 
+            HStack {
+                CustomBackButton(buttonColor: Color(UIColor.orange), text: "Sign In")
+                    .padding()
+                Spacer()
+            }
+            .offset(y:-UIScreen.main.bounds.height*0.42)
         }
+        .navigationBarBackButtonHidden(true)
+
     }
     
     // Function to handle user sign-up
     func userSignUp() {
         if isValidInput() {
             // Firebase authentication logic
-            FirebaseAuthService().signUp(email: email, password: password) { (success, error) in
+            FirebaseAuthService().signUp(email: email, password: password, name: name) { (success, error) in
                 if success {
                     print("User signed up successfully")
                     self.userViewModel.isSignedIn = true

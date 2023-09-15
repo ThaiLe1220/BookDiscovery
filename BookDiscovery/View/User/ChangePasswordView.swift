@@ -141,11 +141,11 @@ struct ChangePasswordView: View {
             .offset(y: -UIScreen.main.bounds.height*0.08)
             
             HStack {
-                CustomBackButton()
+                CustomBackButton(buttonColor: Color(UIColor.orange), text: "Account")
                     .padding()
                 Spacer()
             }
-            .offset(y:-UIScreen.main.bounds.height*0.4)
+            .offset(y:-UIScreen.main.bounds.height*0.42)
         }
         .navigationBarBackButtonHidden(true)
     }

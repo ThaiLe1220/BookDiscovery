@@ -18,22 +18,22 @@ struct User: Codable, Identifiable {
     var name: String  // User's name
     var address: Address // Struct containing address details
     var bio: String  // User's bio or description
-    
-    // Initialize with default empty values
-    static let emptyUser = User(
-        id: "",
-        email: "",
-        name: "",
-        address: Address(street: "", city: "", country: ""),
-        bio: ""
-    )
-    
-    // A sample user for testing purposes
-    static let testUser = User(
-        id: "-1",
-        email: "thai@gmail.com",
-        name: "eugene",
-        address: Address(street: "nguyen huu canh", city: "ho chi minh city", country: "viet nam"),
-        bio: "I love books in general"
-    )
+
 }
+// Initialize with default empty values
+let emptyUser = User(
+    id: "",
+    email: "",
+    name: "",
+    address: Address(street: "", city: "", country: ""),
+    bio: ""
+)
+
+// A sample user for testing purposes
+let testUser = User(
+    id: "-1",
+    email: "thai@gmail.com",
+    name: "eugene",
+    address: Address(street: "nguyen huu canh", city: "ho chi minh city", country: "viet nam"),
+    bio: "I love books in general"
+)

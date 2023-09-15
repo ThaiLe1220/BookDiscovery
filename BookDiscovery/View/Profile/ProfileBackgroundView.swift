@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ProfileBackgroundView: View {
-    var bgImage: UIImage
+    // ViewModel to manage user state
+    @ObservedObject var userViewModel: UserViewModel
     @State private var isShowingImagePicker = false
     
     var body: some View {
@@ -16,16 +17,15 @@ struct ProfileBackgroundView: View {
             Button {
                 isShowingImagePicker.toggle()
             } label: {
-                Image(uiImage: bgImage)
+                Image(uiImage: userViewModel.userBGImage)
                     .resizable()
                     .clipped()
-                    .frame(height: 240)
+                    .frame(height:180)
             }
         }
-        .frame(height: 240)
-
+        .frame(height: 180)
         .sheet(isPresented: $isShowingImagePicker) {
-            ImagePickerView(isPresented: $isShowingImagePicker, isProfileImage: false, selectedImage: bgImage)
+            ImagePickerView(userViewModel: userViewModel, isPresented: $isShowingImagePicker, isProfileImage: false, selectedImage: userViewModel.userBGImage)
         }
     }
 }
@@ -33,6 +33,6 @@ struct ProfileBackgroundView: View {
 
 struct ProfileBackgroundView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileBackgroundView(bgImage: UIImage(named: "background")!)
+        ProfileBackgroundView(userViewModel: UserViewModel())
     }
 }

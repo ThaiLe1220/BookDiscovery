@@ -15,7 +15,7 @@ class FirebaseAuthService {
     
     // MARK: - Sign Up
     // Function to create a new user account with email and password
-    func signUp(email: String, password: String, completion: @escaping (Bool, Error?) -> Void) {
+    func signUp(email: String, password: String, name: String, completion: @escaping (Bool, Error?) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
                 // Sign-up failed, pass error to completion
@@ -23,7 +23,7 @@ class FirebaseAuthService {
             } else if let user = result?.user {
                 // User created, now add to Firestore database
                 let userID = user.uid
-                FireBaseDB().addUser(userID: userID, userEmail: email) { _ in }
+                FireBaseDB().addUser(userID: userID, userEmail: email, userName: name) { _ in }
                 completion(true, nil)
             }
         }
