@@ -15,6 +15,7 @@ struct Book: Codable, Identifiable {
     var price: Double
     var rating: Double
     var description: String
+    var imageURL: URL?
     var author: Author
 }
 
@@ -26,6 +27,7 @@ let emptyBook = Book(
     price: 0.0,
     rating: 0.0,
     description: "",
+    imageURL: nil,
     author: Author(
         name: ""
     )

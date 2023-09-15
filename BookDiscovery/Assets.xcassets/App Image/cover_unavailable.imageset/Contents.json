@@ -1,14 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "bookError.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "bookError@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "bookError@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
