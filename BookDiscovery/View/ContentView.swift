@@ -7,16 +7,25 @@
 
 import SwiftUI
 
+// Define the ContentView, the main UI container for your application
 struct ContentView: View {
+    // StateObject to store and observe UserViewModel
+    @StateObject var userViewModel = UserViewModel()
+
+    // The main body of the ContentView
     var body: some View {
         NavigationView {
-            VStack {
-                UserSignInView()
+            if userViewModel.isSignedIn {
+                MainView(userViewModel: userViewModel)
+            }
+            else {
+                UserSignInView(userViewModel: userViewModel)
             }
         }
     }
 }
 
+// SwiftUI Preview
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
