@@ -34,6 +34,8 @@
 		CD24DD292AB04E09001BF2A6 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD282AB04E09001BF2A6 /* ImagePickerView.swift */; };
 		CDD2FFF92AB16C140016A86D /* ImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD2FFF82AB16C140016A86D /* ImageStorage.swift */; };
 		CDD2FFFB2AB181F50016A86D /* ProfileBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD2FFFA2AB181F50016A86D /* ProfileBackgroundView.swift */; };
+		CDF565EA2AB5A14F008E46FD /* InputCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF565E92AB5A14F008E46FD /* InputCommentView.swift */; };
+		CDF565EC2AB5A1F6008E46FD /* URLCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF565EB2AB5A1F6008E46FD /* URLCaller.swift */; };
 		DE04C7C92AB34628003B24BE /* CustomGoBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04C7C82AB34628003B24BE /* CustomGoBackButton.swift */; };
 		DE3B2FBF2AB2DDCC000F8B93 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3B2FBE2AB2DDCC000F8B93 /* SettingView.swift */; };
 		DE3B2FC12AB2EDE2000F8B93 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3B2FC02AB2EDE2000F8B93 /* TestView.swift */; };
@@ -81,6 +83,8 @@
 		CD24DD282AB04E09001BF2A6 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		CDD2FFF82AB16C140016A86D /* ImageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorage.swift; sourceTree = "<group>"; };
 		CDD2FFFA2AB181F50016A86D /* ProfileBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBackgroundView.swift; sourceTree = "<group>"; };
+		CDF565E92AB5A14F008E46FD /* InputCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCommentView.swift; sourceTree = "<group>"; };
+		CDF565EB2AB5A1F6008E46FD /* URLCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLCaller.swift; sourceTree = "<group>"; };
 		DE04C7C82AB34628003B24BE /* CustomGoBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGoBackButton.swift; sourceTree = "<group>"; };
 		DE3B2FBE2AB2DDCC000F8B93 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		DE3B2FC02AB2EDE2000F8B93 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 				A2FAC9F12AAF0F6F00779CAA /* FireBaseAuthService.swift */,
 				CDD2FFF82AB16C140016A86D /* ImageStorage.swift */,
 				DE3B2FD22AB32552000F8B93 /* BookViewModel.swift */,
+				CDF565EB2AB5A1F6008E46FD /* URLCaller.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 				DE4E3FE42AB333850000EFEB /* RatingView.swift */,
 				DE4E3FE62AB3338E0000EFEB /* CommentView.swift */,
 				DE4E3FE82AB333A50000EFEB /* CommentProfileView.swift */,
+				CDF565E92AB5A14F008E46FD /* InputCommentView.swift */,
 			);
 			path = Rating;
 			sourceTree = "<group>";
@@ -429,11 +435,13 @@
 				DE4E3FE02AB333510000EFEB /* BookView.swift in Sources */,
 				DE4E3FE32AB333700000EFEB /* BookListView.swift in Sources */,
 				DE3B2FD02AB3253D000F8B93 /* Book.swift in Sources */,
+				CDF565EA2AB5A14F008E46FD /* InputCommentView.swift in Sources */,
 				DE3B2FC72AB2FB99000F8B93 /* BrowseView.swift in Sources */,
 				CDD2FFF92AB16C140016A86D /* ImageStorage.swift in Sources */,
 				954557882AAF0C32003F1C7E /* BookDiscoveryApp.swift in Sources */,
 				DE3B2FD12AB3253D000F8B93 /* Author.swift in Sources */,
 				DEFC8B6F2AB462BE00A23D35 /* Review.swift in Sources */,
+				CDF565EC2AB5A1F6008E46FD /* URLCaller.swift in Sources */,
 				CD24DD292AB04E09001BF2A6 /* ImagePickerView.swift in Sources */,
 				DE3B2FC32AB2F3DE000F8B93 /* NavigationBar.swift in Sources */,
 				DE3B2FCD2AB2FC12000F8B93 /* NotificationsView.swift in Sources */,
