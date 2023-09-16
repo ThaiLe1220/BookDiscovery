@@ -59,6 +59,7 @@ struct MainView: View {
                         userViewModel.showSettings = false
                     }
             }
+            .accentColor(Color("OrangeMain")) // Change the color of the selected tab item
 
         }
         .onAppear {

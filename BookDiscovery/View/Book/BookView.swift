@@ -12,50 +12,44 @@ struct BookView: View {
     var bookReviews: Int = 100
     
     var body: some View {
-        Button {
-            print(book.id ?? "")
-        } label: {
-            VStack {
-                if let imageURL = book.imageURL {
-                    AsyncImage(url: imageURL) { phase in
-                        switch phase {
-                        case .empty:
-                            Text("LOADING\nCOVER IMAGE")
-                            
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .scaledToFit()
-                            
-                        case .failure:
-                            Image("cover_unavailable")
-                                .resizable()
-                                .scaledToFit()
-                            
-                        @unknown default:
-                            // Handle unknown cases
-                            Text("WTF HAPPENED")
-                        }
+        VStack (spacing: 2.5) {
+            if let imageURL = book.imageURL {
+                AsyncImage(url: imageURL) { phase in
+                    switch phase {
+                    case .empty:
+                        Text("LOADING\nCOVER IMAGE")
+                        
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFit()
+                        
+                    case .failure:
+                        Image("cover_unavailable")
+                            .resizable()
+                            .scaledToFit()
+                        
+                    @unknown default:
+                        // Handle unknown cases
+                        Text("WTF HAPPENED")
                     }
-                    .frame(width: 180, height: 250)
-                } else {
-                    Image("thumbnail")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 180, height: 250)
                 }
-//                Image("thumbnail")
-//                    .resizable()
-//                    .scaledToFit()
-                Text(book.name)
-                    .lineLimit(2)
-                RatingView(rating: book.rating)
-                    .frame(width: 125)
-                Text("Reviews: \(bookReviews)")
+                .frame(width: 140, height: 180)
+            } else {
+                Image("thumbnail")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150, height: 180)
             }
-            .frame(width: 150)
-            .padding()
+            Text(book.name)
+                .font(.system(size: 15))
+                .lineLimit(2)
+                .frame(height: 38)
+
+            RatingView(rating: book.rating)
+                .frame(height: 12)
         }
+        .frame(width: 160, height: 235)
         
     }
 }
