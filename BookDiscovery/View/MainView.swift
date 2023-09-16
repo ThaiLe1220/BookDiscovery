@@ -12,6 +12,8 @@ import UserNotifications
 struct MainView: View {
     // StateObject to store and observe UserViewModel
     @ObservedObject var userViewModel: UserViewModel
+    @ObservedObject var bookViewModel: BookViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
 
     @State private var selectedTab = 0
     @State private var searchText: String = ""
@@ -20,7 +22,7 @@ struct MainView: View {
         NavigationStack {
             TabView (selection: $selectedTab){
                 /// Browse View
-                HomeView(userViewModel: userViewModel)
+                HomeView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("Home", systemImage: "house")}
                     .tag(0)
                     .onAppear {
@@ -75,6 +77,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(userViewModel: UserViewModel())
+        MainView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

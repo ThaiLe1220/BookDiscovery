@@ -12,8 +12,8 @@ class BookViewModel: ObservableObject {
     @Published var currentBook: Book
     @Published var books: [String: Book] = [:]
 
-    init (book: Book = emptyBook) {
-        currentBook = book
+    init () {
+        currentBook = emptyBook
         initAllBooks()
     }
     

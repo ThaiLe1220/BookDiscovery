@@ -29,7 +29,7 @@ class FireBaseDB {
         newUser.name = userName
         newUser.bio = "Hello, I am new here ;D"
         
-        db.collection("users").addDocument(data: UserViewModel(user: newUser).toDictionary()) { error in
+        db.collection("users").addDocument(data: UserViewModel().toDictionary()) { error in
             if error != nil {
                 // Return failure if an error occurs
                 completion(false)
@@ -71,7 +71,7 @@ class FireBaseDB {
         let userEmail = user.email
 
         // Convert User object to a dictionary
-        let userData = UserViewModel(user: user).toDictionary()
+        let userData = UserViewModel().toDictionary()
         
         // Search for the user by email
         db.collection("users").whereField("email", isEqualTo: userEmail).getDocuments { (querySnapshot, error) in

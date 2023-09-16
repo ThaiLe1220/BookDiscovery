@@ -9,12 +9,23 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject var userViewModel: UserViewModel
-    
+    @ObservedObject var bookViewModel: BookViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
+
+    let banners = ["Banner1", "Banner2", "Banner1", "Banner2", "Banner1", "Banner2"]
     @State private var currentPage: Int = 0
     @State private var offset: CGFloat = 0
-    let banners = ["Banner1", "Banner2", "Banner1", "Banner2", "Banner1", "Banner2"]
     
-    // Dummy data for the example
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    @State private var displayedBooksCount = 10
+    @State private var isLoading = false
+    @State var scrollTarget: Int? = nil
+    var totalBooks: [String: Book] {
+        bookViewModel.books
+    }
+
+
+        // Dummy data for the example
     let recommendedBooks: [Book] = [testBook1, testBook, testBook1, testBook]
     let continueReadingBooks: [Book] = [/* your array of Book objects user is currently reading */]
     let hotReviews: [Review] = [/* your array of hot Review objects */]
@@ -25,8 +36,8 @@ struct HomeView: View {
 
     
     var body: some View {
-        NavigationStack {
-            VStack {
+        VStack {
+            ScrollViewReader { proxy in
                 ScrollView {
                     GeometryReader { geometry in
                         ZStack {
@@ -58,7 +69,7 @@ struct HomeView: View {
                                     }
                             )
                             .onAppear {
-                                Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
+                                Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
                                     withAnimation {
                                         self.currentPage = (self.currentPage + 1) % self.banners.count
                                         self.offset = -CGFloat(self.currentPage) * geometry.size.width
@@ -89,40 +100,92 @@ struct HomeView: View {
                             .offset(y: 75)
                         }
                     }
-                    .frame(height: 220)  // 200 for image and 20 for the dots
-
-//                    ScrollView(.horizontal, showsIndicators: false) {
-//                        HStack(spacing: 8) {
-//                            ForEach(recommendedBooks) { book in
-//                                BookView(book: book)
-//                            }
-//                        }
-//                    }
+                    .frame(height: 180)  // 200 for image and 20 for the dots
                     
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                        ForEach(recommendedBooks.indices, id: \.self) { index in
-                            BookView(book: recommendedBooks[index])
-//                                .frame(height: index % 2 == 0 ? 200 : 300)
-                                .frame(height: 240 )
+                    HStack {
+                        Text("Recommened Books")
+                            .padding(.horizontal)
+                            .font(.system(size: 22, weight: .bold))
+                            .foregroundColor(Color("OrangeMain"))
+                        Spacer()
+                    }
+                    .padding(.bottom, -2)
+                    .padding(.top)
+                    
+                    LazyVGrid(columns: columns, spacing: 15) {
+                        // Only display 10 books at once
+                        ForEach(Array(totalBooks.keys.sorted().prefix(displayedBooksCount)), id: \.self) { bookID in
+                            Button(action: {
+                                if let book = bookViewModel.books[bookID] {
+                                    bookViewModel.currentBook = book
+                                }
+                            }) {
+                                NavigationLink(destination: BookDetailView(bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)) {
+                                    if let book = bookViewModel.books[bookID] {
+                                        VStack {
+                                            BookView(book: book)
+                                                .onDisappear {
+                                                    bookViewModel.currentBook = book
+                                                }
+                                            Spacer()
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
-
+                    .background(GeometryReader {
+                        Color.clear.preference(key: ViewOffsetKey.self,
+                                               value: -$0.frame(in: .named("scrollView")).origin.y)
+                    })
+                    
+                    // Loading view
+                    if displayedBooksCount < totalBooks.count && isLoading {
+                        HStack {
+                            Spacer()
+                            ProgressView("Loading more...")
+                            Spacer()
+                        }
+                        .padding()
+                    }
+                    
                 }
-                
-
+                .coordinateSpace(name: "scrollView")
+                .onPreferenceChange(ViewOffsetKey.self) { offset in
+                    let threshold = CGFloat(displayedBooksCount) * 63 // Assume each row is 250 points high
+                    if offset > threshold && !isLoading {
+                        loadMoreBooks()
+                    }
+                }
             }
-            .background(Color(UIColor.secondarySystemBackground))
         }
+        .background(Color(UIColor.secondarySystemBackground))
         .frame(height: UIScreen.main.bounds.height-150)
         .ignoresSafeArea()
-        .border(.black)
+    }
+    
+    // load more book when user scroll to the end of scroll view
+    func loadMoreBooks() {
+        isLoading = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            displayedBooksCount += min(10, totalBooks.count - displayedBooksCount)
+            isLoading = false
+        }
     }
 }
 
 
+struct ViewOffsetKey: PreferenceKey {
+    typealias Value = CGFloat
+    static var defaultValue = CGFloat.zero
+    
+    static func reduce(value: inout Value, nextValue: () -> Value) {
+        value += nextValue()
+    }
+}
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(userViewModel: UserViewModel())
+        HomeView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

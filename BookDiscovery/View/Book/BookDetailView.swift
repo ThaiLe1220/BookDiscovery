@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct BookDetailView: View {
-    var book: Book = testBook
+    @ObservedObject var bookViewModel: BookViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
     
     @State var inWishList: Bool = false
-    
-
-    @StateObject var reviewViewModel: ReviewViewModel = ReviewViewModel()
     
     @State private var tabOverview: Bool = true
     @State private var tabDetail: Bool = false
@@ -26,10 +24,35 @@ struct BookDetailView: View {
                 ZStack {
                     Color(.gray)
                         .opacity(0.2)
-                    Image("thumbnail")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 200)
+                    
+                    if let imageURL = bookViewModel.currentBook.imageURL {
+                        AsyncImage(url: imageURL) { phase in
+                            switch phase {
+                            case .empty:
+                                Text("LOADING\nCOVER IMAGE")
+                                
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                                
+                            case .failure:
+                                Image("cover_unavailable")
+                                    .resizable()
+                                    .scaledToFit()
+                                
+                            @unknown default:
+                                // Handle unknown cases
+                                Text("WTF HAPPENED")
+                            }
+                        }
+                        .frame(width: 240, height: 380)
+                    } else {
+                        Image("thumbnail")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 240, height: 320)
+                    }
                     
                     VStack {
                         HStack {
@@ -59,7 +82,7 @@ struct BookDetailView: View {
                                 .frame(height: 50)
                                 .opacity(0.9)
                             HStack {
-                                Text(book.name)
+                                Text(bookViewModel.currentBook.name)
                                     .foregroundColor(.white)
                                     .bold()
                             }
@@ -108,9 +131,9 @@ struct BookDetailView: View {
                     HStack {
                         Text("Rating: ")
                             .bold()
-                        RatingView(rating: book.rating)
+                        RatingView(rating: bookViewModel.currentBook.rating)
                             .frame(width: 150)
-                        Text(String(book.rating))
+                        Text(String(bookViewModel.currentBook.rating))
                         Spacer()
                     }
                     .padding()
@@ -119,7 +142,7 @@ struct BookDetailView: View {
                         Text("Category: ")
                             .padding(.horizontal)
                             .bold()
-                        ForEach(book.category, id: \.self) { category in
+                        ForEach(bookViewModel.currentBook.category, id: \.self) { category in
                             Text(category)
                         }
                         Spacer()
@@ -130,19 +153,19 @@ struct BookDetailView: View {
                         Text("Author:")
                             .padding(.horizontal)
                             .bold()
-                        Text(book.author.name)
+                        Text(bookViewModel.currentBook.author.name)
                             .padding(.horizontal)
                         Spacer()
                     }
                     
-                    Text(book.headline)
+                    Text(bookViewModel.currentBook.headline)
                         .padding()
                         .lineSpacing(15)
                 }
                 
                 
                 if tabDetail {
-                    Text(book.description)
+                    Text((bookViewModel.currentBook.description))
                         .padding()
                         .lineSpacing(15)
                 }
@@ -154,11 +177,14 @@ struct BookDetailView: View {
                 }
             }
         }
+        .onAppear {
+            print(bookViewModel.currentBook)
+        }
     }
 }
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView()
+        BookDetailView(bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

@@ -28,8 +28,8 @@ class UserViewModel: ObservableObject {
     let fonts = ["San Francisco", "Helvetica", "Arial"]
     
     // Initializer
-    init(user: User = emptyUser) {
-        currentUser = user  // Initialize currentUser with default or provided user object
+    init() {
+        currentUser = emptyUser  // Initialize currentUser with default or provided user object
     }
     
     // Initialize User properties from a given dictionary
