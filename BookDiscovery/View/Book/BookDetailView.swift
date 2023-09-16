@@ -8,18 +8,7 @@
 import SwiftUI
 
 struct BookDetailView: View {
-    var book: Book = Book(
-        id: "0",
-        name: "Dune Official Movie Graphic Novel",
-        category: "Art & Photography",
-        headline: "Frank Herbert’s classic masterpiece—a triumph of the imagination and one of the bestselling science fiction novels of all time.",
-        price: 10.0,
-        rating: 3.8,
-        description: "Set on the desert planet Arrakis, Dune is the story of Paul Atreides—who would become known as Muad'Dib—and of a great family's ambition to bring to fruition mankind's most ancient and unattainable dream.A stunning blend of adventure and mysticism, environmentalism and politics, Dune won the first Nebula Award, shared the Hugo Award, and formed the basis of what is undoubtedly the grandest epic in science fiction.",
-        author: Author(
-            name: "Lilah Sturges"
-        )
-    )
+    var book: Book = testBook
     
     @State var inWishList: Bool = false
     
@@ -130,7 +119,9 @@ struct BookDetailView: View {
                         Text("Category: ")
                             .padding(.horizontal)
                             .bold()
-                        Text(book.category)
+                        ForEach(book.category, id: \.self) { category in
+                            Text(category)
+                        }
                         Spacer()
                     }
                     .padding(.bottom, 15)
