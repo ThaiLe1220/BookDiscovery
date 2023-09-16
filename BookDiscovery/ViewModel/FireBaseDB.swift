@@ -146,21 +146,31 @@ class FireBaseDB {
         }
     }
 
-    func getAllBooks(completion: @escaping ([String: Any]?) -> Void) {
+    func getAllBooks(completion: @escaping ([Book]?) -> Void) {
         // Get a reference to the Firebase Realtime Database
         let databaseRef = Database.database().reference()
 
         // Construct the path to the book using the bookID
         let booksRef = databaseRef.child("books")
-
+        
+        var result: [Book] = []
         // Retrieve the data at the specified path
         booksRef.observe(.childAdded, with: { (snapshot) in
             guard let childData = snapshot.value as? [String: Any] else {
                 print("No data found for child node: \(snapshot.key)")
                 return
             }
-            completion([snapshot.key: childData])
+            
+            var newBook: Book = emptyBook
+            
+            newBook.id = childData["id"] as? String ?? ""
+            
+            // Setup book JSON again to make a fit Book.self
+            result.append(newBook)
+
+            completion(result)
         })
+        
     }
     
     
@@ -182,5 +192,53 @@ class FireBaseDB {
 
            completion(imageURL)
        }
+    }
+    
+    // MARK: - Add Review
+    func addReview(userID: String, bookID: String, rating: Double, comment: String, completion: @escaping (Bool) -> Void) {
+        // Create a new document in the "users" collection
+        var newReview = emptyReview
+        var formattedDateForID: String {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMddhhmmss"
+            return dateFormatter.string(from: Date())
+        }
+        var formattedDateTime: String {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            return dateFormatter.string(from: Date())
+        }
+        newReview.id = "\(formattedDateForID)_\(userID)_\(bookID)"
+        newReview.userID = userID
+        newReview.bookID = bookID
+        newReview.date = formattedDateTime
+        newReview.rating = rating
+        newReview.comment = comment
+        
+        db.collection("reviews").addDocument(data: ReviewViewModel(from: newReview).toDictionary()) { error in
+            if error != nil {
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
+
+    // MARK: - get All Reviews
+    func getAllReviews(bookID: String, completion: @escaping ([Review]?) -> Void) {
+        db.collection("reviews").whereField("bookID", isEqualTo: bookID).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching reviews: \(error.localizedDescription)")
+                completion(nil)
+            } else {
+                var result: [Review] = []
+                for document in querySnapshot!.documents {
+                    if let review = try? document.data(as: Review.self) {
+                        result.append(review)
+                    }
+                }
+                completion(result)
+            }
+        }
     }
 }

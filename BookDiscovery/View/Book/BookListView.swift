@@ -15,13 +15,10 @@ struct BookListView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(bookViewModel.books.keys.sorted(), id: \.self) { bookID in
-
-                    if let book = bookViewModel.books[bookID] {
-                        VStack {
-                            BookView(book: book)
-                            Spacer()
-                        }
+                ForEach(bookViewModel.books, id: \.id) { book in
+                    VStack {
+                        BookView(book: book)
+                        Spacer()
                     }
                 }
             }
