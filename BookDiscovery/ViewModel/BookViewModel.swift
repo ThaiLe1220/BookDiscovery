@@ -27,12 +27,11 @@ class BookViewModel: ObservableObject {
                             
                             book.id = key
                             book.name = bookInfo["name"] as? String ?? ""
-                            book.category = bookInfo["category"] as? String ?? ""
+                            book.category = bookInfo["category"] as? [String] ?? []
                             book.headline = bookInfo["headline"] as? String ?? ""
                             book.description = bookInfo["description"] as? String ?? ""
-                            book.price = bookInfo["price"] as? Double ?? 0.0
                             book.rating = bookInfo["rating"] as? Double ?? 0.0
-                            
+                            book.totalRated = bookInfo["totalRated"] as? Int ?? 0
                             let author = bookInfo["author"] as? [String : Any] ?? [:]
                             book.author.name = author["name"] as? String ?? ""
                             
@@ -54,13 +53,12 @@ class BookViewModel: ObservableObject {
     func initBook(from dictionary: [String: Any]) {
         self.currentBook.id = dictionary["id"] as? String ?? ""
         self.currentBook.name = dictionary["name"] as? String ?? ""
-        self.currentBook.category = dictionary["category"] as? String ?? ""
+        self.currentBook.category = dictionary["category"] as? [String] ?? []
         self.currentBook.headline = dictionary["headline"] as? String ?? ""
         self.currentBook.description = dictionary["description"] as? String ?? ""
         
-        self.currentBook.price = dictionary["price"] as? Double ?? 0.0
         self.currentBook.rating = dictionary["rating"] as? Double ?? 0.0
-
+        self.currentBook.totalRated = dictionary["totalRated"] as? Int ?? 0
 
         let author = dictionary["author"] as? [String : Any] ?? [:]
 //        self.currentBook.author.id = author["id"] as? String ?? ""
@@ -81,10 +79,8 @@ class BookViewModel: ObservableObject {
         dictionary["category"] = self.currentBook.category
         dictionary["headline"] = self.currentBook.headline
         dictionary["description"] = self.currentBook.description
-
-        dictionary["price"] = self.currentBook.price
         dictionary["rating"] = self.currentBook.rating
-
+        dictionary["totalRated"] = self.currentBook.totalRated
         dictionary["author"] = [
 //            "id" : self.currentBook.author.id,
             "name" : self.currentBook.author.name

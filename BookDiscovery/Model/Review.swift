@@ -14,6 +14,8 @@ struct Review: Codable {
     var date: String
     var rating: Double
     var comment: String
+    var likes: Int
+    var votedUserIds: [String]
 }
 
 let emptyReview = Review(
@@ -22,7 +24,10 @@ let emptyReview = Review(
     bookID: "",
     date: "",
     rating: 0.0,
-    comment: ""
+    comment: "",
+    likes: 0,
+    votedUserIds: []
+
 )
 
 let testReview1 = Review(
@@ -30,8 +35,10 @@ let testReview1 = Review(
     userID: "User ID/Username 1",
     bookID: "Current Book ID",
     date: "",
-    rating: 3.5,
-    comment: "This is a comment from user 1"
+    rating: 5,
+    comment: "Test Review 1",
+    likes: 0,
+    votedUserIds: ["1"]
 )
 
 
@@ -40,6 +47,9 @@ let testReview2 = Review(
     userID: "User ID/Username 2",
     bookID: "Current Book ID",
     date: "",
-    rating: 4,
-    comment: "This is a comment from user 2"
+    rating: 3,
+    comment: "Test Review 2",
+    likes: 0,
+    votedUserIds: ["2"]
+
 )

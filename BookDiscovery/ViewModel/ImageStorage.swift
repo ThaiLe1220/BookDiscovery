@@ -48,7 +48,6 @@ class ImageStorage {
         }
     }
     
-    
     // MARK: - Upload Background Image
     // Function to upload background image to Firebase Storage
     func uploadBackground(image: UIImage) {

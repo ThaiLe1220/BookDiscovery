@@ -132,11 +132,11 @@ class FireBaseDB {
                 var book: Book = emptyBook
                 book.id = bookID
                 book.name = value?["name"] as? String ?? ""
-                book.category = value?["category"] as? String ?? ""
+                book.category = value?["category"] as? [String] ?? []
                 book.headline = value?["headline"] as? String ?? ""
                 book.description = value?["description"] as? String ?? ""
-                book.price = value?["price"] as? Double ?? 0.0
                 book.rating = value?["rating"] as? Double ?? 0.0
+                book.totalRated = value?["totalRated"] as? Int ?? 0
                 let author = value?["author"] as? [String: Any] ?? [:]
                 book.author.name = author["name"] as? String ?? ""
                 book.imageURL = imageURL
