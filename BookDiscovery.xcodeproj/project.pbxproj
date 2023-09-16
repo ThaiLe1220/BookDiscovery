@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		954557882AAF0C32003F1C7E /* BookDiscoveryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954557872AAF0C32003F1C7E /* BookDiscoveryApp.swift */; };
 		9545578A2AAF0C32003F1C7E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954557892AAF0C32003F1C7E /* ContentView.swift */; };
-		9545578C2AAF0C34003F1C7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9545578B2AAF0C34003F1C7E /* Assets.xcassets */; };
 		9545578F2AAF0C34003F1C7E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9545578E2AAF0C34003F1C7E /* Preview Assets.xcassets */; };
 		954557982AAF186D003F1C7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 954557972AAF186D003F1C7E /* GoogleService-Info.plist */; };
 		A2FAC9D02AAF0DB900779CAA /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A2FAC9CF2AAF0DB900779CAA /* FirebaseAuth */; };
@@ -54,6 +53,7 @@
 		DE4E3FE92AB333A50000EFEB /* CommentProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4E3FE82AB333A50000EFEB /* CommentProfileView.swift */; };
 		DE4E3FF62AB335510000EFEB /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4E3FF42AB335510000EFEB /* ResetPasswordView.swift */; };
 		DE4E3FF72AB335510000EFEB /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4E3FF52AB335510000EFEB /* ChangePasswordView.swift */; };
+		DE5C49BB2AB48B81003EFB6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE5C49BA2AB48B81003EFB6E /* Assets.xcassets */; };
 		DE74AF6B2AB41D97008C0754 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE74AF6A2AB41D97008C0754 /* MainView.swift */; };
 		DE74AF6D2AB42741008C0754 /* UserAppearanceSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */; };
 		DEFC8B6F2AB462BE00A23D35 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFC8B6E2AB462BE00A23D35 /* Review.swift */; };
@@ -65,7 +65,6 @@
 		954557842AAF0C32003F1C7E /* BookDiscovery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookDiscovery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		954557872AAF0C32003F1C7E /* BookDiscoveryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDiscoveryApp.swift; sourceTree = "<group>"; };
 		954557892AAF0C32003F1C7E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		9545578B2AAF0C34003F1C7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9545578E2AAF0C34003F1C7E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		954557972AAF186D003F1C7E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A2FAC9E42AAF0E1B00779CAA /* UserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -101,6 +100,7 @@
 		DE4E3FE82AB333A50000EFEB /* CommentProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentProfileView.swift; sourceTree = "<group>"; };
 		DE4E3FF42AB335510000EFEB /* ResetPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		DE4E3FF52AB335510000EFEB /* ChangePasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		DE5C49BA2AB48B81003EFB6E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE74AF6A2AB41D97008C0754 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAppearanceSettingView.swift; sourceTree = "<group>"; };
 		DEFC8B6E2AB462BE00A23D35 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 				A2FAC9E12AAF0DE100779CAA /* View */,
 				954557872AAF0C32003F1C7E /* BookDiscoveryApp.swift */,
 				954557972AAF186D003F1C7E /* GoogleService-Info.plist */,
-				9545578B2AAF0C34003F1C7E /* Assets.xcassets */,
+				DE5C49BA2AB48B81003EFB6E /* Assets.xcassets */,
 				9545578D2AAF0C34003F1C7E /* Preview Content */,
 			);
 			path = BookDiscovery;
@@ -169,22 +169,19 @@
 		A2FAC9E12AAF0DE100779CAA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DE4E3FDE2AB333450000EFEB /* Book */,
-				DE4E3FE12AB333590000EFEB /* Rating */,
 				DE3B2FC02AB2EDE2000F8B93 /* TestView.swift */,
 				954557892AAF0C32003F1C7E /* ContentView.swift */,
 				DE74AF6A2AB41D97008C0754 /* MainView.swift */,
 				DE3B2FC22AB2F3DE000F8B93 /* NavigationBar.swift */,
-				DE3B2FC42AB2FA95000F8B93 /* HomeView.swift */,
-				DE3B2FC62AB2FB99000F8B93 /* BrowseView.swift */,
-				DE3B2FC82AB2FBC6000F8B93 /* SearchView.swift */,
-				DE3B2FCA2AB2FBEA000F8B93 /* WishlistView.swift */,
 				DE3B2FCC2AB2FC12000F8B93 /* NotificationsView.swift */,
-				DE3B2FBE2AB2DDCC000F8B93 /* SettingView.swift */,
-				DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */,
+				DE5C49B62AB47E33003EFB6E /* Wishslist Page */,
+				DE5C49B52AB47E26003EFB6E /* Search Page */,
+				DE5C49B42AB47E1C003EFB6E /* Browse Page */,
+				DE5C49B32AB47E0B003EFB6E /* Home Page */,
+				DE5C49B72AB47E48003EFB6E /* Setting Page */,
 				CDD2FFFD2AB1854B0016A86D /* User */,
-				CDD2FFFC2AB185370016A86D /* Profile */,
-				CDD2FFFF2AB185830016A86D /* Toast */,
+				DE4E3FDE2AB333450000EFEB /* Book */,
+				DE4E3FE12AB333590000EFEB /* Rating */,
 				CDD2FFFE2AB185710016A86D /* ImagePicker */,
 			);
 			path = View;
@@ -227,7 +224,8 @@
 		CDD2FFFD2AB1854B0016A86D /* User */ = {
 			isa = PBXGroup;
 			children = (
-				A2FAC9F32AAF0FC200779CAA /* UserAccountSettingView.swift */,
+				CDD2FFFF2AB185830016A86D /* Toast */,
+				CDD2FFFC2AB185370016A86D /* Profile */,
 				A2FAC9EF2AAF0F0700779CAA /* UserSignInView.swift */,
 				A2FAC9F52AAF16E200779CAA /* UserSignUpView.swift */,
 				DE4E3FF52AB335510000EFEB /* ChangePasswordView.swift */,
@@ -272,6 +270,48 @@
 				DE4E3FE82AB333A50000EFEB /* CommentProfileView.swift */,
 			);
 			path = Rating;
+			sourceTree = "<group>";
+		};
+		DE5C49B32AB47E0B003EFB6E /* Home Page */ = {
+			isa = PBXGroup;
+			children = (
+				DE3B2FC42AB2FA95000F8B93 /* HomeView.swift */,
+			);
+			path = "Home Page";
+			sourceTree = "<group>";
+		};
+		DE5C49B42AB47E1C003EFB6E /* Browse Page */ = {
+			isa = PBXGroup;
+			children = (
+				DE3B2FC62AB2FB99000F8B93 /* BrowseView.swift */,
+			);
+			path = "Browse Page";
+			sourceTree = "<group>";
+		};
+		DE5C49B52AB47E26003EFB6E /* Search Page */ = {
+			isa = PBXGroup;
+			children = (
+				DE3B2FC82AB2FBC6000F8B93 /* SearchView.swift */,
+			);
+			path = "Search Page";
+			sourceTree = "<group>";
+		};
+		DE5C49B62AB47E33003EFB6E /* Wishslist Page */ = {
+			isa = PBXGroup;
+			children = (
+				DE3B2FCA2AB2FBEA000F8B93 /* WishlistView.swift */,
+			);
+			path = "Wishslist Page";
+			sourceTree = "<group>";
+		};
+		DE5C49B72AB47E48003EFB6E /* Setting Page */ = {
+			isa = PBXGroup;
+			children = (
+				DE3B2FBE2AB2DDCC000F8B93 /* SettingView.swift */,
+				DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */,
+				A2FAC9F32AAF0FC200779CAA /* UserAccountSettingView.swift */,
+			);
+			path = "Setting Page";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -347,7 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9545578F2AAF0C34003F1C7E /* Preview Assets.xcassets in Resources */,
-				9545578C2AAF0C34003F1C7E /* Assets.xcassets in Resources */,
+				DE5C49BB2AB48B81003EFB6E /* Assets.xcassets in Resources */,
 				954557982AAF186D003F1C7E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
