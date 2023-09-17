@@ -10,7 +10,6 @@ struct UserAccountSettingView: View {
 
     // Local states for UI elements
     @State private var enabledEdit: Bool = false
-    @State private var user: User?
     @State private var showToast: Bool = false
 
 
@@ -80,24 +79,18 @@ struct UserAccountSettingView: View {
 
                             // Edit/Update toggle button
                             Button {
-                                enabledEdit.toggle()
-                                
-                                // Update user data
-                                if enabledEdit == false {
-                                    if let user = user {
-                                        FireBaseDB().updateUser(user: user) { _ in
-                                            showToast = true
-                                            userViewModel.currentUser = user
-                                            
-                                            // Hide toast after 3 seconds
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                                showToast = false
-                                            }
+
+                                if enabledEdit == true {
+                                    FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
+                                        if success {
+                                            print("User updated data successfully")                                            
+                                        } else {
+                                            print (error?.localizedDescription ?? "Unknown error")
                                         }
-                                    } else {
-                                        
                                     }
                                 }
+                                enabledEdit.toggle()
+                                
                             } label: {
                                 Text(enabledEdit ? "Update" : "Edit")
                                     .font(.system(size: 14, weight: .semibold))

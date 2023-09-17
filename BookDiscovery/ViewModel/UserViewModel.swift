@@ -49,21 +49,21 @@ class UserViewModel: ObservableObject {
     }
     
     // Convert User properties to dictionary format
-    func toDictionary() -> [String: Any] {
+    func toDictionary(user: User) -> [String: Any] {
         var dictionary: [String: Any] = [:]
-        dictionary["id"] = self.currentUser.id
-        dictionary["email"] = self.currentUser.email
-        dictionary["name"] = self.currentUser.name
+        dictionary["id"] = user.id
+        dictionary["email"] = user.email
+        dictionary["name"] = user.name
         
         // Convert 'address' to sub-dictionary
         dictionary["address"] = [
-            "street" : self.currentUser.address.street,
-            "city" : self.currentUser.address.city,
-            "country" : self.currentUser.address.country
+            "street" : user.address.street,
+            "city" : user.address.city,
+            "country" : user.address.country
         ]
         
         // Include bio
-        dictionary["bio"] = self.currentUser.bio
+        dictionary["bio"] = user.bio
         
         return dictionary
     }

@@ -29,7 +29,7 @@ class FireBaseDB {
         newUser.name = userName
         newUser.bio = "Hello, I am new here ;D"
         
-        db.collection("users").addDocument(data: UserViewModel().toDictionary()) { error in
+        db.collection("users").addDocument(data: UserViewModel().toDictionary(user: newUser)) { error in
             if error != nil {
                 // Return failure if an error occurs
                 completion(false)
@@ -66,18 +66,18 @@ class FireBaseDB {
 
     // MARK: - Update
     // Function to update existing user data
-    func updateUser(user: User, completion: @escaping (Bool) -> Void) {
+    func updateUser(user: User, completion: @escaping (Bool, Error?) -> Void) {
         // Get email from user object
         let userEmail = user.email
 
         // Convert User object to a dictionary
-        let userData = UserViewModel().toDictionary()
+        let userData = UserViewModel().toDictionary(user: user)
         
         // Search for the user by email
         db.collection("users").whereField("email", isEqualTo: userEmail).getDocuments { (querySnapshot, error) in
             if error != nil{
                 // Return failure if an error occurs
-                completion(false)
+                completion(false, error)
             } else {
                 // Update the found document with new data
                 if let document = querySnapshot?.documents.first {
@@ -85,16 +85,16 @@ class FireBaseDB {
                     db.collection("users").document(userID).setData(userData) { error in
                         if error != nil {
                             // Return failure if an error occurs
-                            completion(false)
+                            completion(false, error)
                         } else {
                             // Otherwise, return success
-                            completion(true)
+                            completion(true, nil)
                         }
                     }
                 } else {
                     // Print message and return false if no user is found
                     print("User with email \(userEmail) not found.")
-                    completion(false)
+                    completion(false, error)
                 }
             }
         }
