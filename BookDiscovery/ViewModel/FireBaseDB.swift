@@ -256,4 +256,31 @@ class FireBaseDB {
             }
         }
     }
+    
+    
+    
+    func getAllCategories(completion: @escaping (Category?) -> Void) {
+        // Get a reference to the Firebase Realtime Database
+        let databaseRef = Database.database().reference()
+
+        // Construct the path to the book using the bookID
+        let categoriesRef = databaseRef.child("category")
+        
+        // Retrieve the data at the specified path
+        categoriesRef.observe(.childAdded, with: { (snapshot) in
+            guard let childData = snapshot.value as? [String: Any] else {
+                print("No data found for child node: \(snapshot.key)")
+                return
+            }
+            
+            var newCategory: Category = emptyCategory
+            
+            newCategory.id = childData["id"] as? String ?? ""
+            newCategory.name = childData["name"] as? String ?? ""
+            newCategory.description = childData["description"] as? String ?? ""
+            
+            completion(newCategory)
+        })
+        
+    }
 }

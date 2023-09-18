@@ -22,7 +22,7 @@ struct ContentView: View {
 //                UserSignInView(userViewModel: userViewModel)
 //            }
 //        }
-        BookDetailView()
+        CategoryView()
     }
 }
 
