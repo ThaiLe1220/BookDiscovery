@@ -8,7 +8,7 @@
 import Foundation
 
 struct Book: Codable, Identifiable {
-    var id: String?
+    var id: String
     var name: String
     var category: [String]
     var headline: String
@@ -34,7 +34,7 @@ let emptyBook = Book(
 )
 
 let testBook = Book(
-    id: "-1",
+    id: "1",
     name: "Dune Official Movie Graphic Novel",
     category: ["Art & Photography"],
     headline: "Frank Herbert’s classic masterpiece—a triumph of the imagination and one of the bestselling science fiction novels of all time.",

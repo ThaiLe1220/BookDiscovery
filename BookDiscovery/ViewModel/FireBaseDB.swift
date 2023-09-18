@@ -146,14 +146,13 @@ class FireBaseDB {
         }
     }
 
-    func getAllBooks(completion: @escaping ([Book]?) -> Void) {
+    func getAllBooks(completion: @escaping (Book?) -> Void) {
         // Get a reference to the Firebase Realtime Database
         let databaseRef = Database.database().reference()
 
         // Construct the path to the book using the bookID
         let booksRef = databaseRef.child("books")
         
-        var result: [Book] = []
         // Retrieve the data at the specified path
         booksRef.observe(.childAdded, with: { (snapshot) in
             guard let childData = snapshot.value as? [String: Any] else {
@@ -163,12 +162,28 @@ class FireBaseDB {
             
             var newBook: Book = emptyBook
             
-            newBook.id = childData["id"] as? String ?? ""
-            
-            // Setup book JSON again to make a fit Book.self
-            result.append(newBook)
+            let idToString = childData["id"] as? Int ?? 0
 
-            completion(result)
+            newBook.id = String(idToString)
+            newBook.name = childData["name"] as? String ?? ""
+            newBook.category = childData["category"] as? [String] ?? []
+            newBook.headline = childData["headline"] as? String ?? ""
+            newBook.rating = childData["rating"] as? Double ?? 0.0
+            newBook.totalRated = childData["totalRated"] as? Int ?? 0
+            newBook.description = childData["description"] as? String ?? ""
+            
+            
+            let author = childData["author"] as? [String: Any] ?? [:]
+            newBook.author.name = author["name"] as? String ?? ""
+
+            // Handle image URL
+            if let imageURLString = childData["imageURL"] as? String, let imageURL = URL(string: imageURLString) {
+                newBook.imageURL = imageURL
+            } else {
+                newBook.imageURL = nil
+            }
+            
+            completion(newBook)
         })
         
     }

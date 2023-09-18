@@ -121,11 +121,15 @@ struct BookDetailView: View {
                             Text("Category: ")
                                 .padding(.horizontal)
                                 .bold()
+                            
+                            
+                            Spacer()
+                        }
+                        
+                        VStack {
                             ForEach(book.category, id: \.self) { category in
                                 Text(category)
                             }
-                            
-                            Spacer()
                         }
                         .padding(.bottom, 15)
                         
@@ -152,6 +156,9 @@ struct BookDetailView: View {
                     
                     if tabReview {
 
+                        InputCommentView()
+                            .padding()
+                        
                         if reviewViewModel.reviews.count == 0 {
                             Text("No reviews yet!")
                         } else {
@@ -189,7 +196,7 @@ struct BookDetailView: View {
         
         
         .onAppear {
-            reviewViewModel.getReviews(bookID: book.id!)
+            reviewViewModel.getReviews(bookID: book.id)
         }
     }
 }

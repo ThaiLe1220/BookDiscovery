@@ -15,26 +15,18 @@ class BookViewModel: ObservableObject {
     init (book: Book = emptyBook) {
         currentBook = book
         initAllBooks()
+        
     }
     
     func initAllBooks() {
         FireBaseDB().getAllBooks() { result in
             DispatchQueue.main.async {
                 if let bookData = result {
-                    for bookInfo in bookData {
-                        // Handle image URL
-//                        if let imageURLString = bookInfo.imageURL as? String, let imageURL = URL(string: imageURLString) {
-//                            bookInfo.imageURL = imageURL
-//                        } else {
-//                            bookInfo.imageURL = nil
-//                        }
-                        
-                        self.books.append(bookInfo)
-                        }
-                    
+                    self.books.append(bookData)
                 }
             }
         }
+        
     }
     
     func initBook(from dictionary: [String: Any]) {
