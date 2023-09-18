@@ -61,11 +61,9 @@ struct BookDetailView: View {
                                     .foregroundColor(.red)
                                     .frame(height: 50)
                                     .opacity(0.9)
-                                HStack {
-                                    Text(book.name)
-                                        .foregroundColor(.white)
-                                        .bold()
-                                }
+                                Text(book.name)
+                                    .foregroundColor(.white)
+                                    .bold()
                             }
                         }
                     }

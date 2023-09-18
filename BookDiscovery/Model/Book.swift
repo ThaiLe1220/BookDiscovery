@@ -51,7 +51,7 @@ let testBook = Book(
 let testBook1 = Book(
     id: "-1",
     name: "Dune Official Movie Graphic Novel",
-    category: ["ScienceFiction"],
+    category: ["Science Fiction"],
     headline: "Frank Herbert’s classic masterpiece—a triumph of the imagination and one of the bestselling science fiction novels of all time.",
     rating: 3.8,
     totalRated: 10000,

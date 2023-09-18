@@ -278,6 +278,7 @@ class FireBaseDB {
             newCategory.id = childData["id"] as? String ?? ""
             newCategory.name = childData["name"] as? String ?? ""
             newCategory.description = childData["description"] as? String ?? ""
+            newCategory.image = childData["image"] as? String ?? ""
             
             completion(newCategory)
         })

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CategoryViewModel {
+class CategoryViewModel: ObservableObject {
     @Published var categories: [Category] = []
     
     init() {

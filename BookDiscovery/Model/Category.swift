@@ -11,16 +11,19 @@ struct Category {
     var id: String
     var name: String
     var description: String
+    var image: String
 }
 
 let emptyCategory: Category = Category(
     id: "-1",
     name: "",
-    description: ""
+    description: "",
+    image: ""
 )
 
 let testCategory: Category = Category(
     id: "1",
-    name: "Category 1",
-    description: "Description 1"
+    name: "Art & Photography",
+    description: "Description 1",
+    image: "art-and-photography"
 )
