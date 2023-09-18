@@ -15,10 +15,11 @@ struct BookDetailView: View {
 
     @StateObject var reviewViewModel: ReviewViewModel = ReviewViewModel()
     
-    
     @State private var tabOverview: Bool = true
     @State private var tabDetail: Bool = false
     @State private var tabReview: Bool = false
+    
+    @State private var selectedOption = 0
     
     
     var body: some View {
@@ -155,15 +156,73 @@ struct BookDetailView: View {
                     }
                     
                     if tabReview {
-
-                        InputCommentView()
+                        
+                        InputCommentView(bookID: book.id) { result in
+                            if let review = result {
+                                reviewViewModel.reviews.append(review)
+                            }
+                        }
+                        .padding()
+                    
+                        Divider()
+                        
+                        HStack {
+                            Text("Average: ")
+                                .padding(.leading, 30)
+                            Text(reviewViewModel.getAvg())
+                            
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.yellow)
+                            
+                            Spacer()
+                            
+                            Picker("Select an option", selection: $selectedOption) {
+                                ForEach(0...5, id: \.self) { index in
+                                    if index == 0 {
+                                        Text("All")
+                                    } else {
+                                        Text(String(repeating: "★", count: 6-index))
+                                            .font(.largeTitle)
+                                    }
+                                }
+                            }
+                            .pickerStyle(DefaultPickerStyle())
                             .padding()
+                        }
+                        
                         
                         if reviewViewModel.reviews.count == 0 {
                             Text("No reviews yet!")
                         } else {
                             ForEach(reviewViewModel.reviews, id: \.id) { review in
-                                CommentView(review: review)
+                                if selectedOption == 0 {
+                                    CommentView(review: review)
+                                } else {
+                                    switch review.rating {
+                                    case 1:
+                                        if selectedOption == 5 {
+                                            CommentView(review: review)
+                                        }
+                                    case 2:
+                                        if selectedOption == 4 {
+                                            CommentView(review: review)
+                                        }
+                                    case 3:
+                                        if selectedOption == 3 {
+                                            CommentView(review: review)
+                                        }
+                                    case 4:
+                                        if selectedOption == 2 {
+                                            CommentView(review: review)
+                                        }
+                                    case 5:
+                                        if selectedOption == 1 {
+                                            CommentView(review: review)
+                                        }
+                                    default:
+                                        EmptyView()
+                                    }
+                                }
                             }
                         }
                         

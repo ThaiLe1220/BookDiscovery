@@ -6,10 +6,20 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct InputCommentView: View {
+    var bookID: String
+    
     @State private var content: String = ""
     @State private var numStar: Int = 0
+    @State private var announcement: String = ""
+    @State private var isError: Bool = true
+    
+    
+    var completion: (Review?) -> Void
+    
+    
     
     var body: some View {
         VStack {
@@ -23,6 +33,7 @@ struct InputCommentView: View {
                     .gesture(
                         TapGesture(count: 1)
                             .onEnded { _ in
+                                announcement = ""
                                 if numStar == 1 {
                                     numStar = 0
                                 } else {
@@ -36,6 +47,7 @@ struct InputCommentView: View {
                     .gesture(
                         TapGesture(count: 1)
                             .onEnded { _ in
+                                announcement = ""
                                 if numStar == 2 {
                                     numStar = 0
                                 } else {
@@ -48,6 +60,7 @@ struct InputCommentView: View {
                     .gesture(
                         TapGesture(count: 1)
                             .onEnded { _ in
+                                announcement = ""
                                 if numStar == 3 {
                                     numStar = 0
                                 } else {
@@ -60,6 +73,7 @@ struct InputCommentView: View {
                     .gesture(
                         TapGesture(count: 1)
                             .onEnded { _ in
+                                announcement = ""
                                 if numStar == 4 {
                                     numStar = 0
                                 } else {
@@ -72,6 +86,7 @@ struct InputCommentView: View {
                     .gesture(
                         TapGesture(count: 1)
                             .onEnded { _ in
+                                announcement = ""
                                 if numStar == 5 {
                                     numStar = 0
                                 } else {
@@ -90,18 +105,42 @@ struct InputCommentView: View {
                 .frame(minHeight: 100)
                 .border(.gray, width: 2)
                 .padding(.horizontal)
+                .onChange(of: content) { newValue in
+                    announcement = ""
+                }
             
-            Button {
+            HStack {
+                Text(announcement)
+                    .padding(.horizontal)
+                    .foregroundColor(isError ? .red : .green)
                 
-            } label: {
-                Text("Submit")
+                Spacer()
+                
+                Button {
+                    if numStar == 0 || content == "" {
+                        announcement = "Invalid!"
+                        isError = true
+                        return
+                    }
+                    
+                    if let userID = Auth.auth().currentUser?.uid {
+                        FireBaseDB().addReview(userID: userID, bookID: bookID, rating: Double(numStar), comment: content) { success in
+                            if let review = success {
+                                content = ""
+                                numStar = 0
+                                announcement = "Successful!"
+                                isError = false
+                                completion(review)
+                            } else {
+                                completion(nil)
+                            }
+                        }
+                    }
+                } label: {
+                    Text("Send")
+                }
+                .padding(.horizontal)
             }
         }
-    }
-}
-
-struct InputCommentView_Previews: PreviewProvider {
-    static var previews: some View {
-        InputCommentView()
     }
 }

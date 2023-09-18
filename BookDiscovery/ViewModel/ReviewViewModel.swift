@@ -42,4 +42,13 @@ class ReviewViewModel: ObservableObject {
         
         return dictionary
     }
+    
+    func getAvg() -> String {
+        var average: Double = 0.0
+        for review in reviews {
+            average += Double(review.rating)
+        }
+        average /= Double(reviews.count)
+        return String(format: "%.1f", average)
+    }
 }

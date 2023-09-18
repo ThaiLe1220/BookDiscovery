@@ -210,7 +210,7 @@ class FireBaseDB {
     }
     
     // MARK: - Add Review
-    func addReview(userID: String, bookID: String, rating: Double, comment: String, completion: @escaping (Bool) -> Void) {
+    func addReview(userID: String, bookID: String, rating: Double, comment: String, completion: @escaping (Review?) -> Void) {
         // Create a new document in the "users" collection
         var newReview = emptyReview
         var formattedDateForID: String {
@@ -232,9 +232,9 @@ class FireBaseDB {
         
         db.collection("reviews").addDocument(data: ReviewViewModel(from: newReview).toDictionary()) { error in
             if error != nil {
-                completion(false)
+                completion(nil)
             } else {
-                completion(true)
+                completion(newReview)
             }
         }
     }
