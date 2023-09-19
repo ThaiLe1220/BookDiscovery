@@ -23,6 +23,7 @@ class UserViewModel: ObservableObject {
     @Published var selectedTheme: String = "System"
     @Published var selectedFont: String = "San Francisco"
     @Published var selectedFontSize: CGFloat = 16.0
+    @Published var darkMode: Bool = false
     
     let themes = ["System", "Light", "Dark"]
     let fonts = ["San Francisco", "Helvetica", "Arial"]

@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct SettingView: View {
+    @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -33,7 +34,7 @@ struct SettingView: View {
                     }
 
                     settingRow(name: "Notifications", destination: UserNotificationSettingView())
-                    settingRow(name: "Appearances", destination: UserAppearanceSettingView(userViewModel: userViewModel))
+                    settingRow(name: "Appearances", destination: UserAppearanceSettingView(isOn: $isOn, userViewModel: userViewModel))
                     settingRow(name: "Help & Support", destination: UserHelpSettingView())
                     settingRow(name: "About", destination: UserAboutSettingView())
                 }
@@ -89,6 +90,6 @@ struct UserAboutSettingView: View {
 
 struct UserSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView(userViewModel: UserViewModel())
+        SettingView(isOn: .constant(false), userViewModel: UserViewModel())
     }
 }

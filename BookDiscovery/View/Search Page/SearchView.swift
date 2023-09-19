@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
+    @Binding var isOn: Bool
     @ObservedObject var userViewModel : UserViewModel
 
     var body: some View {
@@ -17,7 +18,7 @@ struct SearchView: View {
                 Text("Search View")
                 
                 Spacer()
-                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
@@ -29,6 +30,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(userViewModel: UserViewModel())
+        SearchView(isOn: .constant(false), userViewModel: UserViewModel())
     }
 }

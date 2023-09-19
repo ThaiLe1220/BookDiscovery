@@ -13,17 +13,18 @@ struct ContentView: View {
     @StateObject var userViewModel = UserViewModel()
     @StateObject var bookViewModel = BookViewModel()
     @StateObject var reviewViewModel = ReviewViewModel()
+    @State private var isOn: Bool = false
 
     // The main body of the ContentView
     var body: some View {
         NavigationView {
             if userViewModel.isSignedIn {
-                MainView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: ReviewViewModel())
+                MainView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: ReviewViewModel())
             }
             else {
-                UserSignInView(userViewModel: userViewModel)
+                UserSignInView(isOn: $isOn, userViewModel: userViewModel)
             }
-        }
+        }.environment(\.colorScheme, isOn ? .dark : .light)
     }
 }
 
