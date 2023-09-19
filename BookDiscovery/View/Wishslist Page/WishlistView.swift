@@ -29,7 +29,7 @@ struct WishlistView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                NavigationBar(userViewModel: userViewModel)
+//                NavigationBar(userViewModel: userViewModel)
                 
                 LazyVGrid(columns: columns, spacing: 15) {
                     // Only display 10 books at once

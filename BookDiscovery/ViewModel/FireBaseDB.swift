@@ -216,21 +216,6 @@ class FireBaseDB {
         }
     }
     
-    // Update user search history
-    func updateUserSearchHistory(user: User, completion: @escaping (Bool) -> Void) {
-        let userRef = Firestore.firestore().collection("users").document(user.id ?? "")
-
-        userRef.updateData(["searchHistory": user.searchHistory]) { error in
-            if let error = error {
-                print("Error updating search history: \(error.localizedDescription)")
-                completion(false)
-            } else {
-                print("Search history updated successfully.")
-                completion(true)
-            }
-        }
-    }
-    
     func fetchBookImageURL(bookID: String, completion: @escaping (URL?) -> Void) {
     // Get a reference to the Firebase Realtime Database
        let databaseRef = Database.database().reference()

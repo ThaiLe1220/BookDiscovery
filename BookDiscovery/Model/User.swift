@@ -41,8 +41,7 @@ let testUser = User(
     address: Address(street: "nguyen huu canh", city: "ho chi minh city", country: "viet nam"),
     bio: "I love books in general",
     wishlist: ["0", "1"],
-    searchHistory: ["0", "1"],
-    wishlist: ["0", "1"]
+    searchHistory: ["0", "1"]
 )
 
 
