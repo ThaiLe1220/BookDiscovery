@@ -13,7 +13,6 @@ class BookViewModel: ObservableObject {
     @Published var books: [Book] = []
     @Published var loves: [Book] = []
     
-    
     init () {
         currentBook = emptyBook
         initAllBooks()
@@ -64,8 +63,8 @@ class BookViewModel: ObservableObject {
 //            "id" : self.currentBook.author.id,
             "name" : self.currentBook.author.name
         ]
-        
         return dictionary
     }
 
+    
 }

@@ -46,7 +46,7 @@ struct MainView: View {
                     }
     
                 /// My Books
-                WishlistView(userViewModel: userViewModel)
+                WishlistView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("My Books", systemImage: "heart.circle")}
                     .tag(3)
                     .onAppear {

@@ -18,6 +18,7 @@ struct User: Codable, Identifiable {
     var name: String  // User's name
     var address: Address // Struct containing address details
     var bio: String  // User's bio or description
+    var wishlist: [String] // Books that are wishlisted by user
 
 }
 // Initialize with default empty values
@@ -26,7 +27,9 @@ let emptyUser = User(
     email: "",
     name: "",
     address: Address(street: "", city: "", country: ""),
-    bio: ""
+    bio: "",
+    wishlist: []
+
 )
 
 // A sample user for testing purposes
@@ -35,5 +38,6 @@ let testUser = User(
     email: "thai@gmail.com",
     name: "eugene",
     address: Address(street: "nguyen huu canh", city: "ho chi minh city", country: "viet nam"),
-    bio: "I love books in general"
+    bio: "I love books in general",
+    wishlist: ["0", "1"]
 )
