@@ -55,13 +55,14 @@ struct UserAppearanceSettingView: View {
             }
             .padding(.top, 45)
             .background(Color(UIColor.secondarySystemBackground))
-
-            HStack {
-                CustomBackButton(buttonColor: Color( isOn ? UIColor.white : UIColor.black), text: "Settings")
-                    .padding()
+            VStack {
+                HStack {
+                    CustomBackButton(buttonColor: Color( isOn ? UIColor.white : UIColor.black), text: "Settings")
+                        .padding()
+                    Spacer()
+                }
                 Spacer()
             }
-            .offset(y:-UIScreen.main.bounds.height*0.42)
         }
         .navigationBarBackButtonHidden(true) // Hide the default back button
         .environment(\.colorScheme, isOn ? .dark : .light)

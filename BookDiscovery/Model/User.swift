@@ -19,7 +19,6 @@ struct User: Codable, Identifiable {
     var address: Address // Struct containing address details
     var bio: String  // User's bio or description
     var wishlist: [String] // Books that are wishlisted by user
-
 }
 // Initialize with default empty values
 let emptyUser = User(
