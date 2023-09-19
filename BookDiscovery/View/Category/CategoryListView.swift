@@ -16,7 +16,9 @@ struct CategoryListView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(categoryViewModel.categories, id: \.id) { category in
-                    CategoryCardView(category: category)
+                    NavigationLink(destination: CategoryView()) {
+                        CategoryCardView(category: category)
+                    }
                     .padding(10)
                 }
             }
