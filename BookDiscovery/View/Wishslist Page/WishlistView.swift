@@ -13,7 +13,7 @@ struct WishlistView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                NavigationBar(userViewModel: userViewModel)
+//                NavigationBar(userViewModel: userViewModel)
                 Text("Wishlist View")
                 
                 Spacer()

@@ -23,6 +23,7 @@ class UserViewModel: ObservableObject {
     @Published var selectedTheme: String = "System"
     @Published var selectedFont: String = "San Francisco"
     @Published var selectedFontSize: CGFloat = 16.0
+    @Published var searchHistory: [String] = []
     
     let themes = ["System", "Light", "Dark"]
     let fonts = ["San Francisco", "Helvetica", "Arial"]
@@ -46,6 +47,8 @@ class UserViewModel: ObservableObject {
         
         // Initialize bio
         self.currentUser.bio = dictionary["bio"] as? String ?? ""
+        
+        self.currentUser.searchHistory = dictionary["searchHistory"] as? [String] ?? []
     }
     
     // Convert User properties to dictionary format
@@ -65,6 +68,7 @@ class UserViewModel: ObservableObject {
         // Include bio
         dictionary["bio"] = user.bio
         
+        dictionary["searchHistory"] = user.searchHistory
         return dictionary
     }
     
@@ -102,4 +106,5 @@ class UserViewModel: ObservableObject {
             }
         }
     }
+    
 }
