@@ -26,35 +26,11 @@ struct BookDetailView: View {
                 ZStack {
                     Color(.gray)
                         .opacity(0.2)
-                    
-                    if let imageURL = bookViewModel.currentBook.imageURL {
-                        AsyncImage(url: imageURL) { phase in
-                            switch phase {
-                            case .empty:
-                                Text("LOADING\nCOVER IMAGE")
-                                
-                            case .success(let image):
-                                image
-                                    .resizable()
-                                    .scaledToFit()
-                                
-                            case .failure:
-                                Image("cover_unavailable")
-                                    .resizable()
-                                    .scaledToFit()
-                                
-                            @unknown default:
-                                // Handle unknown cases
-                                Text("WTF HAPPENED")
-                            }
-                        }
-                        .frame(width: 240, height: 380)
-                    } else {
-                        Image("thumbnail")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 240, height: 320)
-                    }
+                    Image(uiImage: bookViewModel.currentBook.image!)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 200)
+
                     
                     VStack {
                         HStack {
@@ -173,7 +149,7 @@ struct BookDetailView: View {
                 }
                 
                 if tabReview {
-                    InputCommentView(bookID: bookViewModel.currentBook.id ?? "") { result in
+                    InputCommentView(bookID: bookViewModel.currentBook.id ) { result in
                         if let review = result {
                             reviewViewModel.reviews.append(review)
                         }

@@ -44,6 +44,10 @@ class ReviewViewModel: ObservableObject {
     }
     
     func getAvg() -> String {
+        if reviews.count == 0 {
+            return "0"
+        }
+        
         var average: Double = 0.0
         for review in reviews {
             average += Double(review.rating)

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct BookListView: View {
-    @StateObject var bookViewModel: BookViewModel = BookViewModel()
+    @ObservedObject var bookViewModel: BookViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
@@ -17,7 +18,9 @@ struct BookListView: View {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(bookViewModel.books, id: \.id) { book in
                     VStack {
-                        BookView(book: book)
+                        NavigationLink(destination: BookDetailView(bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
+                            BookView(book: book)
+                        }
                         Spacer()
                     }
                 }
@@ -29,6 +32,6 @@ struct BookListView: View {
 
 struct BookListView_Previews: PreviewProvider {
     static var previews: some View {
-        BookListView()
+        BookListView(bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

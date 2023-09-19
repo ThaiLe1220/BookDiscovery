@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseDatabase
+import UIKit
 
 class BookViewModel: ObservableObject {
     @Published var currentBook: Book
@@ -35,20 +36,11 @@ class BookViewModel: ObservableObject {
         self.currentBook.category = dictionary["category"] as? [String] ?? []
         self.currentBook.headline = dictionary["headline"] as? String ?? ""
         self.currentBook.description = dictionary["description"] as? String ?? ""
-        
         self.currentBook.rating = dictionary["rating"] as? Double ?? 0.0
-        self.currentBook.totalRated = dictionary["totalRated"] as? Int ?? 0
-
-        let author = dictionary["author"] as? [String : Any] ?? [:]
-//        self.currentBook.author.id = author["id"] as? String ?? ""
-        self.currentBook.author.name = author["name"] as? String ?? ""
+        self.currentBook.imageURL = dictionary["imageURL"] as? String ?? ""
         
-        // Handle image URL
-        if let imageURLString = dictionary["imageURL"] as? String, let imageURL = URL(string: imageURLString) {
-            self.currentBook.imageURL = imageURL
-        } else {
-            self.currentBook.imageURL = nil
-        }
+        let author = dictionary["author"] as? [String : Any] ?? [:]
+        self.currentBook.author.name = author["name"] as? String ?? ""
     }
     
     func toDictionary() -> [String: Any] {
@@ -59,13 +51,16 @@ class BookViewModel: ObservableObject {
         dictionary["headline"] = self.currentBook.headline
         dictionary["description"] = self.currentBook.description
         dictionary["rating"] = self.currentBook.rating
-        dictionary["totalRated"] = self.currentBook.totalRated
         dictionary["author"] = [
-//            "id" : self.currentBook.author.id,
             "name" : self.currentBook.author.name
         ]
         
         return dictionary
+    }
+    
+    
+    func saveImageLocally(_ image: UIImage, fileName: String) {
+        
     }
 
 }
