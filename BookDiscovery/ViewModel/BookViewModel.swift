@@ -10,8 +10,10 @@ import FirebaseDatabase
 
 class BookViewModel: ObservableObject {
     @Published var currentBook: Book
-    @Published var books: [String: Book] = [:]
-
+    @Published var books: [Book] = []
+    @Published var loves: [Book] = []
+    
+    
     init () {
         currentBook = emptyBook
         initAllBooks()
@@ -42,7 +44,7 @@ class BookViewModel: ObservableObject {
                                 book.imageURL = nil
                             }
                             
-                            self.books[key] = book
+                            self.books.append(book)
                         }
                     }
                 }

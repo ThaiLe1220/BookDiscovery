@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Book: Codable, Identifiable {
+struct Book: Codable, Identifiable, Hashable {
     var id: String?
     var name: String
     var category: [String]
@@ -17,6 +17,17 @@ struct Book: Codable, Identifiable {
     var description: String
     var imageURL: URL?
     var author: Author
+    
+    // Conformance to Hashable
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id) // Assuming 'id' is unique for each book
+        // You can add more properties if needed
+    }
+
+    static func == (lhs: Book, rhs: Book) -> Bool {
+        return lhs.id == rhs.id // Compare based on 'id'
+        // You can add more properties if needed
+    }
 }
 
 let emptyBook = Book(

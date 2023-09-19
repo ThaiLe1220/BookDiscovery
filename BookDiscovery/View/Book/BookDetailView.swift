@@ -10,6 +10,7 @@ import SwiftUI
 struct BookDetailView: View {
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
+    var currentBook: Book
     
     @State var inWishList: Bool = false
     
@@ -178,6 +179,7 @@ struct BookDetailView: View {
             }
         }
         .onAppear {
+            bookViewModel.currentBook = currentBook
             print(bookViewModel.currentBook)
         }
     }
@@ -185,6 +187,6 @@ struct BookDetailView: View {
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView(bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
+        BookDetailView(bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), currentBook: emptyBook)
     }
 }

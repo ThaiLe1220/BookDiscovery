@@ -83,7 +83,7 @@ struct UserAccountSettingView: View {
                                 if enabledEdit == true {
                                     FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
                                         if success {
-                                            print("User updated data successfully")                                            
+                                            print("User updated data successfully")
                                         } else {
                                             print (error?.localizedDescription ?? "Unknown error")
                                         }

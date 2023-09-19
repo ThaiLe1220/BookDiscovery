@@ -20,7 +20,7 @@ struct HomeView: View {
     @State private var displayedBooksCount = 10
     @State private var isLoading = false
     @State var scrollTarget: Int? = nil
-    var totalBooks: [String: Book] {
+    var totalBooks: [Book] {
         bookViewModel.books
     }
 
@@ -114,22 +114,17 @@ struct HomeView: View {
                     
                     LazyVGrid(columns: columns, spacing: 15) {
                         // Only display 10 books at once
-                        ForEach(Array(totalBooks.keys.sorted().prefix(displayedBooksCount)), id: \.self) { bookID in
+                        ForEach(Array(totalBooks.prefix(displayedBooksCount)), id: \.self) { tempBook in
                             Button(action: {
-                                if let book = bookViewModel.books[bookID] {
-                                    bookViewModel.currentBook = book
-                                }
+//
                             }) {
-                                NavigationLink(destination: BookDetailView(bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)) {
-                                    if let book = bookViewModel.books[bookID] {
-                                        VStack {
-                                            BookView(book: book)
-                                                .onDisappear {
-                                                    bookViewModel.currentBook = book
-                                                }
-                                            Spacer()
-                                        }
+                                NavigationLink(destination: BookDetailView(bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: tempBook)) {
+                                    VStack {
+                                        BookView(book: tempBook)
+
+                                        Spacer()
                                     }
+                                    
                                 }
                             }
                         }
