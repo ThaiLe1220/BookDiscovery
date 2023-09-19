@@ -224,8 +224,8 @@
 				CD24DD1C2AB00821001BF2A6 /* Address.swift */,
 				DE3B2FCF2AB3253D000F8B93 /* Author.swift */,
 				DE3B2FCE2AB3253C000F8B93 /* Book.swift */,
-				DE31D2A02AB96149003EB066 /* Category.swift */,
 				DEFC8B6E2AB462BE00A23D35 /* Review.swift */,
+				DE31D2A02AB96149003EB066 /* Category.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

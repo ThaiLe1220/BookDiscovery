@@ -233,7 +233,7 @@ struct BookDetailView: View {
             .onAppear {
                 bookViewModel.currentBook = currentBook
                 print(bookViewModel.currentBook)
-                reviewViewModel.getReviews(bookID: currentBook.id!)
+                reviewViewModel.getReviews(bookID: currentBook.id)
             }
         }
     }

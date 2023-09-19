@@ -8,7 +8,7 @@
 import Foundation
 
 struct Book: Codable, Identifiable, Hashable {
-    var id: String?
+    var id: String
     var name: String
     var category: [String]
     var headline: String

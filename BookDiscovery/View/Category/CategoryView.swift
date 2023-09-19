@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CategoryView: View {
     var category: Category = testCategory
-    @State var books: [Book] = [testBook, testBook1]
+    var books: [Book] = [testBook, testBook1]
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
@@ -45,7 +45,7 @@ struct CategoryView: View {
                     ForEach(books, id: \.id) { book in
                         if book.category[0] != category.name {
                             VStack {
-                                NavigationLink(destination: BookDetailView()) {
+                                NavigationLink(destination: BookDetailView(bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), currentBook: book)) {
                                     BookView(book: book)
                                 }
                                 
