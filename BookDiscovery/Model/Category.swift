@@ -24,6 +24,6 @@ let emptyCategory: Category = Category(
 let testCategory: Category = Category(
     id: "1",
     name: "Art & Photography",
-    description: "Description 1",
+    description: "Book Category Description Testing",
     image: "art-and-photography"
 )
