@@ -12,19 +12,21 @@ struct SettingView: View {
             VStack (spacing: 0) {
                 // Settings Options List
                 List {
-                    NavigationLink(destination: UserAccountSettingView(userViewModel: userViewModel)) {
+                    NavigationLink(destination: UserAccountSettingView(isOn: $isOn, userViewModel: userViewModel)) {
                         HStack {
                             Text("")
-                            ProfileImageView(userViewModel: userViewModel)
+                            ProfileImageView(isOn: $isOn, userViewModel: userViewModel)
                                 .scaleEffect(0.55)
                                 .frame(width: 80, height: 80)
                             
                             VStack (alignment: .leading, spacing: 4) {
                                 Text("\(userViewModel.currentUser.name)")
                                     .font(.system(size: 20, weight: .semibold))
+                                    .foregroundColor(isOn ? .white : .black)
                                 
                                 Text("\(userViewModel.currentUser.email)")
                                     .font(.system(size: 14, weight: .light))
+                                    .foregroundColor(isOn ? .white : .black)
                             }
                             .foregroundColor(Color(UIColor.darkGray))
                             Spacer()
@@ -44,13 +46,14 @@ struct SettingView: View {
             }
             .padding(.top, 45)
             .background(Color(UIColor.secondarySystemBackground))
-
-            HStack {
-                CustomBackButton(buttonColor: Color(UIColor.black), text: "Back")
-                    .padding()
+            VStack {
+                HStack {
+                    CustomBackButton(buttonColor: Color( isOn ? UIColor.white : UIColor.black), text: "Back")
+                        .padding()
+                    Spacer()
+                }
                 Spacer()
             }
-            .offset(y:-UIScreen.main.bounds.height*0.42)
         }
         .navigationBarBackButtonHidden(true) // Hide the default back button
         .onReceive(userViewModel.$showSettings) { showSettings in

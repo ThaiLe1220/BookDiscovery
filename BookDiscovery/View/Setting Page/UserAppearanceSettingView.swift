@@ -57,7 +57,7 @@ struct UserAppearanceSettingView: View {
             .background(Color(UIColor.secondarySystemBackground))
 
             HStack {
-                CustomBackButton(buttonColor: Color(UIColor.black), text: "Settings")
+                CustomBackButton(buttonColor: Color( isOn ? UIColor.white : UIColor.black), text: "Settings")
                     .padding()
                 Spacer()
             }

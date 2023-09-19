@@ -21,7 +21,7 @@ struct MainView: View {
     @State private var searchText: String = ""
     
     var body: some View {
-        NavigationStack {
+        VStack {
             TabView (selection: $selectedTab){
                 /// Browse View
                 HomeView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
