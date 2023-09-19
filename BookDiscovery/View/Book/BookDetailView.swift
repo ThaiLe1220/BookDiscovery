@@ -15,6 +15,7 @@ struct BookDetailView: View {
     
     @State var inWishList: Bool = false
     
+    
     @State private var tabOverview: Bool = true
     @State private var tabDetail: Bool = false
     @State private var tabReview: Bool = false
@@ -257,6 +258,11 @@ struct BookDetailView: View {
                 bookViewModel.currentBook = currentBook
                 print(bookViewModel.currentBook)
                 reviewViewModel.getReviews(bookID: currentBook.id)
+                for wishlistid in userViewModel.currentUser.wishlist {
+                    if (currentBook.id == wishlistid) {
+                        inWishList = true
+                    }
+                }
             }
         }
     }
