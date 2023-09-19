@@ -129,18 +129,19 @@ class FireBaseDB {
             // Retrieve the data at the specified path
             bookRef.observeSingleEvent(of: .value, with: { snapshot in
                 let value = snapshot.value as? [String: Any]
-                var book: Book = emptyBook
-                book.id = bookID
-                book.name = value?["name"] as? String ?? ""
-                book.category = value?["category"] as? [String] ?? []
-                book.headline = value?["headline"] as? String ?? ""
-                book.description = value?["description"] as? String ?? ""
-                book.rating = value?["rating"] as? Double ?? 0.0
-                book.totalRated = value?["totalRated"] as? Int ?? 0
                 let author = value?["author"] as? [String: Any] ?? [:]
-                book.author.name = author["name"] as? String ?? ""
-                book.imageURL = imageURL
                 
+                let book: Book = Book(
+                    id: bookID,
+                    name: value?["name"] as? String ?? "",
+                    category: value?["category"] as? [String] ?? [],
+                    headline: value?["headline"] as? String ?? "",
+                    rating: value?["rating"] as? Double ?? 0.0,
+                    description: value?["description"] as? String ?? "",
+                    imageURL: value?["imageURL"] as? String ?? "",
+                    author: Author(name: author["name"] as? String ?? "")
+                )
+
                 completion(book)
             })
         }
@@ -160,30 +161,21 @@ class FireBaseDB {
                     return
                 }
                 
-                var newBook: Book = emptyBook
-                
                 let idToString = childData["id"] as? Int ?? 0
-
-                newBook.id = String(idToString)
-                newBook.name = childData["name"] as? String ?? ""
-                newBook.category = childData["category"] as? [String] ?? []
-                newBook.headline = childData["headline"] as? String ?? ""
-                newBook.rating = childData["rating"] as? Double ?? 0.0
-                newBook.totalRated = childData["totalRated"] as? Int ?? 0
-                newBook.description = childData["description"] as? String ?? ""
-                
-                
                 let author = childData["author"] as? [String: Any] ?? [:]
-                newBook.author.name = author["name"] as? String ?? ""
-
-                // Handle image URL
-                if let imageURLString = childData["imageURL"] as? String, let imageURL = URL(string: imageURLString) {
-                    newBook.imageURL = imageURL
-                } else {
-                    newBook.imageURL = nil
-                }
                 
-                completion(newBook)
+                let book: Book = Book(
+                    id: String(idToString),
+                    name: childData["name"] as? String ?? "",
+                    category: childData["category"] as? [String] ?? [],
+                    headline: childData["headline"] as? String ?? "",
+                    rating: childData["rating"] as? Double ?? 0.0,
+                    description: childData["description"] as? String ?? "",
+                    imageURL: childData["imageURL"] as? String ?? "",
+                    author: Author(name: author["name"] as? String ?? "")
+                )
+
+                completion(book)
             })
             
         }

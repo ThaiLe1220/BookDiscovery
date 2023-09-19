@@ -30,7 +30,7 @@ struct MainView: View {
                     }
     
                 /// Browse View
-                BrowseView(userViewModel: userViewModel)
+                BrowseView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("Browse", systemImage: "square.grid.2x2")}
                     .tag(1)
                     .onAppear {
