@@ -24,8 +24,7 @@ struct HomeView: View {
         bookViewModel.books
     }
 
-
-        // Dummy data for the example
+    // Dummy data for the example
     let recommendedBooks: [Book] = [testBook1, testBook, testBook1, testBook]
     let continueReadingBooks: [Book] = [/* your array of Book objects user is currently reading */]
     let hotReviews: [Review] = [/* your array of hot Review objects */]

@@ -11,13 +11,14 @@ import UIKit
 
 class BookViewModel: ObservableObject {
     @Published var currentBook: Book
+    @Published var categories: [Category] = []
     @Published var books: [Book] = []
     @Published var loves: [Book] = []
-    
-    
+
     init () {
         currentBook = emptyBook
         initAllBooks()
+        initAllCategories()
     }
     
     func initAllBooks() {
@@ -25,6 +26,16 @@ class BookViewModel: ObservableObject {
             DispatchQueue.main.async {
                 if let bookData = result {
                     self.books.append(bookData)
+                }
+            }
+        }
+    }
+    
+    func initAllCategories() {
+        FireBaseDB().getAllCategories() { result in
+            DispatchQueue.main.async {
+                if let categoryData = result {
+                    self.categories.append(categoryData)
                 }
             }
         }
