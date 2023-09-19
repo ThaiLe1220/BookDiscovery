@@ -45,10 +45,9 @@ struct CategoryView: View {
                     ForEach(books, id: \.id) { book in
                         if book.category[0] != category.name {
                             VStack {
-                                NavigationLink(destination: BookDetailView()) {
+                                NavigationLink(destination: BookDetailView(book: book)) {
                                     BookView(book: book)
                                 }
-                                
                                 Spacer()
                             }
                         }

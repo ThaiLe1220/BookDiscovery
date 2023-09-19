@@ -13,34 +13,10 @@ struct BookView: View {
     
     var body: some View {
         VStack (spacing: 2.5) {
-            if let imageURL = book.imageURL {
-                AsyncImage(url: imageURL) { phase in
-                    switch phase {
-                    case .empty:
-                        Text("LOADING\nCOVER IMAGE")
-                        
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFit()
-                        
-                    case .failure:
-                        Image("cover_unavailable")
-                            .resizable()
-                            .scaledToFit()
-                        
-                    @unknown default:
-                        // Handle unknown cases
-                        Text("WTF HAPPENED")
-                    }
-                }
+            Image(uiImage: book.image!)
+                .resizable()
+                .scaledToFit()
                 .frame(width: 140, height: 180)
-            } else {
-                Image("thumbnail")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 150, height: 180)
-            }
             Text(book.name)
                 .font(.system(size: 15))
                 .lineLimit(2)

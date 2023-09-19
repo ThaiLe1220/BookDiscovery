@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BookDetailView: View {
-    var book: Book = testBook
+    var book: Book
     
     @State var inWishList: Bool = false
     
@@ -29,7 +29,7 @@ struct BookDetailView: View {
                     ZStack {
                         Color(.gray)
                             .opacity(0.2)
-                        Image("thumbnail")
+                        Image(uiImage: book.image!)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 200)
@@ -255,11 +255,5 @@ struct BookDetailView: View {
         .onAppear {
             reviewViewModel.getReviews(bookID: book.id)
         }
-    }
-}
-
-struct BookDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        BookDetailView()
     }
 }

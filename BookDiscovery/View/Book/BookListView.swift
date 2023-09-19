@@ -17,7 +17,10 @@ struct BookListView: View {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(bookViewModel.books, id: \.id) { book in
                     VStack {
-                        BookView(book: book)
+                        NavigationLink(destination: BookDetailView(book: book)) {
+                            BookView(book: book)
+                        }
+                        
                         Spacer()
                     }
                 }
