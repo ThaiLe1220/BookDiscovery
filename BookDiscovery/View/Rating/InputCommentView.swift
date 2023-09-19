@@ -6,15 +6,20 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct InputCommentView: View {
-    @Binding var content: String
+    var bookID: String
     
-    @State private var isStar1 = false
-    @State private var isStar2 = false
-    @State private var isStar3 = false
-    @State private var isStar4 = false
-    @State private var isStar5 = false
+    @State private var content: String = ""
+    @State private var numStar: Int = 0
+    @State private var announcement: String = ""
+    @State private var isError: Bool = true
+    
+    
+    var completion: (Review?) -> Void
+    
+    
     
     var body: some View {
         VStack {
@@ -23,65 +28,70 @@ struct InputCommentView: View {
                     .frame(width: 50)
                     .padding(.horizontal)
                 
-                Image(systemName: isStar1 ? "star.fill" : "star")
-                    .foregroundColor(isStar1 ? .yellow : .gray)
+                Image(systemName: numStar >= 1  ? "star.fill" : "star")
+                    .foregroundColor(numStar >= 1 ? .yellow : .gray)
                     .gesture(
                         TapGesture(count: 1)
                             .onEnded { _ in
-                                isStar1 = true
-                                isStar2 = false
-                                isStar3 = false
-                                isStar4 = false
-                                isStar5 = false
+                                announcement = ""
+                                if numStar == 1 {
+                                    numStar = 0
+                                } else {
+                                    numStar = 1
+                                }
                             }
                     )
                 
-                Image(systemName: isStar2 ? "star.fill" : "star")
-                    .foregroundColor(isStar2 ? .yellow : .gray)
+                Image(systemName: numStar >= 2 ? "star.fill" : "star")
+                    .foregroundColor(numStar >= 2 ? .yellow : .gray)
                     .gesture(
                         TapGesture(count: 1)
                             .onEnded { _ in
-                                isStar1 = true
-                                isStar2 = true
-                                isStar3 = false
-                                isStar4 = false
-                                isStar5 = false
+                                announcement = ""
+                                if numStar == 2 {
+                                    numStar = 0
+                                } else {
+                                    numStar = 2
+                                }
                             }
                     )
-                Image(systemName: isStar3 ? "star.fill" : "star")
-                    .foregroundColor(isStar3 ? .yellow : .gray)
+                Image(systemName: numStar >= 3 ? "star.fill" : "star")
+                    .foregroundColor(numStar >= 3 ? .yellow : .gray)
                     .gesture(
                         TapGesture(count: 1)
                             .onEnded { _ in
-                                isStar1 = true
-                                isStar2 = true
-                                isStar3 = true
-                                isStar4 = false
-                                isStar5 = false
+                                announcement = ""
+                                if numStar == 3 {
+                                    numStar = 0
+                                } else {
+                                    numStar = 3
+                                }
                             }
                     )
-                Image(systemName: isStar4 ? "star.fill" : "star")
-                    .foregroundColor(isStar4 ? .yellow : .gray)
+                Image(systemName: numStar >= 4 ? "star.fill" : "star")
+                    .foregroundColor(numStar >= 4 ? .yellow : .gray)
                     .gesture(
                         TapGesture(count: 1)
                             .onEnded { _ in
-                                isStar1 = true
-                                isStar2 = true
-                                isStar3 = true
-                                isStar4 = true
-                                isStar5 = false
+                                announcement = ""
+                                if numStar == 4 {
+                                    numStar = 0
+                                } else {
+                                    numStar = 4
+                                }
                             }
                     )
-                Image(systemName: isStar5 ? "star.fill" : "star")
-                    .foregroundColor(isStar5 ? .yellow : .gray)
+                Image(systemName: numStar >= 5 ? "star.fill" : "star")
+                    .foregroundColor(numStar >= 5 ? .yellow : .gray)
                     .gesture(
                         TapGesture(count: 1)
                             .onEnded { _ in
-                                isStar1 = true
-                                isStar2 = true
-                                isStar3 = true
-                                isStar4 = true
-                                isStar5 = true
+                                announcement = ""
+                                if numStar == 5 {
+                                    numStar = 0
+                                } else {
+                                    numStar = 5
+                                }
                             }
                     )
                 
@@ -95,12 +105,42 @@ struct InputCommentView: View {
                 .frame(minHeight: 100)
                 .border(.gray, width: 2)
                 .padding(.horizontal)
+                .onChange(of: content) { newValue in
+                    announcement = ""
+                }
+            
+            HStack {
+                Text(announcement)
+                    .padding(.horizontal)
+                    .foregroundColor(isError ? .red : .green)
+                
+                Spacer()
+                
+                Button {
+                    if numStar == 0 || content == "" {
+                        announcement = "Invalid!"
+                        isError = true
+                        return
+                    }
+                    
+                    if let userID = Auth.auth().currentUser?.uid {
+                        FireBaseDB().addReview(userID: userID, bookID: bookID, rating: Double(numStar), comment: content) { success in
+                            if let review = success {
+                                content = ""
+                                numStar = 0
+                                announcement = "Successful!"
+                                isError = false
+                                completion(review)
+                            } else {
+                                completion(nil)
+                            }
+                        }
+                    }
+                } label: {
+                    Text("Send")
+                }
+                .padding(.horizontal)
+            }
         }
-    }
-}
-
-struct InputCommentView_Previews: PreviewProvider {
-    static var previews: some View {
-        InputCommentView(content: .constant(""))
     }
 }

@@ -210,7 +210,7 @@ class FireBaseDB {
     }
     
     // MARK: - Add Review
-    func addReview(userID: String, bookID: String, rating: Double, comment: String, completion: @escaping (Bool) -> Void) {
+    func addReview(userID: String, bookID: String, rating: Double, comment: String, completion: @escaping (Review?) -> Void) {
         // Create a new document in the "users" collection
         var newReview = emptyReview
         var formattedDateForID: String {
@@ -232,9 +232,9 @@ class FireBaseDB {
         
         db.collection("reviews").addDocument(data: ReviewViewModel(from: newReview).toDictionary()) { error in
             if error != nil {
-                completion(false)
+                completion(nil)
             } else {
-                completion(true)
+                completion(newReview)
             }
         }
     }
@@ -256,4 +256,31 @@ class FireBaseDB {
             }
         }
     }
+    
+    func getAllCategories(completion: @escaping (Category?) -> Void) {
+        // Get a reference to the Firebase Realtime Database
+        let databaseRef = Database.database().reference()
+
+        // Construct the path to the book using the bookID
+        let categoriesRef = databaseRef.child("category")
+        
+        // Retrieve the data at the specified path
+        categoriesRef.observe(.childAdded, with: { (snapshot) in
+            guard let childData = snapshot.value as? [String: Any] else {
+                print("No data found for child node: \(snapshot.key)")
+                return
+            }
+            
+            var newCategory: Category = emptyCategory
+            
+            newCategory.id = childData["id"] as? String ?? ""
+            newCategory.name = childData["name"] as? String ?? ""
+            newCategory.description = childData["description"] as? String ?? ""
+            newCategory.image = childData["image"] as? String ?? ""
+
+            completion(newCategory)
+        })
+        
+    }
+    
 }
