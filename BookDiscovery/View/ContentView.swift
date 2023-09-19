@@ -14,15 +14,15 @@ struct ContentView: View {
 
     // The main body of the ContentView
     var body: some View {
-//        NavigationView {
-//            if userViewModel.isSignedIn {
-//                MainView(userViewModel: userViewModel)
-//            }
-//            else {
-//                UserSignInView(userViewModel: userViewModel)
-//            }
-//        }
-        CategoryView()
+        NavigationView {
+            if userViewModel.isSignedIn {
+                MainView(userViewModel: userViewModel)
+            }
+            else {
+                UserSignInView(userViewModel: userViewModel)
+            }
+        }
+//        CategoryView()
     }
 }
 
