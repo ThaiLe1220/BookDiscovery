@@ -11,9 +11,11 @@ import FirebaseDatabase
 class BookViewModel: ObservableObject {
     @Published var currentBook: Book
     @Published var books: [Book] = []
-
-    init (book: Book = emptyBook) {
-        currentBook = book
+    @Published var loves: [Book] = []
+    
+    
+    init () {
+        currentBook = emptyBook
         initAllBooks()
     }
     
@@ -21,17 +23,30 @@ class BookViewModel: ObservableObject {
         FireBaseDB().getAllBooks() { result in
             DispatchQueue.main.async {
                 if let bookData = result {
-                    for bookInfo in bookData {
-                        // Handle image URL
-//                        if let imageURLString = bookInfo.imageURL as? String, let imageURL = URL(string: imageURLString) {
-//                            bookInfo.imageURL = imageURL
-//                        } else {
-//                            bookInfo.imageURL = nil
-//                        }
-                        
-                        self.books.append(bookInfo)
+                    for (key, bookInfo) in bookData {
+                        if let bookInfo = bookInfo as? [String: Any] {
+                            var book: Book = emptyBook
+                            
+                            book.id = key
+                            book.name = bookInfo["name"] as? String ?? ""
+                            book.category = bookInfo["category"] as? [String] ?? []
+                            book.headline = bookInfo["headline"] as? String ?? ""
+                            book.description = bookInfo["description"] as? String ?? ""
+                            book.rating = bookInfo["rating"] as? Double ?? 0.0
+                            book.totalRated = bookInfo["totalRated"] as? Int ?? 0
+                            let author = bookInfo["author"] as? [String : Any] ?? [:]
+                            book.author.name = author["name"] as? String ?? ""
+                            
+                            // Handle image URL
+                            if let imageURLString = bookInfo["imageURL"] as? String, let imageURL = URL(string: imageURLString) {
+                                book.imageURL = imageURL
+                            } else {
+                                book.imageURL = nil
+                            }
+                            
+                            self.books.append(book)
                         }
-                    
+                    }
                 }
             }
         }

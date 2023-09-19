@@ -11,12 +11,14 @@ import SwiftUI
 struct ContentView: View {
     // StateObject to store and observe UserViewModel
     @StateObject var userViewModel = UserViewModel()
+    @StateObject var bookViewModel = BookViewModel()
+    @StateObject var reviewViewModel = ReviewViewModel()
 
     // The main body of the ContentView
     var body: some View {
         NavigationView {
             if userViewModel.isSignedIn {
-                MainView(userViewModel: userViewModel)
+                MainView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: ReviewViewModel())
             }
             else {
                 UserSignInView(userViewModel: userViewModel)
