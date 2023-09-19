@@ -21,7 +21,7 @@ struct CategoryCardView: View {
                     Rectangle()
                         .foregroundColor(.white)
                         .frame(height: 30)
-                        .opacity(0.8)
+//                        .opacity(0.8)
                     Text(category.name)
                 }
             }
