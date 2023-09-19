@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct NavigationBar: View {
-    @ObservedObject var userViewModel = UserViewModel()
-
+    @ObservedObject var userViewModel : UserViewModel
+    var performSearch: () -> Void
+    
     var body: some View {
         HStack (spacing: 0) {
             // Search Bar
-            TextField("", text: $userViewModel.searchText)
+            TextField("", text: $userViewModel.searchText, onCommit: performSearch)
                 .padding(8)
                 .padding(.horizontal, 25)
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(20)
                 .padding(.horizontal, 20)
                 .foregroundColor(.gray)
+                .autocapitalization(.none)
+//                .disableAutocorrection(true)
                 .overlay(
                     HStack {
                         if userViewModel.searchText.isEmpty {
@@ -50,6 +53,6 @@ struct NavigationBar: View {
 
 struct NavigationBar_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationBar(userViewModel: UserViewModel())
+        NavigationBar(userViewModel: UserViewModel(), performSearch: {})
     }
 }

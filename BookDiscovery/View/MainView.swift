@@ -38,7 +38,7 @@ struct MainView: View {
                     }
     
                 /// Search View
-                SearchView(userViewModel: userViewModel)
+                SearchView(userViewModel: userViewModel, currentBook: emptyBook)
                     .tabItem {Label("Search", systemImage: "magnifyingglass")}
                     .tag(2)
                     .onAppear {

@@ -13,7 +13,7 @@ struct NotificationsView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                NavigationBar(userViewModel: userViewModel)
+//                NavigationBar(userViewModel: userViewModel)
                 Text("Notifications View")
                 
                 Spacer()

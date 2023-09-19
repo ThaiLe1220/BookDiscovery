@@ -180,6 +180,56 @@ class FireBaseDB {
             
         }
     
+    func searchBooks(query: String, completion: @escaping ([Book]?) -> Void) {
+        // Get a reference to the Firebase Realtime Database
+        let databaseRef = Database.database().reference()
+        
+        // Convert the query to lowercase for case-insensitive search
+        let lowercaseQuery = query.lowercased()
+        
+        var result: [Book] = []
+        
+        // Construct a query to search for books by name
+        let booksRef = databaseRef.child("books")
+
+        booksRef.observeSingleEvent(of: .value) { snapshot in
+            for child in snapshot.children {
+                if let childSnapshot = child as? DataSnapshot,
+                   let bookData = childSnapshot.value as? [String: Any] {
+                    var book = emptyBook
+                    book.id = childSnapshot.key
+                    if let bookName = bookData["name"] as? String {
+                        // Convert the book name to lowercase for comparison
+                        let lowercaseBookName = bookName.lowercased()
+                        
+                        // Check if the lowercase book name contains the lowercase query
+                        if lowercaseBookName.contains(lowercaseQuery) {
+                            book.name = bookName
+                            // Add other book attributes as needed
+
+                            result.append(book)
+                        }
+                    }
+                }
+            }
+            completion(result)
+        }
+    }
+    
+    // Update user search history
+    func updateUserSearchHistory(user: User, completion: @escaping (Bool) -> Void) {
+        let userRef = Firestore.firestore().collection("users").document(user.id ?? "")
+
+        userRef.updateData(["searchHistory": user.searchHistory]) { error in
+            if let error = error {
+                print("Error updating search history: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                print("Search history updated successfully.")
+                completion(true)
+            }
+        }
+    }
     
     func fetchBookImageURL(bookID: String, completion: @escaping (URL?) -> Void) {
     // Get a reference to the Firebase Realtime Database

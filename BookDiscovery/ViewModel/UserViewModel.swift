@@ -23,6 +23,7 @@ class UserViewModel: ObservableObject {
     @Published var selectedTheme: String = "System"
     @Published var selectedFont: String = "San Francisco"
     @Published var selectedFontSize: CGFloat = 16.0
+    @Published var searchHistory: [String] = []
     
     let themes = ["System", "Light", "Dark"]
     let fonts = ["San Francisco", "Helvetica", "Arial"]
@@ -49,6 +50,7 @@ class UserViewModel: ObservableObject {
         
         // Set wishlist for books
         self.currentUser.wishlist = dictionary["wishlist"] as? [String] ?? []
+        self.currentUser.searchHistory = dictionary["searchHistory"] as? [String] ?? []
     }
     
     // Convert User properties to dictionary format
@@ -70,7 +72,7 @@ class UserViewModel: ObservableObject {
         
         // Include wishlists
         dictionary["wishlist"] = user.wishlist
-        
+        dictionary["searchHistory"] = user.searchHistory
         return dictionary
     }
     
@@ -109,4 +111,5 @@ class UserViewModel: ObservableObject {
             }
         }
     }
+    
 }
