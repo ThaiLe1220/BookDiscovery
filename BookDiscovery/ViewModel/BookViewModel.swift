@@ -65,7 +65,6 @@ class BookViewModel: ObservableObject {
         dictionary["author"] = [
             "name" : self.currentBook.author.name
         ]
-        
         return dictionary
     }
     
@@ -74,4 +73,5 @@ class BookViewModel: ObservableObject {
         
     }
 
+    
 }

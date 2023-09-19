@@ -46,6 +46,9 @@ class UserViewModel: ObservableObject {
         
         // Initialize bio
         self.currentUser.bio = dictionary["bio"] as? String ?? ""
+        
+        // Set wishlist for books
+        self.currentUser.wishlist = dictionary["wishlist"] as? [String] ?? []
     }
     
     // Convert User properties to dictionary format
@@ -65,6 +68,9 @@ class UserViewModel: ObservableObject {
         // Include bio
         dictionary["bio"] = user.bio
         
+        // Include wishlists
+        dictionary["wishlist"] = user.wishlist
+        
         return dictionary
     }
     
@@ -74,6 +80,7 @@ class UserViewModel: ObservableObject {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegex)
         return emailTest.evaluate(with: email)
     }
+    
     
     // Fetch profile and background images
     func fetchUserImage() {

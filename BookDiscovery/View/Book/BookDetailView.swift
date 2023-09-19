@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BookDetailView: View {
+    @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
     var currentBook: Book
@@ -37,6 +38,28 @@ struct BookDetailView: View {
                             Spacer()
                             Button {
                                 inWishList.toggle()
+                                if (inWishList) {
+                                    userViewModel.currentUser.wishlist.append(currentBook.id)
+                                    FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
+                                        if success {
+                                            print("User updated data successfully")
+                                        } else {
+                                            print (error?.localizedDescription ?? "Unknown error")
+                                        }
+                                    }
+                                }
+                                else {
+                                    if let index = userViewModel.currentUser.wishlist.firstIndex(of: currentBook.id) {
+                                        userViewModel.currentUser.wishlist.remove(at: index)
+                                    }
+                                    FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
+                                        if success {
+                                            print("User updated data successfully")
+                                        } else {
+                                            print (error?.localizedDescription ?? "Unknown error")
+                                        }
+                                    }
+                                }
                             } label: {
                                 Image(systemName: inWishList ? "minus.square" : "plus.square")
                                     .foregroundColor(inWishList ? .red : .green)
@@ -217,6 +240,6 @@ struct BookDetailView: View {
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView(bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), currentBook: emptyBook)
+        BookDetailView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), currentBook: emptyBook)
     }
 }

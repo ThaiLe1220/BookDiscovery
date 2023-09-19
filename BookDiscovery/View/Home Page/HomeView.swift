@@ -117,7 +117,7 @@ struct HomeView: View {
                             Button(action: {
 //
                             }) {
-                                NavigationLink(destination: BookDetailView(bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: tempBook)) {
+                                NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: tempBook)) {
                                     VStack {
                                         BookView(book: tempBook)
 
