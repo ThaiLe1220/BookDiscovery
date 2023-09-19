@@ -18,6 +18,7 @@ struct BookDetailView: View {
     @State private var tabDetail: Bool = false
     @State private var tabReview: Bool = false
     
+    @State private var selectedOption = 0
     
     var body: some View {
         ScrollView {
@@ -90,7 +91,7 @@ struct BookDetailView: View {
                         }
                     }
                 }
-            
+                
                 
                 HStack {
                     Button {
@@ -138,7 +139,7 @@ struct BookDetailView: View {
                         Spacer()
                     }
                     .padding()
-
+                    
                     HStack {
                         Text("Category: ")
                             .padding(.horizontal)
@@ -172,15 +173,68 @@ struct BookDetailView: View {
                 }
                 
                 if tabReview {
-                    ForEach(reviewViewModel.reviews, id: \.id) { review in
-                        CommentView(review: review)
+                    InputCommentView(bookID: bookViewModel.currentBook.id ?? "") { result in
+                        if let review = result {
+                            reviewViewModel.reviews.append(review)
+                        }
+                    }
+                    .padding()
+                    
+                    Divider()
+                    
+                    HStack {
+                        Text("Average: ")
+                            .padding(.leading, 30)
+                        Text(reviewViewModel.getAvg())
+                        
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.yellow)
+                        
+                        Spacer()
+                        
+                        Picker("Select an option", selection: $selectedOption) {
+                            ForEach(0...5, id: \.self) { index in
+                                if index == 0 {
+                                    Text("All")
+                                } else {
+                                    Text(String(repeating: "★", count: 6-index))
+                                        .font(.largeTitle)
+                                }
+                            }
+                        }
+                        .pickerStyle(DefaultPickerStyle())
+                        .padding()
+                    }
+                    
+                    
+                    VStack {
+                        Spacer()
+                        Button{
+                            if let amazonURL = URLCaller(name: bookViewModel.currentBook.name).amazonURL() {
+                                UIApplication.shared.open(amazonURL)
+                            }
+                        } label: {
+                            if !tabReview {
+                                ZStack {
+                                    Rectangle()
+                                        .edgesIgnoringSafeArea(.all)
+                                        .foregroundColor(Color("Amazon-Orange"))
+                                        .frame(height: 30)
+                                    Text("Buy On Amazon")
+                                        .offset(y: 10)
+                                        .foregroundColor(.black)
+                                        .bold()
+                                }
+                            }
+                        }
                     }
                 }
             }
-        }
-        .onAppear {
-            bookViewModel.currentBook = currentBook
-            print(bookViewModel.currentBook)
+            .onAppear {
+                bookViewModel.currentBook = currentBook
+                print(bookViewModel.currentBook)
+                reviewViewModel.getReviews(bookID: currentBook.id!)
+            }
         }
     }
 }
