@@ -111,6 +111,7 @@ class UserViewModel: ObservableObject {
         if let userID = Auth.auth().currentUser?.uid {
             FireBaseDB().fetchUser(userID: userID) { fetchedUser in
                 self.currentUser = fetchedUser ?? emptyUser
+                print(fetchedUser)
             }
         }
     }

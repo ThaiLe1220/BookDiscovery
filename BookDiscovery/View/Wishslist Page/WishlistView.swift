@@ -27,6 +27,7 @@ struct WishlistView: View {
         }
         return list
     }
+    
     var body: some View {
         NavigationStack {
             VStack (spacing: 0) {
@@ -40,6 +41,12 @@ struct WishlistView: View {
                 Divider()
                 
                 ScrollView {
+                    HStack {
+                        Text("Wish List")
+                            .font(.title.bold())
+                            .padding(.leading)
+                        Spacer()
+                    }
                     LazyVGrid(columns: columns, spacing: 15) {
                         // Only display 10 books at once
                         ForEach(wishListBooks, id: \.self) { tempBook in
@@ -65,9 +72,9 @@ struct WishlistView: View {
                 
                 Spacer()
                 Divider()
-            }
-            .background(Color(UIColor.secondarySystemBackground))
 
+            }
+            
         }
     }
 }
