@@ -130,5 +130,22 @@ class ImageStorage {
             }
         }
     }
+    
+    
+    func deleteImagesFrom(userID: String, completion: @escaping (Bool?) -> Void) {
+        let folderRef = storage.reference().child("users/\(userID)") // Replace with the actual folder name you want to delete
+
+        // Delete the folder
+        folderRef.delete { error in
+            if let error = error {
+                print("Error deleting folder: \(error)")
+                completion(true)
+            } else {
+                print("Folder deleted successfully")
+                completion(false)
+            }
+        }
+    }
+    
 }
 
