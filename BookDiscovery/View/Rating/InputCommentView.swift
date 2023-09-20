@@ -11,6 +11,7 @@ import Firebase
 struct InputCommentView: View {
     var bookID: String
     
+    var currentBook: Book
     @State private var content: String = ""
     @State private var numStar: Int = 0
     @State private var announcement: String = ""
@@ -18,128 +19,88 @@ struct InputCommentView: View {
     
     
     var completion: (Review?) -> Void
-    
-    
-    
     var body: some View {
         VStack {
-            HStack {
-                CommentProfileView(profileImage: UIImage(named: "profile")!)
-                    .frame(width: 50)
-                    .padding(.horizontal)
-                
-                Image(systemName: numStar >= 1  ? "star.fill" : "star")
-                    .foregroundColor(numStar >= 1 ? .yellow : .gray)
-                    .gesture(
-                        TapGesture(count: 1)
-                            .onEnded { _ in
-                                announcement = ""
-                                if numStar == 1 {
-                                    numStar = 0
-                                } else {
-                                    numStar = 1
-                                }
-                            }
-                    )
-                
-                Image(systemName: numStar >= 2 ? "star.fill" : "star")
-                    .foregroundColor(numStar >= 2 ? .yellow : .gray)
-                    .gesture(
-                        TapGesture(count: 1)
-                            .onEnded { _ in
-                                announcement = ""
-                                if numStar == 2 {
-                                    numStar = 0
-                                } else {
-                                    numStar = 2
-                                }
-                            }
-                    )
-                Image(systemName: numStar >= 3 ? "star.fill" : "star")
-                    .foregroundColor(numStar >= 3 ? .yellow : .gray)
-                    .gesture(
-                        TapGesture(count: 1)
-                            .onEnded { _ in
-                                announcement = ""
-                                if numStar == 3 {
-                                    numStar = 0
-                                } else {
-                                    numStar = 3
-                                }
-                            }
-                    )
-                Image(systemName: numStar >= 4 ? "star.fill" : "star")
-                    .foregroundColor(numStar >= 4 ? .yellow : .gray)
-                    .gesture(
-                        TapGesture(count: 1)
-                            .onEnded { _ in
-                                announcement = ""
-                                if numStar == 4 {
-                                    numStar = 0
-                                } else {
-                                    numStar = 4
-                                }
-                            }
-                    )
-                Image(systemName: numStar >= 5 ? "star.fill" : "star")
-                    .foregroundColor(numStar >= 5 ? .yellow : .gray)
-                    .gesture(
-                        TapGesture(count: 1)
-                            .onEnded { _ in
-                                announcement = ""
-                                if numStar == 5 {
-                                    numStar = 0
-                                } else {
-                                    numStar = 5
-                                }
-                            }
-                    )
-                
-                Spacer()
-            }
-            .padding(.horizontal)
-            
-            Divider()
-            
-            TextEditor(text: $content)
-                .frame(minHeight: 100)
-                .border(.gray, width: 2)
-                .padding(.horizontal)
-                .onChange(of: content) { newValue in
-                    announcement = ""
+            VStack{
+                HStack{
+                    Rectangle()
+                        .fill(.gray)
+                        .frame(width: 70, height: 5)
+                        .cornerRadius(2)
                 }
-            
-            HStack {
-                Text(announcement)
-                    .padding(.horizontal)
-                    .foregroundColor(isError ? .red : .green)
-                
+                Divider()
+            }
+            VStack {
                 Spacer()
-                
-                Button {
-                    if numStar == 0 || content == "" {
-                        announcement = "Invalid!"
-                        isError = true
-                        return
-                    }
-                    
-                    if let userID = Auth.auth().currentUser?.uid {
-                        FireBaseDB().addReview(userID: userID, bookID: bookID, rating: Double(numStar), comment: content) { success in
-                            if let review = success {
-                                content = ""
-                                numStar = 0
-                                announcement = "Successful!"
-                                isError = false
-                                completion(review)
-                            } else {
-                                completion(nil)
-                            }
+                VStack {
+                    HStack {
+                        Text(currentBook.name)
+                        Spacer()
+                        ForEach(1..<6) { i in
+                            Image(systemName: numStar >= i  ? "star.fill" : "star")
+                                .foregroundColor(numStar >= i ? .yellow : .gray)
+                                .gesture(
+                                    TapGesture(count: 1)
+                                        .onEnded { _ in
+                                            announcement = ""
+                                            if numStar == i {
+                                                numStar = 0
+                                            } else {
+                                                numStar = i
+                                            }
+                                        }
+                                )
                         }
                     }
-                } label: {
-                    Text("Send")
+                    HStack {
+                        Text(currentBook.author.name)
+                            .font(.system(size: 20).bold())
+                        Spacer()
+                    }
+                    HStack {
+                        Text("Write down your experience below:")
+                        Spacer()
+                    }
                 }
-                .padding(.horizontal)
+                Spacer()
+                TextEditor(text: $content)
+                    .frame(minHeight: 100)
+                    .border(.gray, width: 1)
+                    .onChange(of: content) { newValue in
+                        announcement = ""
+                    }
+                
+                HStack {
+                    Text(announcement)
+                        .padding(.horizontal)
+                        .foregroundColor(isError ? .red : .green)
+                    
+                    Spacer()
+                    
+                    Button {
+                        if numStar == 0 || content == "" {
+                            announcement = "Invalid!"
+                            isError = true
+                            return
+                        }
+                        
+                        if let userID = Auth.auth().currentUser?.uid {
+                            FireBaseDB().addReview(userID: userID, bookID: bookID, rating: Double(numStar), comment: content) { success in
+                                if let review = success {
+                                    content = ""
+                                    numStar = 0
+                                    announcement = "Successful!"
+                                    isError = false
+                                    completion(review)
+                                } else {
+                                    completion(nil)
+                                }
+                            }
+                        }
+                    } label: {
+                        Text("Send")
+                    }
+                }
             }
         }
     }

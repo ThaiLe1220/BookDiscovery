@@ -21,10 +21,8 @@ struct HomeView: View {
     @State private var displayedBooksCount = 10
     @State private var isLoading = false
     @State var scrollTarget: Int? = nil
-    var totalBooks: [Book] {
-        bookViewModel.books
-    }
-
+    @State var totalBooks: [Book] = []
+    
     // Dummy data for the example
     let recommendedBooks: [Book] = [testBook1, testBook, testBook1, testBook]
     let continueReadingBooks: [Book] = [/* your array of Book objects user is currently reading */]
@@ -111,17 +109,69 @@ struct HomeView: View {
                             }
                         }
                         .frame(height: 170)  // 170 for image and 20 for the dots
+                        VStack {
+                            HStack {
+                                Text("Recommened Books")
+                                    .padding(.horizontal)
+                                    .font(.system(size: 22, weight: .bold))
+                                    .foregroundColor(Color("OrangeMain"))
+                                Spacer()
+                                Menu {
+                                    Menu {
+                                        Button {
+                                            totalBooks.sort(by: {$0.rating < $1.rating})
+                                        } label: {
+                                            HStack {
+                                                Text("Ascending")
+                                            }
+                                        }
+                                        Button {
+                                            totalBooks.sort(by: {$0.rating > $1.rating})
+                                        } label: {
+                                            HStack {
+                                                Text("Descending")
+                                            }
+                                        }
 
-                        HStack {
-                            Text("Recommened Books")
-                                .padding(.horizontal)
-                                .font(.system(size: 22, weight: .bold))
-                                .foregroundColor(Color("OrangeMain"))
+                                    } label: {
+                                        HStack {
+                                            Text("Rating")
+                                        }
+                                    }
+                                    Menu {
+                                        Button {
+                                            totalBooks.sort(by: {$0.name < $1.name})
+                                        } label: {
+                                            HStack {
+                                                Text("Ascending")
+                                            }
+                                        }
+                                        Button {
+                                            totalBooks.sort(by: {$0.name > $1.name})
+                                        } label: {
+                                            HStack {
+                                                Text("Descending")
+                                            }
+                                        }
+
+                                    } label: {
+                                        HStack {
+                                            Text("Name")
+                                        }
+                                    }
+                                } label: {
+                                    Image(systemName: "line.3.horizontal.decrease.circle")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .foregroundColor(Color("OrangeMain"))
+                                        .padding(.horizontal)
+                                }
+                            }
+                            .padding(.bottom, -2)
+                            .padding(.top)
                             Spacer()
                         }
-                        .padding(.bottom, -2)
-                        .padding(.top)
-                        
+                        .offset(y: -15)
                         LazyVGrid(columns: columns, spacing: 15) {
                             // Only display 10 books at once
                             ForEach(Array(totalBooks.prefix(displayedBooksCount)), id: \.self) { tempBook in
@@ -167,6 +217,10 @@ struct HomeView: View {
                 Divider()
             }
             .background(Color(UIColor.secondarySystemBackground))
+            .onAppear {
+                totalBooks = bookViewModel.books
+
+            }
         }
     }
     

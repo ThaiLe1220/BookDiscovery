@@ -12,13 +12,14 @@ struct CommentView: View {
     var review: Review
     @ObservedObject var userViewModel: UserViewModel
     @State private var username: String? = ""
+    @State private var userImage: UIImage = UIImage(named: "profile")!
     
     var body: some View {
         ZStack {
             VStack{
                 HStack{
                     HStack {
-                        CommentProfileView(profileImage: UIImage(named: "profile")!)
+                        CommentProfileView(profileImage: userImage)
                             .frame(width: 65)
                             .padding(.horizontal)
                         Text(username!)
@@ -55,7 +56,13 @@ struct CommentView: View {
                         self.username = username
                     }
                 }
-
+            }
+            ImageStorage().getProfileWithId(userId: review.userID) { image in
+                DispatchQueue.main.async {
+                    if let userimg = image {
+                        userImage = userimg
+                    }
+                }
             }
         }
     }

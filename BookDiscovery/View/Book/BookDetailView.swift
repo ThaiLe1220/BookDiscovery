@@ -278,7 +278,7 @@ struct BookDetailView: View {
         }
         .sheet(isPresented: $isCommenting) {
             HStack {
-                InputCommentView(bookID: bookViewModel.currentBook.id ) { result in
+                InputCommentView(bookID: bookViewModel.currentBook.id, currentBook: currentBook) { result in
                     if let review = result {
                         reviewViewModel.reviews.append(review)
                         

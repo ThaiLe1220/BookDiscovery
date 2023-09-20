@@ -16,7 +16,6 @@ struct WishlistView: View {
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
     var wishListBooks : [Book] {
-        
         var list : [Book] = []
         for bookId in userViewModel.currentUser.wishlist {
             for book in bookViewModel.books {

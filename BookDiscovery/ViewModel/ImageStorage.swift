@@ -102,6 +102,33 @@ class ImageStorage {
             }
         }
     }
+    
+    func getProfileWithId(userId: String, completion: @escaping(UIImage?) -> Void){
+        let imageRef = storage.reference().child("users/\(userId)/profile.jpg")
+        
+        // Download the image data
+        imageRef.getData(maxSize: 10 * 1024 * 1024) { data, error in
+            // Error handling and image creation logic
+            if let error = error {
+                print("Error getting object: \(error.localizedDescription)")
+                completion(nil)
+            } else {
+                if let imageData = data {
+                
+                    if let image = UIImage(data: imageData) {
+                        completion(image)
+                    } else {
+                        print("Unable to create UIImage from data.")
+                        completion(nil)
+                    }
+                } else {
+                    print("No data found.")
+                    completion(nil)
+
+                }
+            }
+        }
+    }
 
     // MARK: - Download Background Image
     // Function to download background image from Firebase Storage

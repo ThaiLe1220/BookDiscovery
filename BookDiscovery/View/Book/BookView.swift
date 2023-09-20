@@ -16,7 +16,7 @@ struct BookView: View {
             Image(uiImage: book.image!)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 140, height: 180)
+                .frame(width: 155, height: 199)
             
             Text(book.name)
                 .font(.system(size: 15))
