@@ -102,17 +102,80 @@ class FireBaseDB {
 
     // MARK: - Delete
     // Function to delete a user based on userID
-    func deleteUser(userID: String, completion: @escaping (Bool) -> Void) {
+    func deleteUser(completion: @escaping (Bool) -> Void) {
         // Delete the document with the corresponding userID
-        db.collection("users").document(userID).delete { error in
-            if error != nil {
-                // Return failure if an error occurs
-                completion(false)
-            } else {
-                // Otherwise, return success
+        
+        let userID = Auth.auth().currentUser?.uid
+        
+        // Delete Authetication
+        Auth.auth().currentUser?.delete() { error in
+            if let error = error {
                 completion(true)
+            } else {
+                completion(false)
+                return
             }
         }
+        
+        // Delete in user collection
+        db.collection("users").whereField("id", isEqualTo: userID).getDocuments { querySnapshot, error in
+            if error != nil {
+                // Return nil if an error occurs
+                completion(false)
+            } else {
+                // Parse the fetched user data into a User object
+                if let document = querySnapshot?.documents.first {
+                   let documentID = document.documentID
+                    
+                    db.collection("users").document(documentID).delete { error in
+                        if error != nil {
+                            // Return failure if an error occurs
+                            completion(false)
+                        } else {
+                            // Otherwise, return success
+                            completion(true)
+                        }
+                    }
+                } else {
+                    completion(false)
+                }
+            }
+        }
+        
+        // Delete in review collection
+        db.collection("reviews").whereField("userID", isEqualTo: userID).getDocuments { querySnapshot, error in
+            if error != nil {
+                // Return nil if an error occurs
+                completion(false)
+            } else {
+                // Parse the fetched user data into a User object
+                if let document = querySnapshot?.documents.first {
+                   let documentID = document.documentID
+                    
+                    db.collection("reviews").document(documentID).delete { error in
+                        if error != nil {
+                            // Return failure if an error occurs
+                            completion(false)
+                        } else {
+                            // Otherwise, return success
+                            completion(true)
+                        }
+                    }
+                } else {
+                    completion(false)
+                }
+            }
+        }
+        
+        // Delete user image
+        ImageStorage().deleteImagesFrom(userID: userID!) { success in
+            if success! {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+        
     }
 
     // MARK: - Book ####################
@@ -304,6 +367,34 @@ class FireBaseDB {
         }
     }
     
+    // MARK: - Delete Review
+    func deleteReview(reviewID: String, completion: @escaping (Bool?) -> Void) {
+        db.collection("reviews").whereField("id", isEqualTo: reviewID).getDocuments { querySnapshot, error in
+            if error != nil {
+                // Return nil if an error occurs
+                completion(false)
+            } else {
+                // Parse the fetched user data into a User object
+                if let document = querySnapshot?.documents.first {
+                   let documentID = document.documentID
+                    
+                    db.collection("reviews").document(documentID).delete { error in
+                        if error != nil {
+                            // Return failure if an error occurs
+                            completion(false)
+                        } else {
+                            // Otherwise, return success
+                            completion(true)
+                        }
+                    }
+                } else {
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+    // MARK: - Get all Categories
     func getAllCategories(completion: @escaping (Category?) -> Void) {
         // Get a reference to the Firebase Realtime Database
         let databaseRef = Database.database().reference()

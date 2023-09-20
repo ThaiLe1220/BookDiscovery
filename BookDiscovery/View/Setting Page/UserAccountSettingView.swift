@@ -305,6 +305,32 @@ struct UserAccountSettingView: View {
                         .cornerRadius(5)
                         .padding(.horizontal, 16)
                     }
+                    
+                    Divider()
+                    
+                    // Delete button
+                    Button {
+                        FireBaseDB().deleteUser() { success in
+                            if success {
+                                print("Deleted successfully")
+                                userViewModel.isSignedIn = false
+                            } else {
+                                print("Failed to delete")
+                            }
+                        }
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text("Delete Account")
+                            Spacer()
+                        }
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.red)
+                        .padding(12)
+                        .background(isOn ? .black : .white)
+                        .cornerRadius(5)
+                        .padding(.horizontal, 16)
+                    }
                 }
              }
             .background(Color(UIColor.secondarySystemBackground))
