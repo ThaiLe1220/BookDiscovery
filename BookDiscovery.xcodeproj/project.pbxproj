@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4487E1A82ABAD63A009386C2 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4487E1A72ABAD63A009386C2 /* SplashScreen.swift */; };
 		954557882AAF0C32003F1C7E /* BookDiscoveryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954557872AAF0C32003F1C7E /* BookDiscoveryApp.swift */; };
 		9545578A2AAF0C32003F1C7E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954557892AAF0C32003F1C7E /* ContentView.swift */; };
 		9545578F2AAF0C34003F1C7E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9545578E2AAF0C34003F1C7E /* Preview Assets.xcassets */; };
@@ -68,6 +69,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4487E1A72ABAD63A009386C2 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		954557842AAF0C32003F1C7E /* BookDiscovery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookDiscovery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		954557872AAF0C32003F1C7E /* BookDiscoveryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDiscoveryApp.swift; sourceTree = "<group>"; };
 		954557892AAF0C32003F1C7E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 		A2FAC9E12AAF0DE100779CAA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4487E1A72ABAD63A009386C2 /* SplashScreen.swift */,
 				DE3B2FC02AB2EDE2000F8B93 /* TestView.swift */,
 				954557892AAF0C32003F1C7E /* ContentView.swift */,
 				DE74AF6A2AB41D97008C0754 /* MainView.swift */,
@@ -442,6 +445,7 @@
 				DEFC8B732AB4642100A23D35 /* ReviewViewModel.swift in Sources */,
 				A2FAC9E52AAF0E1B00779CAA /* UserViewModel.swift in Sources */,
 				DE3B2FC92AB2FBC6000F8B93 /* SearchView.swift in Sources */,
+				4487E1A82ABAD63A009386C2 /* SplashScreen.swift in Sources */,
 				A2FAC9F42AAF0FC200779CAA /* UserAccountSettingView.swift in Sources */,
 				DE3B2FCB2AB2FBEA000F8B93 /* WishlistView.swift in Sources */,
 				A2FAC9F22AAF0F6F00779CAA /* FireBaseAuthService.swift in Sources */,

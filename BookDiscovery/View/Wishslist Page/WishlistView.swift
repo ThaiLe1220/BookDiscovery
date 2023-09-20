@@ -32,6 +32,12 @@ struct WishlistView: View {
             VStack {
 //                NavigationBar(userViewModel: userViewModel)
                 ScrollView {
+                    HStack {
+                        Text("Wish List")
+                            .font(.title.bold())
+                            .padding(.leading)
+                        Spacer()
+                    }
                     LazyVGrid(columns: columns, spacing: 15) {
                         // Only display 10 books at once
                         ForEach(wishListBooks, id: \.self) { tempBook in
@@ -62,7 +68,6 @@ struct WishlistView: View {
                 .opacity(0)
                 .frame(width: 0, height: 0)
             }
-
         }
     }
 }
