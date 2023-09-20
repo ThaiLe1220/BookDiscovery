@@ -8,36 +8,46 @@
 import SwiftUI
 
 struct CommentView: View {
+    @Binding var isOn: Bool
     var review: Review
     @ObservedObject var userViewModel: UserViewModel
     @State private var username: String? = ""
     
-    
     var body: some View {
-        VStack {
-            HStack{
-                CommentProfileView(profileImage: UIImage(named: "profile")!)
-                    .frame(width: 65)
+        ZStack {
+            VStack{
+                HStack{
+                    HStack {
+                        CommentProfileView(profileImage: UIImage(named: "profile")!)
+                            .frame(width: 65)
+                            .padding(.horizontal)
+                        Text(username!)
+                    }
+                    .offset(y: -20)
+                    Spacer()
+                    HStack{
+                        RatingView(rating: review.rating)
+                            .frame(width: 100)
+                    }
+                    .offset(y: -20)
                     .padding(.horizontal)
-                    .offset(y: 5)
-                
-                VStack{
-                    Text(username!)
-                    RatingView(rating: review.rating)
-                        .frame(width: 100)
                 }
-                .padding(.horizontal)
-                Spacer()
+                HStack{
+                    Text(review.comment)
+                        .multilineTextAlignment(.leading)
+                        .padding(.bottom)
+                        .padding(.horizontal)
+                    Spacer()
+                }
             }
-            
-            Text(review.comment)
-                .multilineTextAlignment(.leading)
+            .background {
+                VStack {
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(isOn ? .black : .white)
+                }
+            }
+            .padding()
         }
-        .background(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.black, lineWidth: 2)
-        )
-        .padding()
         .onAppear {
             FireBaseDB().fetchUserNameBy(userID: review.userID) { username in
                 DispatchQueue.main.async {
@@ -45,7 +55,7 @@ struct CommentView: View {
                         self.username = username
                     }
                 }
-                 
+
             }
         }
     }
@@ -53,6 +63,6 @@ struct CommentView: View {
 
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentView(review: testReview1, userViewModel: UserViewModel())
+        CommentView(isOn: .constant(false), review: testReview1, userViewModel: UserViewModel())
     }
 }

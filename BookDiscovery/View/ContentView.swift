@@ -18,13 +18,12 @@ struct ContentView: View {
     // The main body of the ContentView
     var body: some View {
         NavigationView {
-//            if userViewModel.isSignedIn {
-//                MainView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: ReviewViewModel())
-//            }
-//            else {
-//                UserSignInView(isOn: $isOn, userViewModel: userViewModel)
-//            }
-            BookListView(bookViewModel: bookViewModel, userViewModel: userViewModel)
+            if userViewModel.isSignedIn {
+                MainView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: ReviewViewModel())
+            }
+            else {
+                UserSignInView(isOn: $isOn, userViewModel: userViewModel)
+            }
         }.environment(\.colorScheme, isOn ? .dark : .light)
     }
 }

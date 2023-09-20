@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BookDetailView: View {
+    @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     
@@ -106,7 +107,7 @@ struct BookDetailView: View {
                             tabReview = false
                         } label: {
                             Text("Overview")
-                                .foregroundColor(tabOverview ? .black : .gray)
+                                .foregroundColor(tabOverview ? (isOn ? .white : .black) : .gray)
                                 .bold(tabOverview)
                                 .padding(.horizontal)
                         }
@@ -116,7 +117,7 @@ struct BookDetailView: View {
                             tabReview = false
                         } label: {
                             Text("Book Details")
-                                .foregroundColor(tabDetail ? .black : .gray)
+                                .foregroundColor(tabDetail ? (isOn ? .white : .black) : .gray)
                                 .bold(tabDetail)
                                 .padding(.horizontal)
                         }
@@ -126,15 +127,13 @@ struct BookDetailView: View {
                             tabReview = true
                         } label: {
                             Text("Reviews (\(reviewViewModel.reviews.count))")
-                                .foregroundColor(tabReview ? .black : .gray)
+                                .foregroundColor(tabReview ? (isOn ? .white : .black) : .gray)
                                 .bold(tabReview)
                                 .padding(.horizontal)
                         }
                     }
                     .padding(.vertical, 10)
-                    
-                    Divider()
-                    
+                                        
                     if tabOverview {
                         HStack {
                             Text("Rating: ")
@@ -204,20 +203,19 @@ struct BookDetailView: View {
                                     .padding()
                                 }
                                 HStack {
-
                                     LazyVStack() {
                                         VStack {
                                             ForEach(reviewViewModel.reviews, id: \.id) {
                                                 review in
                                                 HStack{
-                                                    CommentView(review: review, userViewModel: userViewModel)
+                                                    CommentView(isOn: $isOn, review: review, userViewModel: userViewModel)
                                                 }
                                             }
                                         }
                                     }
-
                                 }
                         }
+                            .background(Color(UIColor.secondarySystemBackground))
                         
                         
                         VStack {
@@ -245,8 +243,8 @@ struct BookDetailView: View {
                 }
                 .onAppear {
                     bookViewModel.currentBook = currentBook
+                    reviewViewModel.reviews = []
                     reviewViewModel.getReviews(bookID: currentBook.id)
-
                     for wishlistid in userViewModel.currentUser.wishlist {
                         if (currentBook.id == wishlistid) {
                             inWishList = true
@@ -295,7 +293,7 @@ struct BookDetailView: View {
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), currentBook: emptyBook)
+        BookDetailView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), currentBook: emptyBook)
     }
 }
 

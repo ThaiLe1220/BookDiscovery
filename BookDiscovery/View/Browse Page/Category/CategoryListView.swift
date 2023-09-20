@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CategoryListView: View {
+    @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -18,7 +19,7 @@ struct CategoryListView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(bookViewModel.categories, id: \.id) { category in
-                    NavigationLink(destination: CategoryView(category: category, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)) {
+                    NavigationLink(destination: CategoryView(isOn: $isOn, category: category, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)) {
                         CategoryCardView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, category: category)
                     }
                     .padding(.vertical, 8)
@@ -31,6 +32,6 @@ struct CategoryListView: View {
 
 struct CategoryListView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryListView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
+        CategoryListView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

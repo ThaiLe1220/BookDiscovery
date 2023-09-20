@@ -17,7 +17,7 @@ struct BrowseView: View {
         NavigationStack {
             VStack {
                 NavigationBar(userViewModel: userViewModel)
-                CategoryListView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                CategoryListView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                 
                 Spacer()
                 NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {

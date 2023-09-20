@@ -118,7 +118,7 @@ struct HomeView: View {
                             Button(action: {
 //
                             }) {
-                                NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, currentBook: tempBook)) {
+                                NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, currentBook: tempBook)) {
                                     VStack {
                                         BookView(book: tempBook)
 
