@@ -12,18 +12,19 @@ struct ContentView: View {
     // StateObject to store and observe UserViewModel
     @StateObject var userViewModel = UserViewModel()
     @StateObject var bookViewModel = BookViewModel()
-    @StateObject var reviewViewModel = ReviewViewModel()
+
     @State private var isOn: Bool = false
 
     // The main body of the ContentView
     var body: some View {
         NavigationView {
-            if userViewModel.isSignedIn {
-                MainView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: ReviewViewModel())
-            }
-            else {
-                UserSignInView(isOn: $isOn, userViewModel: userViewModel)
-            }
+//            if userViewModel.isSignedIn {
+//                MainView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: ReviewViewModel())
+//            }
+//            else {
+//                UserSignInView(isOn: $isOn, userViewModel: userViewModel)
+//            }
+            BookListView(bookViewModel: bookViewModel, userViewModel: userViewModel)
         }.environment(\.colorScheme, isOn ? .dark : .light)
     }
 }

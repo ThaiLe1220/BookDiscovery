@@ -10,7 +10,9 @@ import SwiftUI
 struct CommentView: View {
     var review: Review
     @ObservedObject var userViewModel: UserViewModel
-
+    @State private var username: String? = ""
+    
+    
     var body: some View {
         VStack {
             HStack{
@@ -20,7 +22,7 @@ struct CommentView: View {
                     .offset(y: 5)
                 
                 VStack{
-                    Text(review.userID)
+                    Text(username!)
                     RatingView(rating: review.rating)
                         .frame(width: 100)
                 }
@@ -36,6 +38,16 @@ struct CommentView: View {
                 .stroke(Color.black, lineWidth: 2)
         )
         .padding()
+        .onAppear {
+            FireBaseDB().fetchUserNameBy(userID: review.userID) { username in
+                DispatchQueue.main.async {
+                    if let username = username {
+                        self.username = username
+                    }
+                }
+                 
+            }
+        }
     }
 }
 

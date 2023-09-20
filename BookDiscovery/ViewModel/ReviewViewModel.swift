@@ -21,13 +21,12 @@ class ReviewViewModel: ObservableObject {
                 if let reviewData = result {
                     for reviewInfo in reviewData {
                         self.reviews.append(reviewInfo)
-                        print(self.reviews)
-                        print("State1")
                     }
                 }
             }
         }
         
+
     }
     
     func toDictionary() -> [String: Any] {
@@ -57,4 +56,5 @@ class ReviewViewModel: ObservableObject {
         average /= Double(reviews.count)
         return String(format: "%.1f", average)
     }
+
 }

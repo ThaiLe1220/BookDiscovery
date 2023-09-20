@@ -10,9 +10,11 @@ import SwiftUI
 struct BookDetailView: View {
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
-    @ObservedObject var reviewViewModel: ReviewViewModel
+    
+    
     var currentBook: Book
     
+    @StateObject var reviewViewModel = ReviewViewModel()
     @State var inWishList: Bool = false
     
     
@@ -272,6 +274,13 @@ struct BookDetailView: View {
                             .frame(width: 50, height: 50)
                             .foregroundColor(.red)
                             .padding(.trailing)
+                            .background(
+                                Image(systemName: "plus.message")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(.white)
+                                    .padding(.trailing)
+                            )
 
                     })
                 }
@@ -292,7 +301,7 @@ struct BookDetailView: View {
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), currentBook: emptyBook)
+        BookDetailView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), currentBook: emptyBook)
     }
 }
 
