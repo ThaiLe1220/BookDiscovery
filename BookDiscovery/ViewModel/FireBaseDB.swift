@@ -236,6 +236,25 @@ class FireBaseDB {
        }
     }
     
+    func fetchUserNameBy(userID: String, completion: @escaping (String?) -> Void) {
+        // Query Firestore to find documents where "id" field matches the userID
+        db.collection("users").whereField("id", isEqualTo: userID).getDocuments { querySnapshot, error in
+            if error != nil {
+                // Return nil if an error occurs
+                completion(nil)
+            } else {
+                
+                // Parse the fetched user data into a User object
+                if let document = querySnapshot?.documents.first {
+                    let username = document["name"] as? String ?? ""
+                    completion(username)
+                } else {
+                    completion(nil)
+                }
+            }
+        }
+    }
+    
     // MARK: - Add Review
     func addReview(userID: String, bookID: String, rating: Double, comment: String, completion: @escaping (Review?) -> Void) {
         // Create a new document in the "users" collection
@@ -272,15 +291,16 @@ class FireBaseDB {
             if let error = error {
                 print("Error fetching reviews: \(error.localizedDescription)")
                 completion(nil)
-            } else {
-                var result: [Review] = []
-                for document in querySnapshot!.documents {
-                    if let review = try? document.data(as: Review.self) {
-                        result.append(review)
-                    }
-                }
-                completion(result)
+                return
             }
+            
+            var result: [Review] = []
+            for document in querySnapshot!.documents {
+                if let review = try? document.data(as: Review.self) {
+                    result.append(review)
+                }
+            }
+            completion(result)
         }
     }
     

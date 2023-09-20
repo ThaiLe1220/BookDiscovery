@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
+    @Binding var isOn: Bool
     @ObservedObject var userViewModel : UserViewModel
     @State private var searchResults: [Book] = []
     var currentBook: Book
@@ -23,7 +24,7 @@ struct SearchView: View {
                }
                 
                 Spacer()
-                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
@@ -63,6 +64,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(userViewModel: UserViewModel(), currentBook: emptyBook)
+        SearchView(isOn: .constant(false), userViewModel: UserViewModel())
     }
 }

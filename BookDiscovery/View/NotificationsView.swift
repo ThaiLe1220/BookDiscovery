@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct NotificationsView: View {
+    @Binding var isOn: Bool
+
     @ObservedObject var userViewModel : UserViewModel
 
     var body: some View {
@@ -17,7 +19,7 @@ struct NotificationsView: View {
                 Text("Notifications View")
                 
                 Spacer()
-                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
@@ -29,6 +31,6 @@ struct NotificationsView: View {
 
 struct NotificationsView_Previews: PreviewProvider {
     static var previews: some View {
-        NotificationsView(userViewModel: UserViewModel())
+        NotificationsView(isOn: .constant(false), userViewModel: UserViewModel())
     }
 }

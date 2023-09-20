@@ -51,5 +51,4 @@ let testReview2 = Review(
     comment: "Test Review 2",
     likes: 0,
     votedUserIds: ["2"]
-
 )
