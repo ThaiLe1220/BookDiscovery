@@ -11,7 +11,6 @@ struct SearchView: View {
     @Binding var isOn: Bool
     @ObservedObject var userViewModel : UserViewModel
     @State private var searchResults: [Book] = []
-    var currentBook: Book
     
     var body: some View {
         NavigationStack {

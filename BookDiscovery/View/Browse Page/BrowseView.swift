@@ -16,7 +16,7 @@ struct BrowseView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                NavigationBar(userViewModel: userViewModel)
+//                NavigationBar(userViewModel: userViewModel)
                 CategoryListView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                 
                 Spacer()
