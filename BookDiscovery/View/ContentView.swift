@@ -14,15 +14,21 @@ struct ContentView: View {
     @StateObject var bookViewModel = BookViewModel()
 
     @State private var isOn: Bool = false
+    @State private var isActive:Bool = false
 
     // The main body of the ContentView
     var body: some View {
         NavigationView {
-            if userViewModel.isSignedIn {
-                MainView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: ReviewViewModel())
+            if (isActive) {
+                if userViewModel.isSignedIn {
+                    MainView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: ReviewViewModel())
+                }
+                else {
+                    UserSignInView(isOn: $isOn, userViewModel: userViewModel)
+                }
             }
             else {
-                UserSignInView(isOn: $isOn, userViewModel: userViewModel)
+                SplashScreenView(isActive: $isActive)
             }
         }.environment(\.colorScheme, isOn ? .dark : .light)
     }
