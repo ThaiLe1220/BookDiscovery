@@ -25,8 +25,7 @@ struct BookDetailView: View {
     @State private var selectedOption = 0
     @State private var isCommenting:Bool = false
     
-    @State private var loaded:Bool = false
-    @State private var reviewsCollected:[Review] = []
+
     
     var body: some View {
         ZStack {
@@ -126,7 +125,7 @@ struct BookDetailView: View {
                             tabDetail = false
                             tabReview = true
                         } label: {
-                            Text("Reviews (\(reviewsCollected.count))")
+                            Text("Reviews (\(reviewViewModel.reviews.count))")
                                 .foregroundColor(tabReview ? .black : .gray)
                                 .bold(tabReview)
                                 .padding(.horizontal)
@@ -205,20 +204,18 @@ struct BookDetailView: View {
                                     .padding()
                                 }
                                 HStack {
-                                    if (loaded) {
-                                        ScrollView{
-                                            LazyVStack() {
-                                                VStack {
-                                                    ForEach(reviewsCollected, id: \.id) {
-                                                        review in
-                                                        HStack{
-                                                            CommentView(review: review, userViewModel: userViewModel)
-                                                        }
-                                                    }
+
+                                    LazyVStack() {
+                                        VStack {
+                                            ForEach(reviewViewModel.reviews, id: \.id) {
+                                                review in
+                                                HStack{
+                                                    CommentView(review: review, userViewModel: userViewModel)
                                                 }
                                             }
                                         }
                                     }
+
                                 }
                         }
                         
@@ -248,13 +245,8 @@ struct BookDetailView: View {
                 }
                 .onAppear {
                     bookViewModel.currentBook = currentBook
-                    print(bookViewModel.currentBook)
                     reviewViewModel.getReviews(bookID: currentBook.id)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        loaded = true
-                        print(reviewViewModel.reviews)
-                        reviewsCollected = reviewViewModel.reviews
-                    }
+
                     for wishlistid in userViewModel.currentUser.wishlist {
                         if (currentBook.id == wishlistid) {
                             inWishList = true
@@ -291,6 +283,8 @@ struct BookDetailView: View {
                 InputCommentView(bookID: bookViewModel.currentBook.id ) { result in
                     if let review = result {
                         reviewViewModel.reviews.append(review)
+                        
+                        isCommenting = false
                     }
                 }
                 .padding()
