@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CommentView: View {
     var review: Review
-    
+    @ObservedObject var userViewModel: UserViewModel
+
     var body: some View {
         VStack {
             HStack{
@@ -40,6 +41,6 @@ struct CommentView: View {
 
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentView(review: testReview1)
+        CommentView(review: testReview1, userViewModel: UserViewModel())
     }
 }

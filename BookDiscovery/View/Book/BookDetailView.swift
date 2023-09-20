@@ -21,225 +21,271 @@ struct BookDetailView: View {
     @State private var tabReview: Bool = false
     
     @State private var selectedOption = 0
+    @State private var isCommenting:Bool = false
+    
+    @State private var loaded:Bool = false
+    @State private var reviewsCollected:[Review] = []
     
     var body: some View {
-        ScrollView {
-            VStack {
-                ZStack {
-                    Color(.gray)
-                        .opacity(0.2)
-                    Image(uiImage: bookViewModel.currentBook.image!)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 200)
+        ZStack {
+            ScrollView {
+                VStack {
+                    ZStack {
+                        Color(.gray)
+                            .opacity(0.2)
+                        Image(uiImage: bookViewModel.currentBook.image!)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 200)
 
-                    
-                    VStack {
-                        HStack {
-                            Spacer()
-                            Button {
-                                inWishList.toggle()
-                                if (inWishList) {
-                                    userViewModel.currentUser.wishlist.append(currentBook.id)
-                                    FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
-                                        if success {
-                                            print("User updated data successfully")
-                                        } else {
-                                            print (error?.localizedDescription ?? "Unknown error")
-                                        }
-                                    }
-                                }
-                                else {
-                                    if let index = userViewModel.currentUser.wishlist.firstIndex(of: currentBook.id) {
-                                        userViewModel.currentUser.wishlist.remove(at: index)
-                                    }
-                                    FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
-                                        if success {
-                                            print("User updated data successfully")
-                                        } else {
-                                            print (error?.localizedDescription ?? "Unknown error")
-                                        }
-                                    }
-                                }
-                            } label: {
-                                Image(systemName: inWishList ? "minus.square" : "plus.square")
-                                    .foregroundColor(inWishList ? .red : .green)
-                                    .padding()
-                                    .font(.system(size: 25))
-                            }
-                        }
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            if inWishList {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.green)
-                                    .font(.system(size: 20))
-                                    .padding(.horizontal)
-                            }
-                        }
-                        ZStack {
-                            Rectangle()
-                                .foregroundColor(.red)
-                                .frame(height: 50)
-                                .opacity(0.9)
+                        
+                        VStack {
                             HStack {
-                                Text(bookViewModel.currentBook.name)
-                                    .foregroundColor(.white)
-                                    .bold()
-                            }
-                        }
-                    }
-                }
-                
-                
-                HStack {
-                    Button {
-                        tabOverview = true
-                        tabDetail = false
-                        tabReview = false
-                    } label: {
-                        Text("Overview")
-                            .foregroundColor(tabOverview ? .black : .gray)
-                            .bold(tabOverview)
-                            .padding(.horizontal)
-                    }
-                    Button {
-                        tabOverview = false
-                        tabDetail = true
-                        tabReview = false
-                    } label: {
-                        Text("Book Details")
-                            .foregroundColor(tabDetail ? .black : .gray)
-                            .bold(tabDetail)
-                            .padding(.horizontal)
-                    }
-                    Button {
-                        tabOverview = false
-                        tabDetail = false
-                        tabReview = true
-                    } label: {
-                        Text("Reviews (\(reviewViewModel.reviews.count))")
-                            .foregroundColor(tabReview ? .black : .gray)
-                            .bold(tabReview)
-                            .padding(.horizontal)
-                    }
-                }
-                .padding(.vertical, 10)
-                
-                Divider()
-                
-                if tabOverview {
-                    HStack {
-                        Text("Rating: ")
-                            .bold()
-                        RatingView(rating: bookViewModel.currentBook.rating)
-                            .frame(width: 150)
-                        Text(String(bookViewModel.currentBook.rating))
-                        Spacer()
-                    }
-                    .padding()
-                    
-                    HStack {
-                        Text("Category: ")
-                            .padding(.horizontal)
-                            .bold()
-                        ForEach(bookViewModel.currentBook.category, id: \.self) { category in
-                            Text(category)
-                        }
-                        Spacer()
-                    }
-                    .padding(.bottom, 15)
-                    
-                    HStack {
-                        Text("Author:")
-                            .padding(.horizontal)
-                            .bold()
-                        Text(bookViewModel.currentBook.author.name)
-                            .padding(.horizontal)
-                        Spacer()
-                    }
-                    
-                    Text(bookViewModel.currentBook.headline)
-                        .padding()
-                        .lineSpacing(15)
-                }
-                
-                
-                if tabDetail {
-                    Text((bookViewModel.currentBook.description))
-                        .padding()
-                        .lineSpacing(15)
-                }
-                
-                if tabReview {
-                    InputCommentView(bookID: bookViewModel.currentBook.id ) { result in
-                        if let review = result {
-                            reviewViewModel.reviews.append(review)
-                        }
-                    }
-                    .padding()
-                    
-                    Divider()
-                    
-                    HStack {
-                        Text("Average: ")
-                            .padding(.leading, 30)
-                        Text(reviewViewModel.getAvg())
-                        
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.yellow)
-                        
-                        Spacer()
-                        
-                        Picker("Select an option", selection: $selectedOption) {
-                            ForEach(0...5, id: \.self) { index in
-                                if index == 0 {
-                                    Text("All")
-                                } else {
-                                    Text(String(repeating: "★", count: 6-index))
-                                        .font(.largeTitle)
+                                Spacer()
+                                Button {
+                                    inWishList.toggle()
+                                    if (inWishList) {
+                                        userViewModel.currentUser.wishlist.append(currentBook.id)
+                                        FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
+                                            if success {
+                                                print("User updated data successfully")
+                                            } else {
+                                                print (error?.localizedDescription ?? "Unknown error")
+                                            }
+                                        }
+                                    }
+                                    else {
+                                        if let index = userViewModel.currentUser.wishlist.firstIndex(of: currentBook.id) {
+                                            userViewModel.currentUser.wishlist.remove(at: index)
+                                        }
+                                        FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
+                                            if success {
+                                                print("User updated data successfully")
+                                            } else {
+                                                print (error?.localizedDescription ?? "Unknown error")
+                                            }
+                                        }
+                                    }
+                                } label: {
+                                    Image(systemName: inWishList ? "minus.square" : "plus.square")
+                                        .foregroundColor(inWishList ? .red : .green)
+                                        .padding()
+                                        .font(.system(size: 25))
                                 }
                             }
-                        }
-                        .pickerStyle(DefaultPickerStyle())
-                        .padding()
-                    }
-                    
-                    
-                    VStack {
-                        Spacer()
-                        Button{
-                            if let amazonURL = URLCaller(name: bookViewModel.currentBook.name).amazonURL() {
-                                UIApplication.shared.open(amazonURL)
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                if inWishList {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(.green)
+                                        .font(.system(size: 20))
+                                        .padding(.horizontal)
+                                }
                             }
-                        } label: {
-                            if !tabReview {
-                                ZStack {
-                                    Rectangle()
-                                        .edgesIgnoringSafeArea(.all)
-                                        .foregroundColor(Color("Amazon-Orange"))
-                                        .frame(height: 30)
-                                    Text("Buy On Amazon")
-                                        .offset(y: 10)
-                                        .foregroundColor(.black)
+                            ZStack {
+                                Rectangle()
+                                    .foregroundColor(.red)
+                                    .frame(height: 50)
+                                    .opacity(0.9)
+                                HStack {
+                                    Text(bookViewModel.currentBook.name)
+                                        .foregroundColor(.white)
                                         .bold()
                                 }
                             }
                         }
                     }
+                    
+                    
+                    HStack {
+                        Button {
+                            tabOverview = true
+                            tabDetail = false
+                            tabReview = false
+                        } label: {
+                            Text("Overview")
+                                .foregroundColor(tabOverview ? .black : .gray)
+                                .bold(tabOverview)
+                                .padding(.horizontal)
+                        }
+                        Button {
+                            tabOverview = false
+                            tabDetail = true
+                            tabReview = false
+                        } label: {
+                            Text("Book Details")
+                                .foregroundColor(tabDetail ? .black : .gray)
+                                .bold(tabDetail)
+                                .padding(.horizontal)
+                        }
+                        Button {
+                            tabOverview = false
+                            tabDetail = false
+                            tabReview = true
+                        } label: {
+                            Text("Reviews (\(reviewsCollected.count))")
+                                .foregroundColor(tabReview ? .black : .gray)
+                                .bold(tabReview)
+                                .padding(.horizontal)
+                        }
+                    }
+                    .padding(.vertical, 10)
+                    
+                    Divider()
+                    
+                    if tabOverview {
+                        HStack {
+                            Text("Rating: ")
+                                .bold()
+                            RatingView(rating: bookViewModel.currentBook.rating)
+                                .frame(width: 150)
+                            Text(String(bookViewModel.currentBook.rating))
+                            Spacer()
+                        }
+                        .padding()
+                        
+                        HStack {
+                            Text("Category: ")
+                                .padding(.horizontal)
+                                .bold()
+                            ForEach(bookViewModel.currentBook.category, id: \.self) { category in
+                                Text(category)
+                            }
+                            Spacer()
+                        }
+                        .padding(.bottom, 15)
+                        
+                        HStack {
+                            Text("Author:")
+                                .padding(.horizontal)
+                                .bold()
+                            Text(bookViewModel.currentBook.author.name)
+                                .padding(.horizontal)
+                            Spacer()
+                        }
+                        
+                        Text(bookViewModel.currentBook.headline)
+                            .padding()
+                            .lineSpacing(15)
+                    }
+                    
+                    
+                    if tabDetail {
+                        Text((bookViewModel.currentBook.description))
+                            .padding()
+                            .lineSpacing(15)
+                    }
+                    
+                    if tabReview {
+                            VStack {
+                                HStack {
+                                    Text("Average: ")
+                                        .padding(.leading, 30)
+                                    Text(reviewViewModel.getAvg())
+                                    
+                                    Image(systemName: "star.fill")
+                                        .foregroundColor(.yellow)
+                                    
+                                    Spacer()
+                                    
+                                    Picker("Select an option", selection: $selectedOption) {
+                                        ForEach(0...5, id: \.self) { index in
+                                            if index == 0 {
+                                                Text("All")
+                                            } else {
+                                                Text(String(repeating: "★", count: 6-index))
+                                                    .font(.largeTitle)
+                                            }
+                                        }
+                                    }
+                                    .pickerStyle(DefaultPickerStyle())
+                                    .padding()
+                                }
+                                HStack {
+                                    if (loaded) {
+                                        ScrollView{
+                                            LazyVStack() {
+                                                VStack {
+                                                    ForEach(reviewsCollected, id: \.id) {
+                                                        review in
+                                                        HStack{
+                                                            CommentView(review: review, userViewModel: userViewModel)
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                        }
+                        
+                        
+                        VStack {
+                            Spacer()
+                            Button{
+                                if let amazonURL = URLCaller(name: bookViewModel.currentBook.name).amazonURL() {
+                                    UIApplication.shared.open(amazonURL)
+                                }
+                            } label: {
+                                if !tabReview {
+                                    ZStack {
+                                        Rectangle()
+                                            .edgesIgnoringSafeArea(.all)
+                                            .foregroundColor(Color("Amazon-Orange"))
+                                            .frame(height: 30)
+                                        Text("Buy On Amazon")
+                                            .offset(y: 10)
+                                            .foregroundColor(.black)
+                                            .bold()
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-            }
-            .onAppear {
-                bookViewModel.currentBook = currentBook
-                print(bookViewModel.currentBook)
-                reviewViewModel.getReviews(bookID: currentBook.id)
-                for wishlistid in userViewModel.currentUser.wishlist {
-                    if (currentBook.id == wishlistid) {
-                        inWishList = true
+                .onAppear {
+                    bookViewModel.currentBook = currentBook
+                    print(bookViewModel.currentBook)
+                    reviewViewModel.getReviews(bookID: currentBook.id)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        loaded = true
+                        print(reviewViewModel.reviews)
+                        reviewsCollected = reviewViewModel.reviews
+                    }
+                    for wishlistid in userViewModel.currentUser.wishlist {
+                        if (currentBook.id == wishlistid) {
+                            inWishList = true
+                        }
                     }
                 }
             }
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        isCommenting = true
+                    }, label: {
+                        Image(systemName: "plus.message.fill")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(.red)
+                            .padding(.trailing)
+
+                    })
+                }
+            }
+        }
+        .sheet(isPresented: $isCommenting) {
+            HStack {
+                InputCommentView(bookID: bookViewModel.currentBook.id ) { result in
+                    if let review = result {
+                        reviewViewModel.reviews.append(review)
+                    }
+                }
+                .padding()
+            }.presentationDetents([.fraction(0.5)])
         }
     }
 }
@@ -249,3 +295,4 @@ struct BookDetailView_Previews: PreviewProvider {
         BookDetailView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), currentBook: emptyBook)
     }
 }
+

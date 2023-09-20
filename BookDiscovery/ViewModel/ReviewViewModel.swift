@@ -21,6 +21,8 @@ class ReviewViewModel: ObservableObject {
                 if let reviewData = result {
                     for reviewInfo in reviewData {
                         self.reviews.append(reviewInfo)
+                        print(self.reviews)
+                        print("State1")
                     }
                 }
             }
