@@ -64,7 +64,6 @@ struct MainView: View {
                     }
             }
             .accentColor(Color("OrangeMain")) // Change the color of the selected tab item
-
         }
         .onAppear {
             // Fetch current user data and images when view appears

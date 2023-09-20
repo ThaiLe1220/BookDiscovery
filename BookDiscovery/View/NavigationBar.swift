@@ -10,44 +10,75 @@ import SwiftUI
 struct NavigationBar: View {
     @ObservedObject var userViewModel : UserViewModel
     var performSearch: () -> Void
-    
+    @State var isSearchBarVisible: Bool = false
+
     var body: some View {
-        HStack (spacing: 0) {
-            // Search Bar
-            TextField("", text: $userViewModel.searchText, onCommit: performSearch)
-                .padding(8)
-                .padding(.horizontal, 25)
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(20)
-                .padding(.horizontal, 20)
-                .foregroundColor(.gray)
-                .autocapitalization(.none)
-//                .disableAutocorrection(true)
-                .overlay(
-                    HStack {
-                        if userViewModel.searchText.isEmpty {
-                            Image(systemName: "magnifyingglass")
-                            Text("Search")
+        ZStack {
+            // Invisible view to detect taps
+            Color.clear
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    withAnimation(Animation.easeInOut(duration: 0.5)) {
+                        if isSearchBarVisible {
+                            isSearchBarVisible = false
                         }
                     }
-                        .foregroundColor(.gray)
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, 30)
-                )
+                }
+            
+            // Conditional Text Field
+            TextField("", text: $userViewModel.searchText, onCommit: performSearch)
+                .frame(height: 30)
+                .padding(.horizontal, 35)
+                .background(Color(UIColor.lightText))
+                .cornerRadius(20)
+                .foregroundColor(.gray)
+//                .animation(Animation.easeInOut(duration: 0.5), value: isSearchBarVisible)
+                .opacity(isSearchBarVisible ? 1 : 0)
+                .transition(.move(edge: .trailing))
+                .autocapitalization(.none)  // Disable automatic capitalization
+                .disableAutocorrection(true) // Disable autocorrection
 
-            Spacer()
-                .frame(width: 0)
+            HStack (spacing: 0) {
+                // This Spacer pushes the next elements to the right
+                if !isSearchBarVisible {
+                    Spacer()
+                }
 
-            Button(action: {
-                userViewModel.showSettings = true
-            }) {
-                Image(systemName: "gearshape")
-                    .font(.system(size: 24))
+                HStack {
+                    Button(action: {
+                        withAnimation(Animation.easeInOut(duration: 0.5).delay(0.0)) {
+                            isSearchBarVisible.toggle()
+                        }
+                    }) {
+                        Image(systemName: "text.magnifyingglass")
+                            .font(.system(size: 24))
+                            .foregroundColor(Color("OrangeMain"))
+                    }
+                    .padding(.horizontal, 4)
+
+                    if isSearchBarVisible {
+                        Spacer()
+                    }
+                }
+                
+                if !isSearchBarVisible {
+                    Button(action: {
+                        userViewModel.showSettings = true
+                    }) {
+                        Image(systemName: "gearshape")
+                            .font(.system(size: 24))
+                            .foregroundColor(Color("OrangeMain"))
+                    }
+                }
             }
         }
         .padding(.horizontal, 8)
-        .padding(.top, 0)
-        
+        .frame(width: UIScreen.main.bounds.width, height: 40)
+        .padding(.bottom, 4)
+        .onAppear {
+            userViewModel.showSearch = false
+            userViewModel.showSettings = false
+        }
     }
 }
 

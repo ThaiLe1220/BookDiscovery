@@ -16,15 +16,17 @@ class UserViewModel: ObservableObject {
     // Declare observable properties
     @Published var currentUser: User  // Holds the current User object
     @Published var isSignedIn: Bool = false  // Tracks if the user is signed in
-    @Published var showSettings: Bool = false 
     @Published var searchText: String = ""
     @Published var userBGImage: UIImage = UIImage(named: "background") ?? UIImage(named: "")!
     @Published var userImage: UIImage = UIImage(named: "profile") ?? UIImage(named: "")!
     @Published var selectedTheme: String = "System"
     @Published var selectedFont: String = "San Francisco"
     @Published var selectedFontSize: CGFloat = 16.0
+    @Published var selectedTab: Int = 0
     @Published var searchHistory: [String] = []
     @Published var darkMode: Bool = false
+    @Published var showSettings: Bool = false
+    @Published var showSearch: Bool = false
     
     let themes = ["System", "Light", "Dark"]
     let fonts = ["San Francisco", "Helvetica", "Arial"]

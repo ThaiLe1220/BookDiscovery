@@ -14,22 +14,31 @@ struct SearchView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
+            VStack (spacing: 0) {
                 NavigationBar(userViewModel: userViewModel, performSearch: performSearch)
-               
-                // Display search results
-               List(searchResults, id: \.id) { book in
-                   Text(book.name)
-               }
                 
-                Spacer()
                 NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
                 .frame(width: 0, height: 0)
-            }
+                
+                Divider()
+               
+                if searchResults.isEmpty {
+                    Color(UIColor.secondarySystemBackground)
+                } else {
+                    List(searchResults, id: \.id) { book in
+                        Text(book.name)
+                    }
+                }
             
+                
+                Spacer()
+                Divider()
+            }
+            .background(Color(UIColor.secondarySystemBackground))
+
         }
     }
     

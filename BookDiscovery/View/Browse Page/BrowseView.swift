@@ -15,17 +15,23 @@ struct BrowseView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-//                NavigationBar(userViewModel: userViewModel)
-                CategoryListView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
-                
-                Spacer()
+            VStack (spacing: 0) {
+                NavigationBar(userViewModel: userViewModel, performSearch: {})
                 NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
                 .frame(width: 0, height: 0)
+                
+                Divider()
+                CategoryListView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                
+                Spacer()
+                
+                Divider()
             }
+            .background(Color(UIColor.secondarySystemBackground))
+
         }
     }
 }
