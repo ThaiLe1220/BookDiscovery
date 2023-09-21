@@ -31,7 +31,7 @@ struct BrowseView: View {
                         Color(UIColor.secondarySystemBackground)
                     } else {
                         List(searchResults, id: \.id) { book in
-                        NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, currentBook: book), isActive: $userViewModel.showSettings){
+                            NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book), isActive: $userViewModel.showSettings){
                         Text(book.name)
                             }
                         }

@@ -19,7 +19,6 @@ struct NewsFeedView: View {
     var body: some View {
         NavigationStack {
             VStack {
-//                NavigationBar(userViewModel: userViewModel)
                 Spacer()
                 NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
@@ -40,7 +39,7 @@ struct NewsFeedView: View {
                                 ForEach(bookViewModel.books, id: \.self) { book in
                                     if (book.id == review.bookID) {
 
-                                            NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, currentBook: book)) {
+                                            NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
                                                 HStack {
                                                     VStack {
                                                         Image(uiImage: book.image!)

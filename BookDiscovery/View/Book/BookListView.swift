@@ -11,6 +11,7 @@ struct BookListView: View {
     @Binding var isOn: Bool
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var userViewModel: UserViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
 
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
@@ -19,7 +20,7 @@ struct BookListView: View {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(bookViewModel.books, id: \.id) { book in
                     VStack {
-                        NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, currentBook: book)) {
+                        NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
                             BookView(book: book)
                         }
                         Spacer()
@@ -33,6 +34,6 @@ struct BookListView: View {
 
 struct BookListView_Previews: PreviewProvider {
     static var previews: some View {
-        BookListView(isOn: .constant(false), bookViewModel: BookViewModel(), userViewModel: UserViewModel())
+        BookListView(isOn: .constant(false), bookViewModel: BookViewModel(), userViewModel: UserViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

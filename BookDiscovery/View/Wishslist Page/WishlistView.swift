@@ -94,7 +94,7 @@ struct WishlistView: View {
                             Button(action: {
                                 //
                             }) {
-                                NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, currentBook: book)) {
+                                NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
                                     VStack {
                                         BookView(book: book)
                                         Spacer()

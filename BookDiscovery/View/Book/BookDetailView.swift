@@ -11,11 +11,11 @@ struct BookDetailView: View {
     @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
-    
+    @ObservedObject var reviewViewModel: ReviewViewModel
+
     
     var currentBook: Book
     
-    @StateObject var reviewViewModel = ReviewViewModel()
     @State var inWishList: Bool = false
     
     
@@ -261,9 +261,6 @@ struct BookDetailView: View {
                         }
                     }
                 }
-                .onDisappear {
-                    userViewModel.fetchUserData()
-                }
                 
             }
             VStack {
@@ -320,7 +317,7 @@ struct BookDetailView: View {
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), currentBook: emptyBook)
+        BookDetailView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), currentBook: emptyBook)
     }
 }
 
