@@ -134,51 +134,51 @@ struct BookDetailView: View {
                         }
                     }
                     .padding(.vertical, 10)
-                                        
-                    if tabOverview {
-                        HStack {
-                            Text("Rating: ")
-                                .bold()
-                            RatingView(rating: bookViewModel.currentBook.rating)
-                                .frame(width: 150)
-                            Text(String(bookViewModel.currentBook.rating))
-                            Spacer()
-                        }
-                        .padding()
-                        
-                        HStack {
-                            Text("Category: ")
-                                .padding(.horizontal)
-                                .bold()
-                            ForEach(bookViewModel.currentBook.category, id: \.self) { category in
-                                Text(category)
+                    
+                    VStack {
+                        if tabOverview {
+                            HStack {
+                                Text("Rating: ")
+                                    .bold()
+                                RatingView(rating: bookViewModel.currentBook.rating)
+                                    .frame(width: 150)
+                                Text(String(bookViewModel.currentBook.rating))
+                                Spacer()
                             }
-                            Spacer()
-                        }
-                        .padding(.bottom, 15)
-                        
-                        HStack {
-                            Text("Author:")
-                                .padding(.horizontal)
-                                .bold()
-                            Text(bookViewModel.currentBook.author.name)
-                                .padding(.horizontal)
-                            Spacer()
-                        }
-                        
-                        Text(bookViewModel.currentBook.headline)
                             .padding()
-                            .lineSpacing(15)
-                    }
-                    
-                    
-                    if tabDetail {
-                        Text((bookViewModel.currentBook.description))
-                            .padding()
-                            .lineSpacing(15)
-                    }
-                    
-                    if tabReview {
+                            
+                            HStack {
+                                Text("Category: ")
+                                    .padding(.horizontal)
+                                    .bold()
+                                ForEach(bookViewModel.currentBook.category, id: \.self) { category in
+                                    Text(category)
+                                }
+                                Spacer()
+                            }
+                            .padding(.bottom, 15)
+                            
+                            HStack {
+                                Text("Author:")
+                                    .padding(.horizontal)
+                                    .bold()
+                                Text(bookViewModel.currentBook.author.name)
+                                    .padding(.horizontal)
+                                Spacer()
+                            }
+                            
+                            Text(bookViewModel.currentBook.headline)
+                                .padding()
+                                .lineSpacing(15)
+                        }
+                        
+                        if tabDetail {
+                            Text((bookViewModel.currentBook.description))
+                                .padding()
+                                .lineSpacing(15)
+                        }
+                        
+                        if tabReview {
                             VStack {
                                 HStack {
                                     Text("Average: ")
@@ -215,10 +215,9 @@ struct BookDetailView: View {
                                         }
                                     }
                                 }
-                        }
+                            }
                             .background(Color(UIColor.secondarySystemBackground))
-                        
-                        
+                        }
                         VStack {
                             Spacer()
                             Button{
@@ -229,11 +228,9 @@ struct BookDetailView: View {
                                 if !tabReview {
                                     ZStack {
                                         Rectangle()
-                                            .edgesIgnoringSafeArea(.all)
                                             .foregroundColor(Color("Amazon-Orange"))
-                                            .frame(height: 30)
+                                            .frame(height: 50)
                                         Text("Buy On Amazon")
-                                            .offset(y: 10)
                                             .foregroundColor(.black)
                                             .bold()
                                     }
