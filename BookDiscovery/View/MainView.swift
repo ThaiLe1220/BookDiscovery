@@ -53,8 +53,8 @@ struct MainView: View {
                     }
     
                 /// Notifications
-                NotificationsView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
-                    .tabItem {Label("Notifications", systemImage: "bell")}
+                NewsFeedView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                    .tabItem {Label("New Feed", systemImage: "newspaper.fill")}
                     .tag(4)
                     .onAppear {
                         userViewModel.showSettings = false

@@ -69,8 +69,14 @@ class BookViewModel: ObservableObject {
     }
     
     
-    func saveImageLocally(_ image: UIImage, fileName: String) {
+    func get(bookID: String) -> Book {
+        for book in self.books {
+            if book.id == bookID {
+                return book
+            }
+        }
         
+        return emptyBook
     }
 
     

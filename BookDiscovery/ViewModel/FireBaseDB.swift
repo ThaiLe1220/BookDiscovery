@@ -324,12 +324,12 @@ class FireBaseDB {
         var newReview = emptyReview
         var formattedDateForID: String {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyyMMddhhmmss-HH:mm:ss"
+            dateFormatter.dateFormat = "yyyyMMddhhmmss"
             return dateFormatter.string(from: Date())
         }
         var formattedDateTime: String {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+            dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
             return dateFormatter.string(from: Date())
         }
         newReview.id = "\(formattedDateForID)_\(userID)_\(bookID)"

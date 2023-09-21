@@ -14,8 +14,8 @@ struct WishlistView: View {
     @ObservedObject var reviewViewModel: ReviewViewModel
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
-    
-    @State private var wishListBooks : [Book] = []
+
+    @State var wishListBooks: [Book] = []
     
     var body: some View {
         NavigationStack {
@@ -44,6 +44,7 @@ struct WishlistView: View {
                                         Text("Ascending")
                                     }
                                 }
+                                
                                 Button {
                                     wishListBooks.sort(by: {$0.rating > $1.rating})
                                 } label: {
@@ -89,14 +90,13 @@ struct WishlistView: View {
                     }
                     LazyVGrid(columns: columns, spacing: 15) {
                         // Only display 10 books at once
-                        ForEach(wishListBooks, id: \.self) { tempBook in
+                        ForEach(wishListBooks, id: \.self) { book in
                             Button(action: {
                                 //
                             }) {
-                                NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, currentBook: tempBook)) {
+                                NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, currentBook: book)) {
                                     VStack {
-                                        BookView(book: tempBook)
-                                        
+                                        BookView(book: book)
                                         Spacer()
                                     }
                                     
@@ -106,7 +106,6 @@ struct WishlistView: View {
                     }
 
                 }
-                
                 Spacer()
                 Divider()
 
@@ -114,13 +113,16 @@ struct WishlistView: View {
             
         }
         .onAppear {
-            wishListBooks = []
-            for bookId in userViewModel.currentUser.wishlist {
-                for book in bookViewModel.books {
-                    if (bookId == book.id) {
-                        wishListBooks.append(book)
-                    }
-                }
+
+            self.wishListBooks = []
+            for bookID in userViewModel.currentUser.wishlist {
+                self.wishListBooks.append(bookViewModel.get(bookID: bookID))
+            }
+        }
+        .onChange(of: userViewModel.currentUser.wishlist) { _ in
+            self.wishListBooks = []
+            for bookID in userViewModel.currentUser.wishlist {
+                self.wishListBooks.append(bookViewModel.get(bookID: bookID))
             }
         }
     }
