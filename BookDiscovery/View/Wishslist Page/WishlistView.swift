@@ -32,7 +32,8 @@ struct WishlistView: View {
                 ScrollView {
                     HStack {
                         Text("Wish List")
-                            .font(.title.bold())
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+13))
+                            .fontWeight(.bold)
                             .padding(.leading)
                         Spacer()
                         Menu {
@@ -96,7 +97,7 @@ struct WishlistView: View {
                             }) {
                                 NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
                                     VStack {
-                                        BookView(book: book)
+                                        BookView(userViewModel: userViewModel, book: book)
                                         Spacer()
                                     }
                                     

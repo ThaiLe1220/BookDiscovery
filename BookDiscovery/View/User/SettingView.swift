@@ -21,11 +21,13 @@ struct SettingView: View {
                             
                             VStack (alignment: .leading, spacing: 4) {
                                 Text("\(userViewModel.currentUser.name)")
-                                    .font(.system(size: 20, weight: .semibold))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+4))
+                                    .fontWeight(.semibold)
                                     .foregroundColor(isOn ? .white : .black)
                                 
                                 Text("\(userViewModel.currentUser.email)")
-                                    .font(.system(size: 14, weight: .light))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-2))
+                                    .fontWeight(.light)
                                     .foregroundColor(isOn ? .white : .black)
                             }
                             .foregroundColor(Color(UIColor.darkGray))
@@ -56,6 +58,8 @@ struct SettingView: View {
         NavigationLink(destination: destination) {
             HStack {
                 Text(name)
+                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                    .fontWeight(.regular)
                 Spacer()
             }
         }

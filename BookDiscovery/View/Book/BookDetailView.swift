@@ -94,12 +94,12 @@ struct BookDetailView: View {
                                 HStack {
                                     Text(bookViewModel.currentBook.name)
                                         .foregroundColor(.white)
-                                        .bold()
+                                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                        .fontWeight(.bold)
                                 }
                             }
                         }
                     }
-                    
                     
                     HStack {
                         Button {
@@ -108,6 +108,7 @@ struct BookDetailView: View {
                             tabReview = false
                         } label: {
                             Text("Overview")
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                                 .foregroundColor(tabOverview ? (isOn ? .white : .black) : .gray)
                                 .bold(tabOverview)
                                 .padding(.horizontal)
@@ -118,6 +119,7 @@ struct BookDetailView: View {
                             tabReview = false
                         } label: {
                             Text("Book Details")
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                                 .foregroundColor(tabDetail ? (isOn ? .white : .black) : .gray)
                                 .bold(tabDetail)
                                 .padding(.horizontal)
@@ -128,6 +130,7 @@ struct BookDetailView: View {
                             tabReview = true
                         } label: {
                             Text("Reviews (\(reviewViewModel.reviews.count))")
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                                 .foregroundColor(tabReview ? (isOn ? .white : .black) : .gray)
                                 .bold(tabReview)
                                 .padding(.horizontal)
@@ -139,17 +142,21 @@ struct BookDetailView: View {
                         if tabOverview {
                             HStack {
                                 Text("Rating: ")
-                                    .bold()
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .fontWeight(.bold)
                                 RatingView(rating: bookViewModel.currentBook.rating)
                                     .frame(width: 150)
                                 Text(String(bookViewModel.currentBook.rating))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .fontWeight(.regular)
                                 Spacer()
                             }
                             .padding(.leading)
                             HStack {
                                 Text("Category: ")
                                     .padding(.horizontal)
-                                    .bold()
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .fontWeight(.bold)
                                 Spacer()
                             }
                             HStack {
@@ -157,6 +164,8 @@ struct BookDetailView: View {
                                     HStack {
                                         ForEach(bookViewModel.currentBook.category, id: \.self) { category in
                                             Text(category)
+                                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                                .fontWeight(.regular)
                                                 .padding(5)
                                                 .background {
                                                     Rectangle()
@@ -173,29 +182,40 @@ struct BookDetailView: View {
                             HStack {
                                 Text("Author:")
                                     .padding(.horizontal)
-                                    .bold()
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .fontWeight(.bold)
                                 Text(bookViewModel.currentBook.author.name)
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .fontWeight(.regular)
                                     .padding(.horizontal)
                                 Spacer()
                             }
                             
                             Text(bookViewModel.currentBook.headline)
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                .fontWeight(.regular)
                                 .padding()
-                                .lineSpacing(15)
+                                .lineSpacing(10)
                         }
                         
                         if tabDetail {
                             Text((bookViewModel.currentBook.description))
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                .fontWeight(.regular)
                                 .padding()
-                                .lineSpacing(15)
+                                .lineSpacing(10)
                         }
                         
                         if tabReview {
                             VStack {
                                 HStack {
                                     Text("Average: ")
+                                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                        .fontWeight(.regular)
                                         .padding(.leading, 30)
                                     Text(reviewViewModel.getAvg())
+                                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                        .fontWeight(.regular)
                                     
                                     Image(systemName: "star.fill")
                                         .foregroundColor(.yellow)
@@ -206,6 +226,8 @@ struct BookDetailView: View {
                                         ForEach(0...5, id: \.self) { index in
                                             if index == 0 {
                                                 Text("All")
+                                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                                    .fontWeight(.regular)
                                             } else {
                                                 Text(String(repeating: "★", count: 6-index))
                                                     .font(.largeTitle)
@@ -213,8 +235,11 @@ struct BookDetailView: View {
                                         }
                                     }
                                     .pickerStyle(DefaultPickerStyle())
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .fontWeight(.regular)
                                     .padding()
                                 }
+                                
                                 HStack {
                                     LazyVStack() {
                                         VStack {
@@ -244,7 +269,9 @@ struct BookDetailView: View {
                                             .frame(height: 50)
                                         Text("Buy On Amazon")
                                             .foregroundColor(.black)
-                                            .bold()
+                                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                            .fontWeight(.bold)
+                                        
                                     }
                                 }
                             }
@@ -291,7 +318,7 @@ struct BookDetailView: View {
                     Button(action: {
                         dismiss()
                     }, label: {
-                        CustomBackButton(buttonColor: Color( isOn ? UIColor.white : UIColor.black), text: "Back")
+                        CustomBackButton(userViewModel: userViewModel, buttonColor: Color( isOn ? UIColor.white : UIColor.black), text: "Back")
                             .padding()
                     })
                     Spacer()
@@ -302,7 +329,7 @@ struct BookDetailView: View {
         .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $isCommenting) {
             HStack {
-                InputCommentView(bookID: bookViewModel.currentBook.id, currentBook: currentBook) { result in
+                InputCommentView(userViewModel: userViewModel, bookID: bookViewModel.currentBook.id, currentBook: currentBook) { result in
                     if let review = result {
                         reviewViewModel.reviews.append(review)
                         
