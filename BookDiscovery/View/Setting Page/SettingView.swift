@@ -3,13 +3,13 @@ import SwiftUI
 struct SettingView: View {
     @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
     @State private var userImage: UIImage = UIImage(named: "profile")!
 
     var body: some View {
-        ZStack {
+        NavigationView {
             VStack (spacing: 0) {
+                Divider()
+
                 // Settings Options List
                 List {
                     NavigationLink(destination: UserAccountSettingView(isOn: $isOn, userViewModel: userViewModel)) {
@@ -43,23 +43,12 @@ struct SettingView: View {
                 .listStyle(PlainListStyle())
 
                 Spacer()
+                Divider()
+
             }
             .padding(.top, 45)
             .background(Color(UIColor.secondarySystemBackground))
-            VStack {
-                HStack {
-                    CustomBackButton(buttonColor: Color( isOn ? UIColor.white : UIColor.black), text: "Back")
-                        .padding()
-                    Spacer()
-                }
-                Spacer()
-            }
-        }
-        .navigationBarBackButtonHidden(true) // Hide the default back button
-        .onReceive(userViewModel.$showSettings) { showSettings in
-            if !showSettings {
-                presentationMode.wrappedValue.dismiss()
-            }
+
         }
     }
 

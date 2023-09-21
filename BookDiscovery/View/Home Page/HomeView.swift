@@ -36,7 +36,7 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             VStack (spacing: 0) {
-                NavigationBar(userViewModel: userViewModel, performSearch: {})
+                NavigationBar(userViewModel: userViewModel)
                 NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
@@ -179,7 +179,7 @@ struct HomeView: View {
                                 Button(action: {
     //
                                 }) {
-                                    NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, currentBook: tempBook)) {
+                                    NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: tempBook)) {
                                         VStack {
                                             BookView(book: tempBook)
 

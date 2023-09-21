@@ -16,13 +16,10 @@ struct MainView: View {
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
-
-    @State private var selectedTab = 0
-    @State private var searchText: String = ""
     
     var body: some View {
         VStack {
-            TabView (selection: $selectedTab){
+            TabView (selection: $userViewModel.selectedTab){
                 /// Browse View
                 HomeView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("Home", systemImage: "house")}
@@ -40,8 +37,8 @@ struct MainView: View {
                     }
     
                 /// Search View
-                SearchView(isOn: $isOn, userViewModel: userViewModel)
-                    .tabItem {Label("Search", systemImage: "magnifyingglass")}
+                SettingView(isOn: $isOn, userViewModel: userViewModel)
+                    .tabItem {Label("Account", systemImage: "person")}
                     .tag(2)
                     .onAppear {
                         userViewModel.showSettings = false
@@ -56,8 +53,8 @@ struct MainView: View {
                     }
     
                 /// Notifications
-                NotificationsView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
-                    .tabItem {Label("Notifications", systemImage: "bell")}
+                NewsFeedView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                    .tabItem {Label("New Feed", systemImage: "newspaper.fill")}
                     .tag(4)
                     .onAppear {
                         userViewModel.showSettings = false

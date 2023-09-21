@@ -22,11 +22,12 @@ class UserViewModel: ObservableObject {
     @Published var selectedTheme: String = "System"
     @Published var selectedFont: String = "San Francisco"
     @Published var selectedFontSize: CGFloat = 16.0
-    @Published var selectedTab: Int = 0
+    @Published var selectedTab: Int = 2
     @Published var searchHistory: [String] = []
     @Published var isOn: Bool = false
     @Published var showSettings: Bool = false
     @Published var showSearch: Bool = false
+    @Published var isSearchBarVisible: Bool = false
     
     let themes = ["System", "Light", "Dark"]
     let fonts = ["San Francisco", "Helvetica", "Arial"]
@@ -54,6 +55,7 @@ class UserViewModel: ObservableObject {
         // Set wishlist for books
         self.currentUser.wishlist = dictionary["wishlist"] as? [String] ?? []
         self.currentUser.searchHistory = dictionary["searchHistory"] as? [String] ?? []
+
     }
     
     // Convert User properties to dictionary format
@@ -111,10 +113,8 @@ class UserViewModel: ObservableObject {
         if let userID = Auth.auth().currentUser?.uid {
             FireBaseDB().fetchUser(userID: userID) { fetchedUser in
                 self.currentUser = fetchedUser ?? emptyUser
-                print(fetchedUser)
             }
         }
     }
-    
-    
+
 }

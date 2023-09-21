@@ -11,11 +11,11 @@ struct BookDetailView: View {
     @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
-    
+    @ObservedObject var reviewViewModel: ReviewViewModel
+
     
     var currentBook: Book
     
-    @StateObject var reviewViewModel = ReviewViewModel()
     @State var inWishList: Bool = false
     
     
@@ -145,19 +145,31 @@ struct BookDetailView: View {
                                 Text(String(bookViewModel.currentBook.rating))
                                 Spacer()
                             }
-                            .padding()
-                            
+                            .padding(.leading)
                             HStack {
                                 Text("Category: ")
                                     .padding(.horizontal)
                                     .bold()
-                                ForEach(bookViewModel.currentBook.category, id: \.self) { category in
-                                    Text(category)
-                                }
                                 Spacer()
                             }
-                            .padding(.bottom, 15)
-                            
+                            HStack {
+                                ScrollView(.horizontal) {
+                                    HStack {
+                                        ForEach(bookViewModel.currentBook.category, id: \.self) { category in
+                                            Text(category)
+                                                .padding(5)
+                                                .background {
+                                                    Rectangle()
+                                                        .fill(Color.random())
+                                                        .cornerRadius(5)
+                                                }
+                                        }
+                                    }
+                                }
+                                .scrollIndicators(.hidden)
+                                .padding(.horizontal)
+                                .padding(.bottom)
+                            }
                             HStack {
                                 Text("Author:")
                                     .padding(.horizontal)
@@ -249,6 +261,7 @@ struct BookDetailView: View {
                         }
                     }
                 }
+                
             }
             VStack {
                 Spacer()
@@ -304,7 +317,16 @@ struct BookDetailView: View {
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), currentBook: emptyBook)
+        BookDetailView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), currentBook: emptyBook)
     }
 }
 
+
+extension Color {
+    static func random() -> Color {
+        let red = Double.random(in: 0.5...1)
+        let green = Double.random(in: 0.5...1)
+        let blue = Double.random(in: 0.5...1)
+        return Color(red: red, green: green, blue: blue)
+    }
+}
