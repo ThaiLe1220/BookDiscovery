@@ -17,13 +17,14 @@ struct NotificationsView: View {
             VStack {
 //                NavigationBar(userViewModel: userViewModel)
                 Text("Notifications View")
-                
                 Spacer()
                 NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
                 .frame(width: 0, height: 0)
+                
+                
             }
         }
     }

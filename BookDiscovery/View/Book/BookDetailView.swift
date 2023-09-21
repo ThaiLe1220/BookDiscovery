@@ -259,13 +259,13 @@ struct BookDetailView: View {
                     }, label: {
                         Image(systemName: "plus.message.fill")
                             .resizable()
-                            .frame(width: 50, height: 50)
+                            .frame(width: 40, height: 40)
                             .foregroundColor(.red)
                             .padding(.trailing)
                             .background(
                                 Image(systemName: "plus.message")
                                     .resizable()
-                                    .frame(width: 50, height: 50)
+                                    .frame(width: 40, height: 40)
                                     .foregroundColor(.white)
                                     .padding(.trailing)
                             )
