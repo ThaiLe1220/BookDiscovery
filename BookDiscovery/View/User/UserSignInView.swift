@@ -10,6 +10,7 @@ import Firebase
 
 // UserSignInView represents the sign-in screen in the app.
 struct UserSignInView: View {
+    @Binding var isOn: Bool
     // ViewModel to manage user-related data.
     @ObservedObject var userViewModel: UserViewModel
     
@@ -23,7 +24,6 @@ struct UserSignInView: View {
 
     // Main View
     var body: some View {
-        // ZStack to overlay UI components.
         ZStack {
             // Background image.
             Image("wall-e")
@@ -50,7 +50,7 @@ struct UserSignInView: View {
                             Text("Sign In")
                                 .font(.system(size: 34, weight: .bold, design: .serif))
                         )
-                    
+
                     // VStack containing Email and Password text fields.
                     VStack (spacing: 12) {
                         // Email input section.
@@ -89,7 +89,7 @@ struct UserSignInView: View {
                                           )
                                   )
 
-                              
+
                               TextField("", text: $email)
                                   .autocapitalization(.none)
                                   .disableAutocorrection(true)
@@ -100,7 +100,7 @@ struct UserSignInView: View {
                           }
                           .font(.system(size: 18))
                         }
-                        
+
                         // Password input section.
                         VStack (spacing: 4) {
                           HStack {
@@ -165,7 +165,7 @@ struct UserSignInView: View {
                           }
                           .font(.system(size: 18))
                         }
-                        
+
                         HStack {
                             Spacer()
                             NavigationLink(destination: ResetPasswordView(userViewModel: userViewModel)) {
@@ -174,21 +174,21 @@ struct UserSignInView: View {
                                     .foregroundColor(.orange)
                                     .italic()
                             }
-               
+
                         }
                       }
                       .frame(width: geometry.size.width * 0.8)
-                    
+
                     // Sign In button and Face ID button.
                     ZStack {
-                        
+
                         // Sign In button
                         Button(action: {
                             self.buttonScale = 0.8
                             withAnimation {
                                 self.buttonScale = 1
                             }
-                            
+
                             // Your sign-in logic here
                             FirebaseAuthService().signIn(email: email, password: password) { (success, error) in
                                 if success {
@@ -221,7 +221,7 @@ struct UserSignInView: View {
                                   message: Text(alertMessage),
                                   dismissButton: .default(Text("OK")))
                         }
-                        
+
                         // Biometric authentication button.
                         // Test on simulator. Use Features -> FaceID -> Matching Face
                         HStack {
@@ -265,7 +265,7 @@ struct UserSignInView: View {
                             .foregroundColor(.orange)
 
                     }
-                    
+
 
 
                     Spacer()
@@ -280,6 +280,6 @@ struct UserSignInView: View {
 // SwiftUI Preview
 struct UserSignInView_Previews: PreviewProvider {
     static var previews: some View {
-        UserSignInView(userViewModel: UserViewModel())
+        UserSignInView(isOn: .constant(false), userViewModel: UserViewModel())
     }
 }

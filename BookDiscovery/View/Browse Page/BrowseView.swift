@@ -8,27 +8,36 @@
 import SwiftUI
 
 struct BrowseView: View {
-    @ObservedObject var userViewModel : UserViewModel
-
+    @Binding var isOn: Bool
+    @ObservedObject var userViewModel: UserViewModel
+    @ObservedObject var bookViewModel: BookViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
+    
     var body: some View {
         NavigationStack {
-            VStack {
-                NavigationBar(userViewModel: userViewModel)
-                Text("Browse View")
-                
-                Spacer()
-                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+            VStack (spacing: 0) {
+                NavigationBar(userViewModel: userViewModel, performSearch: {})
+                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
                 .frame(width: 0, height: 0)
+                
+                Divider()
+                CategoryListView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                
+                Spacer()
+                
+                Divider()
             }
+            .background(Color(UIColor.secondarySystemBackground))
+
         }
     }
 }
 
 struct BrowseView_Previews: PreviewProvider {
     static var previews: some View {
-        BrowseView(userViewModel: UserViewModel())
+        BrowseView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

@@ -8,16 +8,20 @@
 import SwiftUI
 
 struct UserAppearanceSettingView: View {
+    @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
+    
+    var mode = ["Dark", "Light"]
+    var modeCase = [true, false]
     
     var body: some View {
         ZStack {
             Form {
                 // Theme Picker
                 Section(header: Text("Theme")) {
-                    Picker("Select Theme", selection: $userViewModel.selectedTheme) {
-                        ForEach(userViewModel.themes, id: \.self) {
-                            Text($0)
+                    HStack {
+                        Text("Dark Mode")
+                        Toggle(isOn: $isOn) {
                         }
                     }
                 }
@@ -51,20 +55,22 @@ struct UserAppearanceSettingView: View {
             }
             .padding(.top, 45)
             .background(Color(UIColor.secondarySystemBackground))
-
-            HStack {
-                CustomBackButton(buttonColor: Color(UIColor.black), text: "Settings")
-                    .padding()
+            VStack {
+                HStack {
+                    CustomBackButton(buttonColor: Color( isOn ? UIColor.white : UIColor.black), text: "Settings")
+                        .padding()
+                    Spacer()
+                }
                 Spacer()
             }
-            .offset(y:-UIScreen.main.bounds.height*0.42)
         }
         .navigationBarBackButtonHidden(true) // Hide the default back button
+        .environment(\.colorScheme, isOn ? .dark : .light)
     }
 }
 
 struct UserAppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
-        UserAppearanceSettingView(userViewModel: UserViewModel())
+        UserAppearanceSettingView(isOn: .constant(false), userViewModel: UserViewModel())
     }
 }

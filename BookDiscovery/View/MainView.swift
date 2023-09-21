@@ -10,17 +10,21 @@ import Firebase
 import UserNotifications
 
 struct MainView: View {
+    
+    @Binding var isOn:Bool
     // StateObject to store and observe UserViewModel
     @ObservedObject var userViewModel: UserViewModel
+    @ObservedObject var bookViewModel: BookViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
 
     @State private var selectedTab = 0
     @State private var searchText: String = ""
     
     var body: some View {
-        NavigationStack {
+        VStack {
             TabView (selection: $selectedTab){
                 /// Browse View
-                HomeView(userViewModel: userViewModel)
+                HomeView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("Home", systemImage: "house")}
                     .tag(0)
                     .onAppear {
@@ -28,7 +32,7 @@ struct MainView: View {
                     }
     
                 /// Browse View
-                BrowseView(userViewModel: userViewModel)
+                BrowseView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("Browse", systemImage: "square.grid.2x2")}
                     .tag(1)
                     .onAppear {
@@ -36,7 +40,7 @@ struct MainView: View {
                     }
     
                 /// Search View
-                SearchView(userViewModel: userViewModel)
+                SearchView(isOn: $isOn, userViewModel: userViewModel)
                     .tabItem {Label("Search", systemImage: "magnifyingglass")}
                     .tag(2)
                     .onAppear {
@@ -44,7 +48,7 @@ struct MainView: View {
                     }
     
                 /// My Books
-                WishlistView(userViewModel: userViewModel)
+                WishlistView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("My Books", systemImage: "heart.circle")}
                     .tag(3)
                     .onAppear {
@@ -52,7 +56,7 @@ struct MainView: View {
                     }
     
                 /// Notifications
-                NotificationsView(userViewModel: userViewModel)
+                NotificationsView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("Notifications", systemImage: "bell")}
                     .tag(4)
                     .onAppear {
@@ -60,12 +64,13 @@ struct MainView: View {
                     }
             }
             .accentColor(Color("OrangeMain")) // Change the color of the selected tab item
-
         }
+        .background(Color(UIColor.secondarySystemBackground))
         .onAppear {
             // Fetch current user data and images when view appears
             userViewModel.fetchUserData()
             userViewModel.fetchUserImage()
+            print(userViewModel.currentUser)
         }
     }
     
@@ -75,6 +80,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(userViewModel: UserViewModel())
+        MainView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

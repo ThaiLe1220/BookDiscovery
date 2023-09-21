@@ -5,14 +5,13 @@ import Firebase
 
 // UserAccountSettingView SwiftUI View
 struct UserAccountSettingView: View {
+    @Binding var isOn: Bool
     // ViewModel to manage user state
     @ObservedObject var userViewModel: UserViewModel
 
     // Local states for UI elements
     @State private var enabledEdit: Bool = false
-    @State private var user: User?
     @State private var showToast: Bool = false
-
 
     // Main View body
     var body: some View {
@@ -32,7 +31,7 @@ struct UserAccountSettingView: View {
                     // Profile and background image section
                     ZStack {
                         ProfileBackgroundView(userViewModel: userViewModel)
-                        ProfileImageView(userViewModel: userViewModel)
+                        ProfileImageView(isOn: $isOn, userViewModel: userViewModel)
                             .offset(x: -UIScreen.main.bounds.width/2 + 80, y: 90)
                         
                         // Name editing and button controls
@@ -46,11 +45,12 @@ struct UserAccountSettingView: View {
                                     }
                                 ))
                                 .font(.system(size: 26, weight: .semibold))
+                                .foregroundColor(isOn ? .white : .black)
                             }
                             else {
                                 Text(userViewModel.currentUser.name == "" ? "Empty Name" : userViewModel.currentUser.name )
                                     .font(.system(size: 26, weight: .semibold))
-                                    .foregroundColor(userViewModel.currentUser.name == "" ? .black : .black)
+                                    .foregroundColor(isOn ? .white : .black)
                             }
                             Spacer()
                         }
@@ -69,7 +69,7 @@ struct UserAccountSettingView: View {
                             } label: {
                                 Text("Cancel")
                                     .font(.system(size: 14, weight: .semibold))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(isOn ? .white : .black)
                             }
                             .frame(width: 80, height: 5)
                             .padding(.vertical, 12)
@@ -80,28 +80,22 @@ struct UserAccountSettingView: View {
 
                             // Edit/Update toggle button
                             Button {
-                                enabledEdit.toggle()
-                                
-                                // Update user data
-                                if enabledEdit == false {
-                                    if let user = user {
-                                        FireBaseDB().updateUser(user: user) { _ in
-                                            showToast = true
-                                            userViewModel.currentUser = user
-                                            
-                                            // Hide toast after 3 seconds
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                                showToast = false
-                                            }
+
+                                if enabledEdit == true {
+                                    FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
+                                        if success {
+                                            print("User updated data successfully")
+                                        } else {
+                                            print (error?.localizedDescription ?? "Unknown error")
                                         }
-                                    } else {
-                                        
                                     }
                                 }
+                                enabledEdit.toggle()
+                                
                             } label: {
                                 Text(enabledEdit ? "Update" : "Edit")
                                     .font(.system(size: 14, weight: .semibold))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(isOn ? .white : .black)
                             }
                             .frame(width: enabledEdit ? 80 : 60, height: 5)
                             .padding(.vertical, 12)
@@ -239,7 +233,7 @@ struct UserAccountSettingView: View {
                         }
                     }
                     .padding(12)
-                    .background(.white)
+                    .background(isOn ? .black : .white)
                     .cornerRadius(5)
                     .padding(.horizontal, 16)
                     
@@ -248,12 +242,12 @@ struct UserAccountSettingView: View {
                         HStack (alignment: .center) {
                             // Conditional TextEditor or Text based on editing mode
                             if enabledEdit {
-                                TextEditor(text: Binding<String>(
+                                TextField("Bio", text: Binding<String>(
                                     get: { userViewModel.currentUser.bio },
                                     set: { newValue in
                                         userViewModel.currentUser.bio = newValue
                                     }
-                                ))
+                                ), axis: .vertical)
 
                             } else {
                                 Text(userViewModel.currentUser.bio )
@@ -264,7 +258,7 @@ struct UserAccountSettingView: View {
                         }
                         .font(.system(size: 16, weight: .regular))
                         .padding(12)
-                        .background(.white)
+                        .background(isOn ? .black : .white)
                         .cornerRadius(5)
                         .padding(.horizontal, 16)
                     }
@@ -283,7 +277,7 @@ struct UserAccountSettingView: View {
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.red)
                     .padding(12)
-                    .background(.white)
+                    .background(isOn ? .black : .white)
                     .cornerRadius(5)
                     .padding(.horizontal, 16)
                     
@@ -307,7 +301,33 @@ struct UserAccountSettingView: View {
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.red)
                         .padding(12)
-                        .background(.white)
+                        .background(isOn ? .black : .white)
+                        .cornerRadius(5)
+                        .padding(.horizontal, 16)
+                    }
+                    
+                    Divider()
+                    
+                    // Delete button
+                    Button {
+                        FireBaseDB().deleteUser() { success in
+                            if success {
+                                print("Deleted successfully")
+                                userViewModel.isSignedIn = false
+                            } else {
+                                print("Failed to delete")
+                            }
+                        }
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text("Delete Account")
+                            Spacer()
+                        }
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.red)
+                        .padding(12)
+                        .background(isOn ? .black : .white)
                         .cornerRadius(5)
                         .padding(.horizontal, 16)
                     }
@@ -315,14 +335,14 @@ struct UserAccountSettingView: View {
              }
             .background(Color(UIColor.secondarySystemBackground))
             .edgesIgnoringSafeArea(.all)
-
-            HStack {
-                CustomBackButton(buttonColor: Color(UIColor.black), text: "Settings")
-                    .padding()
+            VStack {
+                HStack {
+                    CustomBackButton(buttonColor: Color(UIColor.black), text: "Settings")
+                        .padding()
+                    Spacer()
+                }
                 Spacer()
             }
-            .offset(y:-UIScreen.main.bounds.height*0.42)
-
         }
         .onAppear {
 //            userViewModel.currentUser = testUser
@@ -336,6 +356,6 @@ struct UserAccountSettingView: View {
 // Preview for SwiftUI
 struct UserAccountSettingView_Previews: PreviewProvider {
     static var previews: some View {
-        UserAccountSettingView(userViewModel: UserViewModel())
+        UserAccountSettingView(isOn: .constant(false), userViewModel: UserViewModel())
     }
 }

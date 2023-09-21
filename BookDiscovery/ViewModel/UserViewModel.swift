@@ -16,20 +16,24 @@ class UserViewModel: ObservableObject {
     // Declare observable properties
     @Published var currentUser: User  // Holds the current User object
     @Published var isSignedIn: Bool = false  // Tracks if the user is signed in
-    @Published var showSettings: Bool = false 
     @Published var searchText: String = ""
     @Published var userBGImage: UIImage = UIImage(named: "background") ?? UIImage(named: "")!
     @Published var userImage: UIImage = UIImage(named: "profile") ?? UIImage(named: "")!
     @Published var selectedTheme: String = "System"
     @Published var selectedFont: String = "San Francisco"
     @Published var selectedFontSize: CGFloat = 16.0
+    @Published var selectedTab: Int = 0
+    @Published var searchHistory: [String] = []
+    @Published var isOn: Bool = false
+    @Published var showSettings: Bool = false
+    @Published var showSearch: Bool = false
     
     let themes = ["System", "Light", "Dark"]
     let fonts = ["San Francisco", "Helvetica", "Arial"]
     
     // Initializer
-    init(user: User = emptyUser) {
-        currentUser = user  // Initialize currentUser with default or provided user object
+    init() {
+        currentUser = emptyUser  // Initialize currentUser with default or provided user object
     }
     
     // Initialize User properties from a given dictionary
@@ -46,25 +50,32 @@ class UserViewModel: ObservableObject {
         
         // Initialize bio
         self.currentUser.bio = dictionary["bio"] as? String ?? ""
+        
+        // Set wishlist for books
+        self.currentUser.wishlist = dictionary["wishlist"] as? [String] ?? []
+        self.currentUser.searchHistory = dictionary["searchHistory"] as? [String] ?? []
     }
     
     // Convert User properties to dictionary format
-    func toDictionary() -> [String: Any] {
+    func toDictionary(user: User) -> [String: Any] {
         var dictionary: [String: Any] = [:]
-        dictionary["id"] = self.currentUser.id
-        dictionary["email"] = self.currentUser.email
-        dictionary["name"] = self.currentUser.name
+        dictionary["id"] = user.id
+        dictionary["email"] = user.email
+        dictionary["name"] = user.name
         
         // Convert 'address' to sub-dictionary
         dictionary["address"] = [
-            "street" : self.currentUser.address.street,
-            "city" : self.currentUser.address.city,
-            "country" : self.currentUser.address.country
+            "street" : user.address.street,
+            "city" : user.address.city,
+            "country" : user.address.country
         ]
         
         // Include bio
-        dictionary["bio"] = self.currentUser.bio
+        dictionary["bio"] = user.bio
         
+        // Include wishlists
+        dictionary["wishlist"] = user.wishlist
+        dictionary["searchHistory"] = user.searchHistory
         return dictionary
     }
     
@@ -74,6 +85,7 @@ class UserViewModel: ObservableObject {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegex)
         return emailTest.evaluate(with: email)
     }
+    
     
     // Fetch profile and background images
     func fetchUserImage() {
@@ -99,7 +111,10 @@ class UserViewModel: ObservableObject {
         if let userID = Auth.auth().currentUser?.uid {
             FireBaseDB().fetchUser(userID: userID) { fetchedUser in
                 self.currentUser = fetchedUser ?? emptyUser
+                print(fetchedUser)
             }
         }
     }
+    
+    
 }

@@ -8,20 +8,63 @@
 import SwiftUI
 
 struct SearchView: View {
+    @Binding var isOn: Bool
     @ObservedObject var userViewModel : UserViewModel
-
+    @State private var searchResults: [Book] = []
+    
     var body: some View {
         NavigationStack {
-            VStack {
-                NavigationBar(userViewModel: userViewModel)
-                Text("Search View")
+            VStack (spacing: 0) {
+                NavigationBar(userViewModel: userViewModel, performSearch: performSearch)
                 
-                Spacer()
-                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
                 .frame(width: 0, height: 0)
+                
+                Divider()
+               
+                if searchResults.isEmpty {
+                    Color(UIColor.secondarySystemBackground)
+                } else {
+                    List(searchResults, id: \.id) { book in
+                        Text(book.name)
+                    }
+                }
+            
+                
+                Spacer()
+                Divider()
+            }
+            .background(Color(UIColor.secondarySystemBackground))
+
+        }
+    }
+    
+    // Function to perform the search
+    private func performSearch() {
+        print("Search query sent: \(userViewModel.searchText)")
+        
+        FireBaseDB().searchBooks(query: userViewModel.searchText) { results in
+            if let results = results {
+                searchResults = results
+                if results.isEmpty {
+                    print("No books found for query: \(userViewModel.searchText)")
+                } else {
+                    print("Books found for query: \(userViewModel.searchText)")
+                }
+            } else {
+                print("Error occurred while fetching books.")
+            }
+        }
+        
+        userViewModel.currentUser.searchHistory.append(userViewModel.searchText)
+        FireBaseDB().updateUser(user: userViewModel.currentUser) { success, error in
+            if success {
+                print("search query added to search history")
+            } else {
+                print(error?.localizedDescription ?? "Unknown Error")
             }
         }
     }
@@ -29,6 +72,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(userViewModel: UserViewModel())
+        SearchView(isOn: .constant(false), userViewModel: UserViewModel())
     }
 }

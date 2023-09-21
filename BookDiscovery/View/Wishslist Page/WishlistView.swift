@@ -8,20 +8,119 @@
 import SwiftUI
 
 struct WishlistView: View {
+    @Binding var isOn: Bool
     @ObservedObject var userViewModel : UserViewModel
+    @ObservedObject var bookViewModel: BookViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
+    
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    
+    @State private var wishListBooks : [Book] = []
     
     var body: some View {
         NavigationStack {
-            VStack {
-                NavigationBar(userViewModel: userViewModel)
-                Text("Wishlist View")
-                
-                Spacer()
-                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+            VStack (spacing: 0) {
+                NavigationBar(userViewModel: userViewModel, performSearch: {})
+                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
                 .frame(width: 0, height: 0)
+                
+                Divider()
+                
+                ScrollView {
+                    HStack {
+                        Text("Wish List")
+                            .font(.title.bold())
+                            .padding(.leading)
+                        Spacer()
+                        Menu {
+                            Menu {
+                                Button {
+                                    wishListBooks.sort(by: {$0.rating < $1.rating})
+                                } label: {
+                                    HStack {
+                                        Text("Ascending")
+                                    }
+                                }
+                                Button {
+                                    wishListBooks.sort(by: {$0.rating > $1.rating})
+                                } label: {
+                                    HStack {
+                                        Text("Descending")
+                                    }
+                                }
+
+                            } label: {
+                                HStack {
+                                    Text("Rating")
+                                }
+                            }
+
+                            Menu {
+                                Button {
+                                    wishListBooks.sort(by: {$0.name < $1.name})
+                                } label: {
+                                    HStack {
+                                        Text("A-Z")
+                                    }
+                                }
+                                Button {
+                                    wishListBooks.sort(by: {$0.name > $1.name})
+                                } label: {
+                                    HStack {
+                                        Text("Z-A")
+                                    }
+                                }
+
+                            } label: {
+                                HStack {
+                                    Text("Name")
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "line.3.horizontal.decrease.circle")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .foregroundColor(Color("OrangeMain"))
+                                .padding(.horizontal)
+                        }
+                    }
+                    LazyVGrid(columns: columns, spacing: 15) {
+                        // Only display 10 books at once
+                        ForEach(wishListBooks, id: \.self) { tempBook in
+                            Button(action: {
+                                //
+                            }) {
+                                NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, currentBook: tempBook)) {
+                                    VStack {
+                                        BookView(book: tempBook)
+                                        
+                                        Spacer()
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+
+                }
+                
+                Spacer()
+                Divider()
+
+            }
+            
+        }
+        .onAppear {
+            wishListBooks = []
+            for bookId in userViewModel.currentUser.wishlist {
+                for book in bookViewModel.books {
+                    if (bookId == book.id) {
+                        wishListBooks.append(book)
+                    }
+                }
             }
         }
     }
@@ -29,6 +128,6 @@ struct WishlistView: View {
 
 struct WishlistView_Previews: PreviewProvider {
     static var previews: some View {
-        WishlistView(userViewModel: UserViewModel())
+        WishlistView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

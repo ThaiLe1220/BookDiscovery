@@ -7,44 +7,35 @@
 
 import Foundation
 import FirebaseDatabase
+import UIKit
 
 class BookViewModel: ObservableObject {
     @Published var currentBook: Book
-    @Published var books: [String: Book] = [:]
+    @Published var categories: [Category] = []
+    @Published var books: [Book] = []
+    @Published var loves: [Book] = []
 
-    init (book: Book = emptyBook) {
-        currentBook = book
+    init () {
+        currentBook = emptyBook
         initAllBooks()
+        initAllCategories()
     }
     
     func initAllBooks() {
         FireBaseDB().getAllBooks() { result in
             DispatchQueue.main.async {
                 if let bookData = result {
-                    for (key, bookInfo) in bookData {
-                        if let bookInfo = bookInfo as? [String: Any] {
-                            var book: Book = emptyBook
-                            
-                            book.id = key
-                            book.name = bookInfo["name"] as? String ?? ""
-                            book.category = bookInfo["category"] as? [String] ?? []
-                            book.headline = bookInfo["headline"] as? String ?? ""
-                            book.description = bookInfo["description"] as? String ?? ""
-                            book.rating = bookInfo["rating"] as? Double ?? 0.0
-                            book.totalRated = bookInfo["totalRated"] as? Int ?? 0
-                            let author = bookInfo["author"] as? [String : Any] ?? [:]
-                            book.author.name = author["name"] as? String ?? ""
-                            
-                            // Handle image URL
-                            if let imageURLString = bookInfo["imageURL"] as? String, let imageURL = URL(string: imageURLString) {
-                                book.imageURL = imageURL
-                            } else {
-                                book.imageURL = nil
-                            }
-                            
-                            self.books[key] = book
-                        }
-                    }
+                    self.books.append(bookData)
+                }
+            }
+        }
+    }
+    
+    func initAllCategories() {
+        FireBaseDB().getAllCategories() { result in
+            DispatchQueue.main.async {
+                if let categoryData = result {
+                    self.categories.append(categoryData)
                 }
             }
         }
@@ -56,20 +47,11 @@ class BookViewModel: ObservableObject {
         self.currentBook.category = dictionary["category"] as? [String] ?? []
         self.currentBook.headline = dictionary["headline"] as? String ?? ""
         self.currentBook.description = dictionary["description"] as? String ?? ""
-        
         self.currentBook.rating = dictionary["rating"] as? Double ?? 0.0
-        self.currentBook.totalRated = dictionary["totalRated"] as? Int ?? 0
-
-        let author = dictionary["author"] as? [String : Any] ?? [:]
-//        self.currentBook.author.id = author["id"] as? String ?? ""
-        self.currentBook.author.name = author["name"] as? String ?? ""
+        self.currentBook.imageURL = dictionary["imageURL"] as? String ?? ""
         
-        // Handle image URL
-        if let imageURLString = dictionary["imageURL"] as? String, let imageURL = URL(string: imageURLString) {
-            self.currentBook.imageURL = imageURL
-        } else {
-            self.currentBook.imageURL = nil
-        }
+        let author = dictionary["author"] as? [String : Any] ?? [:]
+        self.currentBook.author.name = author["name"] as? String ?? ""
     }
     
     func toDictionary() -> [String: Any] {
@@ -80,13 +62,16 @@ class BookViewModel: ObservableObject {
         dictionary["headline"] = self.currentBook.headline
         dictionary["description"] = self.currentBook.description
         dictionary["rating"] = self.currentBook.rating
-        dictionary["totalRated"] = self.currentBook.totalRated
         dictionary["author"] = [
-//            "id" : self.currentBook.author.id,
             "name" : self.currentBook.author.name
         ]
-        
         return dictionary
     }
+    
+    
+    func saveImageLocally(_ image: UIImage, fileName: String) {
+        
+    }
 
+    
 }

@@ -8,20 +8,42 @@
 import SwiftUI
 
 struct NotificationsView: View {
-    @ObservedObject var userViewModel : UserViewModel
+    @Binding var isOn: Bool
 
+    @ObservedObject var userViewModel : UserViewModel
+    @ObservedObject var bookViewModel: BookViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
+
+    
+    @State private var allReviews: [Review] = []
+    
     var body: some View {
         NavigationStack {
             VStack {
-                NavigationBar(userViewModel: userViewModel)
+//                NavigationBar(userViewModel: userViewModel)
                 Text("Notifications View")
-                
                 Spacer()
-                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
                 .frame(width: 0, height: 0)
+                
+                
+            }
+        }
+        .onAppear {
+            allReviews = []
+            for book in bookViewModel.books {
+                FireBaseDB().getAllReviews(bookID: book.id) { result in
+                    DispatchQueue.main.async {
+                        if let reviewData = result {
+                            for reviewInfo in reviewData {
+                                allReviews.append(reviewInfo)
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -29,6 +51,6 @@ struct NotificationsView: View {
 
 struct NotificationsView_Previews: PreviewProvider {
     static var previews: some View {
-        NotificationsView(userViewModel: UserViewModel())
+        NotificationsView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

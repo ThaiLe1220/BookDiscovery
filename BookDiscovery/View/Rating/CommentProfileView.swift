@@ -15,7 +15,7 @@ struct CommentProfileView: View {
             Image(uiImage: profileImage)
                 .resizable()
                 .scaledToFit()
-//                .frame(width: 150, height: 100)
+                .frame(width: 70, height: 70)
                 .clipShape(Circle())
                 .overlay(
                     Circle()
