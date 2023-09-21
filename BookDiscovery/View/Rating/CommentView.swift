@@ -36,9 +36,14 @@ struct CommentView: View {
                 HStack{
                     Text(review.comment)
                         .multilineTextAlignment(.leading)
-                        .padding(.bottom)
                         .padding(.horizontal)
                     Spacer()
+                }
+                HStack {
+                    Spacer()
+                    Text(review.date)
+                        .padding(.bottom)
+                        .padding(.horizontal)
                 }
             }
             .background {

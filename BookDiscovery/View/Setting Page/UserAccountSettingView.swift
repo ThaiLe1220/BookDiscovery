@@ -242,12 +242,12 @@ struct UserAccountSettingView: View {
                         HStack (alignment: .center) {
                             // Conditional TextEditor or Text based on editing mode
                             if enabledEdit {
-                                TextEditor(text: Binding<String>(
+                                TextField("Bio", text: Binding<String>(
                                     get: { userViewModel.currentUser.bio },
                                     set: { newValue in
                                         userViewModel.currentUser.bio = newValue
                                     }
-                                ))
+                                ), axis: .vertical)
 
                             } else {
                                 Text(userViewModel.currentUser.bio )

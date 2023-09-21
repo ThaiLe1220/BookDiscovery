@@ -138,19 +138,20 @@ struct HomeView: View {
                                             Text("Rating")
                                         }
                                     }
+
                                     Menu {
                                         Button {
                                             totalBooks.sort(by: {$0.name < $1.name})
                                         } label: {
                                             HStack {
-                                                Text("Ascending")
+                                                Text("A-Z")
                                             }
                                         }
                                         Button {
                                             totalBooks.sort(by: {$0.name > $1.name})
                                         } label: {
                                             HStack {
-                                                Text("Descending")
+                                                Text("Z-A")
                                             }
                                         }
 

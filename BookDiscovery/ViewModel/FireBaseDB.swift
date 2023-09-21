@@ -367,6 +367,7 @@ class FireBaseDB {
         }
     }
     
+
     // MARK: - Delete Review
     func deleteReview(reviewID: String, completion: @escaping (Bool?) -> Void) {
         db.collection("reviews").whereField("id", isEqualTo: reviewID).getDocuments { querySnapshot, error in

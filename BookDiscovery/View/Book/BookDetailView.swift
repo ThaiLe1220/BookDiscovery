@@ -26,6 +26,7 @@ struct BookDetailView: View {
     @State private var selectedOption = 0
     @State private var isCommenting:Bool = false
     
+    @Environment (\.dismiss) var  dismiss
 
     
     var body: some View {
@@ -275,7 +276,20 @@ struct BookDetailView: View {
                     })
                 }
             }
+            VStack {
+                HStack {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        CustomBackButton(buttonColor: Color( isOn ? UIColor.white : UIColor.black), text: "Back")
+                            .padding()
+                    })
+                    Spacer()
+                }
+                Spacer()
+            }
         }
+        .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $isCommenting) {
             HStack {
                 InputCommentView(bookID: bookViewModel.currentBook.id, currentBook: currentBook) { result in

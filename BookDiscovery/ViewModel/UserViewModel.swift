@@ -24,7 +24,7 @@ class UserViewModel: ObservableObject {
     @Published var selectedFontSize: CGFloat = 16.0
     @Published var selectedTab: Int = 0
     @Published var searchHistory: [String] = []
-    @Published var darkMode: Bool = false
+    @Published var isOn: Bool = false
     @Published var showSettings: Bool = false
     @Published var showSearch: Bool = false
     

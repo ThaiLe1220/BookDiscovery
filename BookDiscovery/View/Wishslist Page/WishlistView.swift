@@ -15,17 +15,7 @@ struct WishlistView: View {
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
-    var wishListBooks : [Book] {
-        var list : [Book] = []
-        for bookId in userViewModel.currentUser.wishlist {
-            for book in bookViewModel.books {
-                if (bookId == book.id) {
-                    list.append(book)
-                }
-            }
-        }
-        return list
-    }
+    @State private var wishListBooks : [Book] = []
     
     var body: some View {
         NavigationStack {
@@ -45,6 +35,57 @@ struct WishlistView: View {
                             .font(.title.bold())
                             .padding(.leading)
                         Spacer()
+                        Menu {
+                            Menu {
+                                Button {
+                                    wishListBooks.sort(by: {$0.rating < $1.rating})
+                                } label: {
+                                    HStack {
+                                        Text("Ascending")
+                                    }
+                                }
+                                Button {
+                                    wishListBooks.sort(by: {$0.rating > $1.rating})
+                                } label: {
+                                    HStack {
+                                        Text("Descending")
+                                    }
+                                }
+
+                            } label: {
+                                HStack {
+                                    Text("Rating")
+                                }
+                            }
+
+                            Menu {
+                                Button {
+                                    wishListBooks.sort(by: {$0.name < $1.name})
+                                } label: {
+                                    HStack {
+                                        Text("A-Z")
+                                    }
+                                }
+                                Button {
+                                    wishListBooks.sort(by: {$0.name > $1.name})
+                                } label: {
+                                    HStack {
+                                        Text("Z-A")
+                                    }
+                                }
+
+                            } label: {
+                                HStack {
+                                    Text("Name")
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "line.3.horizontal.decrease.circle")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .foregroundColor(Color("OrangeMain"))
+                                .padding(.horizontal)
+                        }
                     }
                     LazyVGrid(columns: columns, spacing: 15) {
                         // Only display 10 books at once
@@ -74,6 +115,15 @@ struct WishlistView: View {
 
             }
             
+        }
+        .onAppear {
+            for bookId in userViewModel.currentUser.wishlist {
+                for book in bookViewModel.books {
+                    if (bookId == book.id) {
+                        wishListBooks.append(book)
+                    }
+                }
+            }
         }
     }
 }
