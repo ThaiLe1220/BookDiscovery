@@ -182,7 +182,7 @@ struct HomeView: View {
                                 }) {
                                     NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: tempBook)) {
                                         VStack {
-                                            BookView(userViewModel: userViewModel, book: tempBook)
+                                            BookView(isOn: $isOn, userViewModel: userViewModel, book: tempBook)
 
                                             Spacer()
                                         }
