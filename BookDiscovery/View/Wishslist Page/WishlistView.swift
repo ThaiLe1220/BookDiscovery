@@ -104,10 +104,7 @@ struct WishlistView: View {
                             }
                         }
                     }
-                    .background(GeometryReader {
-                        Color.clear.preference(key: ViewOffsetKey.self,
-                                               value: -$0.frame(in: .named("scrollView")).origin.y)
-                    })
+
                 }
                 
                 Spacer()
@@ -117,6 +114,7 @@ struct WishlistView: View {
             
         }
         .onAppear {
+            wishListBooks = []
             for bookId in userViewModel.currentUser.wishlist {
                 for book in bookViewModel.books {
                     if (bookId == book.id) {
