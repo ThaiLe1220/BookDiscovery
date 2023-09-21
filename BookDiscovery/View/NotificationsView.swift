@@ -11,7 +11,12 @@ struct NotificationsView: View {
     @Binding var isOn: Bool
 
     @ObservedObject var userViewModel : UserViewModel
+    @ObservedObject var bookViewModel: BookViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
 
+    
+    @State private var allReviews: [Review] = []
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -27,11 +32,25 @@ struct NotificationsView: View {
                 
             }
         }
+        .onAppear {
+            allReviews = []
+            for book in bookViewModel.books {
+                FireBaseDB().getAllReviews(bookID: book.id) { result in
+                    DispatchQueue.main.async {
+                        if let reviewData = result {
+                            for reviewInfo in reviewData {
+                                allReviews.append(reviewInfo)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
 struct NotificationsView_Previews: PreviewProvider {
     static var previews: some View {
-        NotificationsView(isOn: .constant(false), userViewModel: UserViewModel())
+        NotificationsView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

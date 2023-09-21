@@ -56,7 +56,7 @@ struct MainView: View {
                     }
     
                 /// Notifications
-                NotificationsView(isOn: $isOn, userViewModel: userViewModel)
+                NotificationsView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("Notifications", systemImage: "bell")}
                     .tag(4)
                     .onAppear {
