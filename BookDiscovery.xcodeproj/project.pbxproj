@@ -47,7 +47,6 @@
 		DE3B2FC32AB2F3DE000F8B93 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3B2FC22AB2F3DE000F8B93 /* NavigationBar.swift */; };
 		DE3B2FC52AB2FA95000F8B93 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3B2FC42AB2FA95000F8B93 /* HomeView.swift */; };
 		DE3B2FC72AB2FB99000F8B93 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3B2FC62AB2FB99000F8B93 /* BrowseView.swift */; };
-		DE3B2FC92AB2FBC6000F8B93 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3B2FC82AB2FBC6000F8B93 /* SearchView.swift */; };
 		DE3B2FCB2AB2FBEA000F8B93 /* WishlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3B2FCA2AB2FBEA000F8B93 /* WishlistView.swift */; };
 		DE3B2FCD2AB2FC12000F8B93 /* NewsFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3B2FCC2AB2FC12000F8B93 /* NewsFeedView.swift */; };
 		DE3B2FD02AB3253D000F8B93 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3B2FCE2AB3253C000F8B93 /* Book.swift */; };
@@ -101,7 +100,6 @@
 		DE3B2FC22AB2F3DE000F8B93 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		DE3B2FC42AB2FA95000F8B93 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		DE3B2FC62AB2FB99000F8B93 /* BrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
-		DE3B2FC82AB2FBC6000F8B93 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		DE3B2FCA2AB2FBEA000F8B93 /* WishlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistView.swift; sourceTree = "<group>"; };
 		DE3B2FCC2AB2FC12000F8B93 /* NewsFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedView.swift; sourceTree = "<group>"; };
 		DE3B2FCE2AB3253C000F8B93 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
@@ -198,10 +196,8 @@
 				DE3B2FC22AB2F3DE000F8B93 /* NavigationBar.swift */,
 				4498C9812ABC2D15003F4A27 /* News Feed Page */,
 				DE5C49B62AB47E33003EFB6E /* Wishslist Page */,
-				DE5C49B52AB47E26003EFB6E /* Search Page */,
 				DE5C49B42AB47E1C003EFB6E /* Browse Page */,
 				DE5C49B32AB47E0B003EFB6E /* Home Page */,
-				DE5C49B72AB47E48003EFB6E /* Setting Page */,
 				CDD2FFFD2AB1854B0016A86D /* User */,
 				DE4E3FDE2AB333450000EFEB /* Book */,
 				DE4E3FE12AB333590000EFEB /* Rating */,
@@ -256,6 +252,9 @@
 				DE4E3FF52AB335510000EFEB /* ChangePasswordView.swift */,
 				DE4E3FF42AB335510000EFEB /* ResetPasswordView.swift */,
 				DE04C7C82AB34628003B24BE /* CustomGoBackButton.swift */,
+				DE3B2FBE2AB2DDCC000F8B93 /* SettingView.swift */,
+				DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */,
+				A2FAC9F32AAF0FC200779CAA /* UserAccountSettingView.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -325,30 +324,12 @@
 			path = "Browse Page";
 			sourceTree = "<group>";
 		};
-		DE5C49B52AB47E26003EFB6E /* Search Page */ = {
-			isa = PBXGroup;
-			children = (
-				DE3B2FC82AB2FBC6000F8B93 /* SearchView.swift */,
-			);
-			path = "Search Page";
-			sourceTree = "<group>";
-		};
 		DE5C49B62AB47E33003EFB6E /* Wishslist Page */ = {
 			isa = PBXGroup;
 			children = (
 				DE3B2FCA2AB2FBEA000F8B93 /* WishlistView.swift */,
 			);
 			path = "Wishslist Page";
-			sourceTree = "<group>";
-		};
-		DE5C49B72AB47E48003EFB6E /* Setting Page */ = {
-			isa = PBXGroup;
-			children = (
-				DE3B2FBE2AB2DDCC000F8B93 /* SettingView.swift */,
-				DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */,
-				A2FAC9F32AAF0FC200779CAA /* UserAccountSettingView.swift */,
-			);
-			path = "Setting Page";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -452,7 +433,6 @@
 				CD24DD212AB01855001BF2A6 /* ProfileImageView.swift in Sources */,
 				DEFC8B732AB4642100A23D35 /* ReviewViewModel.swift in Sources */,
 				A2FAC9E52AAF0E1B00779CAA /* UserViewModel.swift in Sources */,
-				DE3B2FC92AB2FBC6000F8B93 /* SearchView.swift in Sources */,
 				4487E1A82ABAD63A009386C2 /* SplashScreenView.swift in Sources */,
 				A2FAC9F42AAF0FC200779CAA /* UserAccountSettingView.swift in Sources */,
 				DE3B2FCB2AB2FBEA000F8B93 /* WishlistView.swift in Sources */,

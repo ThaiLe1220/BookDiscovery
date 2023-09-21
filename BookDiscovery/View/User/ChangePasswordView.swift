@@ -11,6 +11,8 @@ import SwiftUI
 struct ChangePasswordView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
+    @ObservedObject var userViewModel: UserViewModel
+
     @State private var currentPassword: String = ""
     @State private var newPassword: String = ""
     @State private var showAlert: Bool = false
@@ -141,7 +143,7 @@ struct ChangePasswordView: View {
             .offset(y: -UIScreen.main.bounds.height*0.08)
             
             HStack {
-                CustomBackButton(buttonColor: Color(UIColor.orange), text: "Account")
+                CustomBackButton(userViewModel: userViewModel, buttonColor: Color(UIColor.orange), text: "Account")
                     .padding()
                 Spacer()
             }
@@ -170,6 +172,6 @@ struct ChangePasswordView: View {
 
 struct ChangePasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        ChangePasswordView()
+        ChangePasswordView(userViewModel: UserViewModel())
     }
 }

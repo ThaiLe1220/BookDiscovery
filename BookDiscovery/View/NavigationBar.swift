@@ -30,7 +30,8 @@ struct NavigationBar: View {
                 .background(Color(UIColor.lightText))
                 .cornerRadius(20)
                 .foregroundColor(.gray)
-//                .animation(Animation.easeInOut(duration: 0.5), value: isSearchBarVisible)
+                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+2))
+                .fontWeight(.regular)
                 .opacity(userViewModel.isSearchBarVisible ? 1 : 0)
                 .transition(.move(edge: .trailing))
                 .autocapitalization(.none)  // Disable automatic capitalization

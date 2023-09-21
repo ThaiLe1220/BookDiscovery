@@ -322,7 +322,7 @@ struct UserSignUpView: View {
             .offset(y: -UIScreen.main.bounds.height*0.08)
 
             HStack {
-                CustomBackButton(buttonColor: Color(UIColor.orange), text: "Sign In")
+                CustomBackButton(userViewModel: userViewModel, buttonColor: Color(UIColor.orange), text: "Sign In")
                     .padding()
                 Spacer()
             }

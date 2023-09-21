@@ -18,36 +18,40 @@ struct UserAppearanceSettingView: View {
         ZStack {
             Form {
                 // Theme Picker
-                Section(header: Text("Theme")) {
+                Section(header: Text("Theme").font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-3))) {
                     HStack {
                         Text("Dark Mode")
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+1))
+                            .fontWeight(.regular)
                         Toggle(isOn: $isOn) {
                         }
                     }
                 }
                 
                 // Font Picker
-                Section(header: Text("Font")) {
+                Section(header: Text("Font").font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-3))) {
                     Picker("Select Font", selection: $userViewModel.selectedFont) {
                         ForEach(userViewModel.fonts, id: \.self) {
                             Text($0)
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                         }
                     }
+                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+1))
                     
                     HStack (spacing: 8) {
                         Text("Font Size: \(String(format: "%.1f", userViewModel.selectedFontSize))")
                             .lineLimit(1)
                         Spacer()
-                        Slider(value: $userViewModel.selectedFontSize, in: 14...18, step: 0.5)
+                        Slider(value: $userViewModel.selectedFontSize, in: 14...18, step: 1)
                             .frame(width: UIScreen.main.bounds.width/3)
                     }
-                    .font(.system(size:userViewModel.selectedFontSize))
+                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+1))
                 }
   
 
                 
                 // Placeholder for future development ideas
-                Section(header: Text("More Options")) {
+                Section(header: Text("More Options").font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-3))) {
 //                    Button("Future Option 1") {
 //                        // Placeholder for future implementation
 //                    }
@@ -57,7 +61,7 @@ struct UserAppearanceSettingView: View {
             .background(Color(UIColor.secondarySystemBackground))
             VStack {
                 HStack {
-                    CustomBackButton(buttonColor: Color( isOn ? UIColor.white : UIColor.black), text: "Settings")
+                    CustomBackButton(userViewModel: userViewModel, buttonColor: Color( isOn ? UIColor.white : UIColor.black), text: "Settings")
                         .padding()
                     Spacer()
                 }

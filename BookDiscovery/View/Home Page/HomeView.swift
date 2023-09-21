@@ -113,7 +113,8 @@ struct HomeView: View {
                             HStack {
                                 Text("Recommened Books")
                                     .padding(.horizontal)
-                                    .font(.system(size: 22, weight: .bold))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+6))
+                                    .fontWeight(.bold)
                                     .foregroundColor(Color("OrangeMain"))
                                 Spacer()
                                 Menu {
@@ -181,7 +182,7 @@ struct HomeView: View {
                                 }) {
                                     NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: tempBook)) {
                                         VStack {
-                                            BookView(book: tempBook)
+                                            BookView(userViewModel: userViewModel, book: tempBook)
 
                                             Spacer()
                                         }

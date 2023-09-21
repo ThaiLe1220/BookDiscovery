@@ -20,7 +20,7 @@ class UserViewModel: ObservableObject {
     @Published var userBGImage: UIImage = UIImage(named: "background") ?? UIImage(named: "")!
     @Published var userImage: UIImage = UIImage(named: "profile") ?? UIImage(named: "")!
     @Published var selectedTheme: String = "System"
-    @Published var selectedFont: String = "San Francisco"
+    @Published var selectedFont: String = "Times New Roman"
     @Published var selectedFontSize: CGFloat = 16.0
     @Published var selectedTab: Int = 2
     @Published var searchHistory: [String] = []
@@ -28,10 +28,10 @@ class UserViewModel: ObservableObject {
     @Published var showSettings: Bool = false
     @Published var showSearch: Bool = false
     @Published var isSearchBarVisible: Bool = false
-    
+
     let themes = ["System", "Light", "Dark"]
-    let fonts = ["San Francisco", "Helvetica", "Arial"]
-    
+    let fonts = ["Arial", "Georgia", "Helvetica", "Times New Roman", "Palatino"]
+
     // Initializer
     init() {
         currentUser = emptyUser  // Initialize currentUser with default or provided user object

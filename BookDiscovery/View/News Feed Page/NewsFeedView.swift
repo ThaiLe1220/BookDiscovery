@@ -50,7 +50,12 @@ struct NewsFeedView: View {
                                                     Spacer()
                                                     VStack {
                                                         Text(book.name)
+                                                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+1))
+                                                            .fontWeight(.semibold)
+                                                        
                                                         Text(book.author.name)
+                                                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
+                                                            .fontWeight(.regular)
                                                     }
 
                                                     Spacer()

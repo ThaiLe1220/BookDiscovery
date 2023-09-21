@@ -38,8 +38,9 @@ struct CategoryView: View {
                             Text(category.name)
 //                                .foregroundColor(Color(UIColor.darkText).opacity(0.9))
                                 .foregroundColor(Color(UIColor.lightText))
-                                .font(.system(size: 20, weight: .semibold))
-                                .kerning(3) // Adjust the kerning value to your desired spacing
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+4))
+                                .fontWeight(.semibold)
+                                .kerning(2.5) // Adjust the kerning value to your desired spacing
 
                         }
                     }
@@ -51,7 +52,8 @@ struct CategoryView: View {
                 
                 HStack {
                     Text(category.description)
-                        .font(.system(size: 15, weight: .light))
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
+                        .fontWeight(.light)
                         .padding(16)
                     Spacer()
                 }
@@ -63,7 +65,7 @@ struct CategoryView: View {
                         if book.category.contains(category.name) {
                             VStack {
                                 NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
-                                    BookView(book: book)
+                                    BookView(userViewModel: userViewModel, book: book)
                                 }
                                 Spacer()
                             }

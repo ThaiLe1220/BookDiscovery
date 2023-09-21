@@ -31,7 +31,8 @@ struct CategoryCardView: View {
                 HStack {
                     Text(category.name)
                         .foregroundColor(.white)
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-2))
+                        .fontWeight(.semibold)
                         .padding(8)
                     Spacer()
                 }

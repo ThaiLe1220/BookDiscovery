@@ -9,6 +9,8 @@ import SwiftUI
 import Firebase
 
 struct InputCommentView: View {
+    @ObservedObject var userViewModel: UserViewModel
+
     var bookID: String
     
     var currentBook: Book
@@ -35,6 +37,8 @@ struct InputCommentView: View {
                 VStack {
                     HStack {
                         Text(currentBook.name)
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                            .fontWeight(.regular)
                         Spacer()
                         ForEach(1..<6) { i in
                             Image(systemName: numStar >= i  ? "star.fill" : "star")
@@ -54,7 +58,8 @@ struct InputCommentView: View {
                     }
                     HStack {
                         Text(currentBook.author.name)
-                            .font(.system(size: 20).bold())
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+4))
+                            .fontWeight(.bold)
                         Spacer()
                     }
                     HStack {
@@ -64,6 +69,8 @@ struct InputCommentView: View {
                 }
                 Spacer()
                 TextEditor(text: $content)
+                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+4))
+                    .fontWeight(.regular)
                     .frame(minHeight: 100)
                     .border(.gray, width: 1)
                     .onChange(of: content) { newValue in
@@ -72,6 +79,8 @@ struct InputCommentView: View {
                 
                 HStack {
                     Text(announcement)
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                        .fontWeight(.regular)
                         .padding(.horizontal)
                         .foregroundColor(isError ? .red : .green)
                     
@@ -99,6 +108,8 @@ struct InputCommentView: View {
                         }
                     } label: {
                         Text("Send")
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                            .fontWeight(.regular)
                     }
                 }
             }

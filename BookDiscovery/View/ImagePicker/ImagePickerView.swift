@@ -46,6 +46,8 @@ struct ImagePickerView: View {
             } label: {
                 if let _ = selectedImage {
                     Text("Done")
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                        .fontWeight(.regular)
                 }
             })
         }

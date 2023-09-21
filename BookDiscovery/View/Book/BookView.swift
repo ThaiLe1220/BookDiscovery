@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BookView: View {
+    @ObservedObject var userViewModel: UserViewModel
+
     var book: Book
     var bookReviews: Int = 100
     
@@ -19,7 +21,8 @@ struct BookView: View {
                 .frame(width: 155, height: 199)
             
             Text(book.name)
-                .font(.system(size: 15))
+                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
+                .fontWeight(.regular)
                 .lineLimit(2)
                 .frame(height: 38)
 
@@ -34,6 +37,6 @@ struct BookView: View {
 
 struct BookView_Previews: PreviewProvider {
     static var previews: some View {
-        BookView(book: testBook)
+        BookView(userViewModel: UserViewModel(), book: testBook)
     }
 }

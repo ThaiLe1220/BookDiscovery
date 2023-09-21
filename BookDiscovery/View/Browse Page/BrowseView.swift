@@ -33,6 +33,8 @@ struct BrowseView: View {
                         List(searchResults, id: \.id) { book in
                             NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book), isActive: $userViewModel.showSettings){
                         Text(book.name)
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+2))
+                            .fontWeight(.regular)
                             }
                         }
                     }

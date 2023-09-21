@@ -23,6 +23,8 @@ struct CommentView: View {
                             .frame(width: 65)
                             .padding(.horizontal)
                         Text(username!)
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                            .fontWeight(.regular)
                     }
                     .offset(y: -20)
                     Spacer()
@@ -37,6 +39,8 @@ struct CommentView: View {
                     Text(review.comment)
                         .multilineTextAlignment(.leading)
                         .padding(.horizontal)
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                        .fontWeight(.regular)
                     Spacer()
                 }
                 HStack {
@@ -44,6 +48,8 @@ struct CommentView: View {
                     Text(review.date)
                         .padding(.bottom)
                         .padding(.horizontal)
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                        .fontWeight(.regular)
                 }
             }
             .background {
