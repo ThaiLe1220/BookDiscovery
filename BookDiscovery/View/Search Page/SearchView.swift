@@ -10,12 +10,15 @@ import SwiftUI
 struct SearchView: View {
     @Binding var isOn: Bool
     @ObservedObject var userViewModel : UserViewModel
-    @State private var searchResults: [Book] = []
+    @ObservedObject var bookViewModel: BookViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
+    
+    @State var searchResults: [Book] = []
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack (spacing: 0) {
-                NavigationBar(userViewModel: userViewModel, performSearch: performSearch)
+                NavigationBar(userViewModel: userViewModel)
                 
                 NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
@@ -24,39 +27,28 @@ struct SearchView: View {
                 .frame(width: 0, height: 0)
                 
                 Divider()
-               
-                if searchResults.isEmpty {
-                    Color(UIColor.secondarySystemBackground)
-                } else {
-                    List(searchResults, id: \.id) { book in
-                        Text(book.name)
-                    }
-                }
+
             
-                
                 Spacer()
                 Divider()
             }
             .background(Color(UIColor.secondarySystemBackground))
-
+            .onAppear {
+                userViewModel.searchText = ""
+                userViewModel.showSearch = false
+                searchResults = bookViewModel.books
+            }
+            .onChange(of: userViewModel.searchText) { text in
+                text == "" ? searchResults = bookViewModel.books : performSearch()
+            }
         }
     }
     
     // Function to perform the search
-    private func performSearch() {
-        print("Search query sent: \(userViewModel.searchText)")
+    func performSearch() {
         
-        FireBaseDB().searchBooks(query: userViewModel.searchText) { results in
-            if let results = results {
-                searchResults = results
-                if results.isEmpty {
-                    print("No books found for query: \(userViewModel.searchText)")
-                } else {
-                    print("Books found for query: \(userViewModel.searchText)")
-                }
-            } else {
-                print("Error occurred while fetching books.")
-            }
+        searchResults = bookViewModel.books.filter { book in
+            book.name.lowercased().contains(userViewModel.searchText.lowercased())
         }
         
         userViewModel.currentUser.searchHistory.append(userViewModel.searchText)
@@ -72,6 +64,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(isOn: .constant(false), userViewModel: UserViewModel())
+        SearchView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

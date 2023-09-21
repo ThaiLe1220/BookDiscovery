@@ -9,8 +9,6 @@ import SwiftUI
 
 struct NavigationBar: View {
     @ObservedObject var userViewModel : UserViewModel
-    var performSearch: () -> Void
-    @State var isSearchBarVisible: Bool = false
 
     var body: some View {
         ZStack {
@@ -19,35 +17,36 @@ struct NavigationBar: View {
                 .contentShape(Rectangle())
                 .onTapGesture {
                     withAnimation(Animation.easeInOut(duration: 0.5)) {
-                        if isSearchBarVisible {
-                            isSearchBarVisible = false
+                        if userViewModel.isSearchBarVisible {
+                            userViewModel.isSearchBarVisible = false
                         }
                     }
                 }
             
             // Conditional Text Field
-            TextField("", text: $userViewModel.searchText, onCommit: performSearch)
+            TextField("", text: $userViewModel.searchText)
                 .frame(height: 30)
                 .padding(.horizontal, 35)
                 .background(Color(UIColor.lightText))
                 .cornerRadius(20)
                 .foregroundColor(.gray)
 //                .animation(Animation.easeInOut(duration: 0.5), value: isSearchBarVisible)
-                .opacity(isSearchBarVisible ? 1 : 0)
+                .opacity(userViewModel.isSearchBarVisible ? 1 : 0)
                 .transition(.move(edge: .trailing))
                 .autocapitalization(.none)  // Disable automatic capitalization
                 .disableAutocorrection(true) // Disable autocorrection
 
             HStack (spacing: 0) {
                 // This Spacer pushes the next elements to the right
-                if !isSearchBarVisible {
+                if !userViewModel.isSearchBarVisible {
                     Spacer()
                 }
 
                 HStack {
                     Button(action: {
                         withAnimation(Animation.easeInOut(duration: 0.5).delay(0.0)) {
-                            isSearchBarVisible.toggle()
+                            userViewModel.isSearchBarVisible.toggle()
+                            userViewModel.showSearch.toggle()
                         }
                     }) {
                         Image(systemName: "text.magnifyingglass")
@@ -56,18 +55,8 @@ struct NavigationBar: View {
                     }
                     .padding(.horizontal, 4)
 
-                    if isSearchBarVisible {
+                    if userViewModel.isSearchBarVisible {
                         Spacer()
-                    }
-                }
-                
-                if !isSearchBarVisible {
-                    Button(action: {
-                        userViewModel.showSettings = true
-                    }) {
-                        Image(systemName: "gearshape")
-                            .font(.system(size: 24))
-                            .foregroundColor(Color("OrangeMain"))
                     }
                 }
             }
@@ -84,6 +73,6 @@ struct NavigationBar: View {
 
 struct NavigationBar_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationBar(userViewModel: UserViewModel(), performSearch: {})
+        NavigationBar(userViewModel: UserViewModel())
     }
 }

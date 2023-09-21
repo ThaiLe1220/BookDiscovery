@@ -20,7 +20,7 @@ struct WishlistView: View {
     var body: some View {
         NavigationStack {
             VStack (spacing: 0) {
-                NavigationBar(userViewModel: userViewModel, performSearch: {})
+                NavigationBar(userViewModel: userViewModel)
                 NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }

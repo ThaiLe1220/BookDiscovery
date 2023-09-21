@@ -13,10 +13,12 @@ struct BrowseView: View {
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
     
+    @State var searchResults: [Book] = []
+
     var body: some View {
         NavigationStack {
             VStack (spacing: 0) {
-                NavigationBar(userViewModel: userViewModel, performSearch: {})
+                NavigationBar(userViewModel: userViewModel)
                 NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
@@ -24,7 +26,23 @@ struct BrowseView: View {
                 .frame(width: 0, height: 0)
                 
                 Divider()
-                CategoryListView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                if userViewModel.showSearch {
+                    if searchResults.isEmpty {
+                        Color(UIColor.secondarySystemBackground)
+                    } else {
+                        List(searchResults, id: \.id) { book in
+                        NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, currentBook: book), isActive: $userViewModel.showSettings){
+                        Text(book.name)
+                            }
+                        }
+                    }
+                }
+                else {
+                    CategoryListView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                        .opacity(userViewModel.showSearch ? 0 : 1)
+                }
+
+
                 
                 Spacer()
                 
@@ -32,6 +50,31 @@ struct BrowseView: View {
             }
             .background(Color(UIColor.secondarySystemBackground))
 
+        }
+        .onAppear {
+            userViewModel.searchText = ""
+            userViewModel.showSearch = false
+            searchResults = bookViewModel.books
+            userViewModel.isSearchBarVisible = false
+        }
+        .onChange(of: userViewModel.searchText) { text in
+            text == "" ? searchResults = bookViewModel.books : performSearch()
+        }
+    }
+    
+    // Function to perform the search
+    func performSearch() {
+        searchResults = bookViewModel.books.filter { book in
+            book.name.lowercased().contains(userViewModel.searchText.lowercased())
+        }
+        
+        userViewModel.currentUser.searchHistory.append(userViewModel.searchText)
+        FireBaseDB().updateUser(user: userViewModel.currentUser) { success, error in
+            if success {
+                print("search query added to search history")
+            } else {
+                print(error?.localizedDescription ?? "Unknown Error")
+            }
         }
     }
 }

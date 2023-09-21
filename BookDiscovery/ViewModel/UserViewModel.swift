@@ -22,11 +22,12 @@ class UserViewModel: ObservableObject {
     @Published var selectedTheme: String = "System"
     @Published var selectedFont: String = "San Francisco"
     @Published var selectedFontSize: CGFloat = 16.0
-    @Published var selectedTab: Int = 0
+    @Published var selectedTab: Int = 1
     @Published var searchHistory: [String] = []
     @Published var isOn: Bool = false
     @Published var showSettings: Bool = false
     @Published var showSearch: Bool = false
+    @Published var isSearchBarVisible: Bool = false
     
     let themes = ["System", "Light", "Dark"]
     let fonts = ["San Francisco", "Helvetica", "Arial"]
