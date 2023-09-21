@@ -63,7 +63,7 @@ struct CategoryView: View {
                         if book.category.contains(category.name) {
                             VStack {
                                 NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
-                                    BookView(book: book)
+                                    BookView(isOn: $isOn, book: book)
                                 }
                                 Spacer()
                             }

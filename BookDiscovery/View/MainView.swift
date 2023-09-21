@@ -35,10 +35,9 @@ struct MainView: View {
                     .onAppear {
                         userViewModel.showSettings = false
                     }
-    
-                /// Search View
-                SettingView(isOn: $isOn, userViewModel: userViewModel)
-                    .tabItem {Label("Account", systemImage: "person")}
+                /// Notifications
+                NewsFeedView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                    .tabItem {Label("New Feed", systemImage: "newspaper.fill")}
                     .tag(2)
                     .onAppear {
                         userViewModel.showSettings = false
@@ -52,9 +51,9 @@ struct MainView: View {
                         userViewModel.showSettings = false
                     }
     
-                /// Notifications
-                NewsFeedView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
-                    .tabItem {Label("New Feed", systemImage: "newspaper.fill")}
+                /// Search View
+                SettingView(isOn: $isOn, userViewModel: userViewModel)
+                    .tabItem {Label("Account", systemImage: "person")}
                     .tag(4)
                     .onAppear {
                         userViewModel.showSettings = false

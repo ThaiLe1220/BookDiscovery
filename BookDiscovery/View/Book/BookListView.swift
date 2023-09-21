@@ -21,7 +21,7 @@ struct BookListView: View {
                 ForEach(bookViewModel.books, id: \.id) { book in
                     VStack {
                         NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
-                            BookView(book: book)
+                            BookView(isOn: $isOn, book: book)
                         }
                         Spacer()
                     }

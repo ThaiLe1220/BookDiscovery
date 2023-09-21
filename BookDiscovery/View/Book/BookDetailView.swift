@@ -86,21 +86,20 @@ struct BookDetailView: View {
                                         .padding(.horizontal)
                                 }
                             }
-                            ZStack {
-                                Rectangle()
-                                    .foregroundColor(.red)
-                                    .frame(height: 50)
-                                    .opacity(0.9)
-                                HStack {
-                                    Text(bookViewModel.currentBook.name)
-                                        .foregroundColor(.white)
-                                        .bold()
-                                }
-                            }
+//                            ZStack {
+//                                HStack {
+//                                    Text(bookViewModel.currentBook.name)
+//                                        .foregroundColor(.white)
+//                                        .bold()
+//                                }
+//                            }
                         }
                     }
-                    
-                    
+                    HStack {
+                        Text(bookViewModel.currentBook.name)
+                            .foregroundColor(.primary)
+                            .bold()
+                    }
                     HStack {
                         Button {
                             tabOverview = true
@@ -134,7 +133,6 @@ struct BookDetailView: View {
                         }
                     }
                     .padding(.vertical, 10)
-                    
                     VStack {
                         if tabOverview {
                             HStack {
@@ -230,26 +228,8 @@ struct BookDetailView: View {
                             }
                             .background(Color(UIColor.secondarySystemBackground))
                         }
-                        VStack {
-                            Spacer()
-                            Button{
-                                if let amazonURL = URLCaller(name: bookViewModel.currentBook.name).amazonURL() {
-                                    UIApplication.shared.open(amazonURL)
-                                }
-                            } label: {
-                                if !tabReview {
-                                    ZStack {
-                                        Rectangle()
-                                            .foregroundColor(Color("Amazon-Orange"))
-                                            .frame(height: 50)
-                                        Text("Buy On Amazon")
-                                            .foregroundColor(.black)
-                                            .bold()
-                                    }
-                                }
-                            }
-                        }
                     }
+                    Spacer(minLength: 40)
                 }
                 .onAppear {
                     bookViewModel.currentBook = currentBook
@@ -284,6 +264,24 @@ struct BookDetailView: View {
                             )
 
                     })
+                }
+                VStack {
+                    Button{
+                        if let amazonURL = URLCaller(name: bookViewModel.currentBook.name).amazonURL() {
+                            UIApplication.shared.open(amazonURL)
+                        }
+                    } label: {
+                        if !tabReview {
+                            ZStack {
+                                Rectangle()
+                                    .foregroundColor(Color("Amazon-Orange"))
+                                    .frame(height: 50)
+                                Text("Buy On Amazon")
+                                    .foregroundColor(.black)
+                                    .bold()
+                            }
+                        }
+                    }
                 }
             }
             VStack {
