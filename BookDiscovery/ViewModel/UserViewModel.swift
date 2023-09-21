@@ -20,7 +20,7 @@ class UserViewModel: ObservableObject {
     @Published var userBGImage: UIImage = UIImage(named: "background") ?? UIImage(named: "")!
     @Published var userImage: UIImage = UIImage(named: "profile") ?? UIImage(named: "")!
     @Published var selectedTheme: String = "System"
-    @Published var selectedFont: String = "Times New Roman"
+    @Published var selectedFont: String = "Helvetica"
     @Published var selectedFontSize: CGFloat = 16.0
     @Published var selectedTab: Int = 2
     @Published var searchHistory: [String] = []

@@ -64,6 +64,8 @@ struct InputCommentView: View {
                     }
                     HStack {
                         Text("Write down your experience below:")
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                            .fontWeight(.regular)
                         Spacer()
                     }
                 }

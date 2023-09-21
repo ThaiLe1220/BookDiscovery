@@ -42,7 +42,7 @@ struct UserAppearanceSettingView: View {
                         Text("Font Size: \(String(format: "%.1f", userViewModel.selectedFontSize))")
                             .lineLimit(1)
                         Spacer()
-                        Slider(value: $userViewModel.selectedFontSize, in: 14...18, step: 1)
+                        Slider(value: $userViewModel.selectedFontSize, in: 14...20, step: 1)
                             .frame(width: UIScreen.main.bounds.width/3)
                     }
                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+1))

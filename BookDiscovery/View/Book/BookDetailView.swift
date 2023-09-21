@@ -40,35 +40,13 @@ struct BookDetailView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 200)
-
                         
                         VStack {
                             HStack {
                                 Spacer()
                                 Button {
                                     inWishList.toggle()
-                                    if (inWishList) {
-                                        userViewModel.currentUser.wishlist.append(currentBook.id)
-                                        FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
-                                            if success {
-                                                print("User updated data successfully")
-                                            } else {
-                                                print (error?.localizedDescription ?? "Unknown error")
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        if let index = userViewModel.currentUser.wishlist.firstIndex(of: currentBook.id) {
-                                            userViewModel.currentUser.wishlist.remove(at: index)
-                                        }
-                                        FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
-                                            if success {
-                                                print("User updated data successfully")
-                                            } else {
-                                                print (error?.localizedDescription ?? "Unknown error")
-                                            }
-                                        }
-                                    }
+                                    wishlistToggle()
                                 } label: {
                                     Image(systemName: inWishList ? "minus.square" : "plus.square")
                                         .foregroundColor(inWishList ? .red : .green)
@@ -132,6 +110,7 @@ struct BookDetailView: View {
                         }
                     }
                     .padding(.vertical, 10)
+                    
                     VStack {
                         if tabOverview {
                             HStack {
@@ -249,42 +228,22 @@ struct BookDetailView: View {
                             }
                             .background(Color(UIColor.secondarySystemBackground))
                         }
-                        VStack {
-                            Spacer()
-                            Button{
-                                if let amazonURL = URLCaller(name: bookViewModel.currentBook.name).amazonURL() {
-                                    UIApplication.shared.open(amazonURL)
-                                }
-                            } label: {
-                                if !tabReview {
-                                    ZStack {
-                                        Rectangle()
-                                            .foregroundColor(Color("Amazon-Orange"))
-                                            .frame(height: 50)
-                                        Text("Buy On Amazon")
-                                            .foregroundColor(.black)
-                                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
-                                            .fontWeight(.bold)
-                                        
-                                    }
-                                }
-                            }
-                        }
                     }
+                    
                     Spacer(minLength: 40)
                 }
                 .onAppear {
                     bookViewModel.currentBook = currentBook
                     reviewViewModel.reviews = []
                     reviewViewModel.getReviews(bookID: currentBook.id)
-                    for wishlistid in userViewModel.currentUser.wishlist {
-                        if (currentBook.id == wishlistid) {
+                    for id in userViewModel.currentUser.wishlist {
+                        if (currentBook.id == id) {
                             inWishList = true
                         }
                     }
                 }
-                
             }
+            
             VStack {
                 Spacer()
                 HStack {
@@ -320,7 +279,8 @@ struct BookDetailView: View {
                                     .frame(height: 50)
                                 Text("Buy On Amazon")
                                     .foregroundColor(.black)
-                                    .bold()
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .fontWeight(.bold)
                             }
                         }
                     }
@@ -345,14 +305,41 @@ struct BookDetailView: View {
                 InputCommentView(userViewModel: userViewModel, bookID: bookViewModel.currentBook.id, currentBook: currentBook) { result in
                     if let review = result {
                         reviewViewModel.reviews.append(review)
-                        
                         isCommenting = false
                     }
                 }
                 .padding()
-            }.presentationDetents([.fraction(0.5)])
+            }
+            .presentationDetents([.fraction(0.5)])
         }
     }
+
+    func wishlistToggle() {
+        if (inWishList) {
+            userViewModel.currentUser.wishlist.append(currentBook.id)
+            FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
+                if success {
+                    print("User updated data successfully")
+                } else {
+                    print (error?.localizedDescription ?? "Unknown error")
+                }
+            }
+        }
+        else {
+            if let index = userViewModel.currentUser.wishlist.firstIndex(of: currentBook.id) {
+                userViewModel.currentUser.wishlist.remove(at: index)
+            }
+            FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
+                if success {
+                    print("User updated data successfully")
+                } else {
+                    print (error?.localizedDescription ?? "Unknown error")
+                }
+            }
+        }
+    }
+    
+    
 }
 
 struct BookDetailView_Previews: PreviewProvider {
