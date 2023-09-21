@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Review: Codable {
+struct Review: Codable, Identifiable, Hashable {
     var id: String
     var userID: String
     var bookID: String

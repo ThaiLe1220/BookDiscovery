@@ -54,6 +54,7 @@ class UserViewModel: ObservableObject {
         // Set wishlist for books
         self.currentUser.wishlist = dictionary["wishlist"] as? [String] ?? []
         self.currentUser.searchHistory = dictionary["searchHistory"] as? [String] ?? []
+
     }
     
     // Convert User properties to dictionary format
@@ -111,10 +112,8 @@ class UserViewModel: ObservableObject {
         if let userID = Auth.auth().currentUser?.uid {
             FireBaseDB().fetchUser(userID: userID) { fetchedUser in
                 self.currentUser = fetchedUser ?? emptyUser
-                print(fetchedUser)
             }
         }
     }
-    
-    
+
 }
