@@ -192,7 +192,6 @@ class FireBaseDB {
             // Retrieve the data at the specified path
             bookRef.observeSingleEvent(of: .value, with: { snapshot in
                 let value = snapshot.value as? [String: Any]
-                let author = value?["author"] as? [String: Any] ?? [:]
                 
                 let book: Book = Book(
                     id: bookID,
@@ -202,7 +201,7 @@ class FireBaseDB {
                     rating: value?["rating"] as? Double ?? 0.0,
                     description: value?["description"] as? String ?? "",
                     imageURL: value?["imageURL"] as? String ?? "",
-                    author: Author(name: author["name"] as? String ?? "")
+                    author: value?["author"] as? String ?? ""
                 )
 
                 completion(book)
@@ -225,7 +224,6 @@ class FireBaseDB {
                 }
                 
                 let idToString = childData["id"] as? Int ?? 0
-                let author = childData["author"] as? [String: Any] ?? [:]
                 
                 let book: Book = Book(
                     id: String(idToString),
@@ -235,7 +233,7 @@ class FireBaseDB {
                     rating: childData["rating"] as? Double ?? 0.0,
                     description: childData["description"] as? String ?? "",
                     imageURL: childData["imageURL"] as? String ?? "",
-                    author: Author(name: author["name"] as? String ?? "")
+                    author: childData["author"] as? String ?? ""
                 )
 
                 completion(book)

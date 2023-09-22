@@ -59,7 +59,7 @@ struct InputCommentView: View {
                         }
                     }
                     HStack {
-                        Text(currentBook.author.name)
+                        Text(currentBook.author)
                             .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+4))
                             .fontWeight(.bold)
                         Spacer()

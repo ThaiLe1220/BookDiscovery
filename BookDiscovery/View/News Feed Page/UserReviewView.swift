@@ -42,7 +42,7 @@ struct UserReviewView: View {
                                             .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+1))
                                             .fontWeight(.semibold)
                                         
-                                        Text(book.author.name)
+                                        Text(book.author)
                                             .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                             .fontWeight(.regular)
                                     }

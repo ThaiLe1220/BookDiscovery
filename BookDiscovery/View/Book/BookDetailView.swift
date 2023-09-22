@@ -165,7 +165,7 @@ struct BookDetailView: View {
                                     .padding(.horizontal)
                                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                     .fontWeight(.bold)
-                                Text(bookViewModel.currentBook.author.name)
+                                Text(bookViewModel.currentBook.author)
                                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                     .fontWeight(.regular)
                                 Spacer()
@@ -319,6 +319,7 @@ struct BookDetailView: View {
             for id in userViewModel.currentUser.wishlist {
                 currentBook.id == id ? inWishList = true : nil
             }
+            print(bookViewModel.currentBook)
         }
         .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $isCommenting) {

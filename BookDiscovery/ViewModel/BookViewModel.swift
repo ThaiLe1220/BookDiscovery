@@ -49,9 +49,7 @@ class BookViewModel: ObservableObject {
         self.currentBook.description = dictionary["description"] as? String ?? ""
         self.currentBook.rating = dictionary["rating"] as? Double ?? 0.0
         self.currentBook.imageURL = dictionary["imageURL"] as? String ?? ""
-        
-        let author = dictionary["author"] as? [String : Any] ?? [:]
-        self.currentBook.author.name = author["name"] as? String ?? ""
+        self.currentBook.author = dictionary["author"] as? String ?? ""
     }
     
     func toDictionary() -> [String: Any] {
@@ -62,9 +60,7 @@ class BookViewModel: ObservableObject {
         dictionary["headline"] = self.currentBook.headline
         dictionary["description"] = self.currentBook.description
         dictionary["rating"] = self.currentBook.rating
-        dictionary["author"] = [
-            "name" : self.currentBook.author.name
-        ]
+        dictionary["author"] = self.currentBook.author
         return dictionary
     }
     
