@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct SettingView: View {
-    @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
     @State private var userImage: UIImage = UIImage(named: "profile")!
 
@@ -12,10 +11,10 @@ struct SettingView: View {
 
                 // Settings Options List
                 List {
-                    NavigationLink(destination: UserAccountSettingView(isOn: $isOn, userViewModel: userViewModel)) {
+                    NavigationLink(destination: UserAccountSettingView(userViewModel: userViewModel)) {
                         HStack {
                             Text("")
-                            ProfileImageView(isOn: $isOn, userViewModel: userViewModel)
+                            ProfileImageView(userViewModel: userViewModel)
                                 .scaleEffect(0.55)
                                 .frame(width: 80, height: 80)
                             
@@ -23,12 +22,12 @@ struct SettingView: View {
                                 Text("\(userViewModel.currentUser.name)")
                                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+4))
                                     .fontWeight(.semibold)
-                                    .foregroundColor(isOn ? .white : .black)
+                                    .foregroundColor(userViewModel.isOn ? .white : .black)
                                 
                                 Text("\(userViewModel.currentUser.email)")
                                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-2))
                                     .fontWeight(.light)
-                                    .foregroundColor(isOn ? .white : .black)
+                                    .foregroundColor(userViewModel.isOn ? .white : .black)
                             }
                             .foregroundColor(Color(UIColor.darkGray))
                             Spacer()
@@ -38,7 +37,7 @@ struct SettingView: View {
                     }
 
                     settingRow(name: "Notifications", destination: UserNotificationSettingView())
-                    settingRow(name: "Appearances", destination: UserAppearanceSettingView(isOn: $isOn, userViewModel: userViewModel))
+                    settingRow(name: "Appearances", destination: UserAppearanceSettingView(userViewModel: userViewModel))
                     settingRow(name: "Help & Support", destination: UserHelpSettingView())
                     settingRow(name: "About", destination: UserAboutSettingView())
                 }
@@ -86,6 +85,6 @@ struct UserAboutSettingView: View {
 
 struct UserSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView(isOn: .constant(false), userViewModel: UserViewModel())
+        SettingView(userViewModel: UserViewModel())
     }
 }

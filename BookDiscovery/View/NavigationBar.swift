@@ -24,27 +24,61 @@ struct NavigationBar: View {
                 }
             
             // Conditional Text Field
-            TextField("", text: $userViewModel.searchText)
-                .frame(height: 30)
-                .padding(.horizontal, 35)
-                .background(Color(UIColor.lightText))
-                .cornerRadius(20)
-                .foregroundColor(.gray)
-                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+2))
-                .fontWeight(.regular)
-                .opacity(userViewModel.isSearchBarVisible ? 1 : 0)
-                .transition(.move(edge: .trailing))
-                .autocapitalization(.none)  // Disable automatic capitalization
-                .disableAutocorrection(true) // Disable autocorrection
+            HStack {
+                TextField("Search", text: $userViewModel.searchText)
+                    .frame(height: 30)
+                    .padding(.horizontal, 36)
+                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                    .fontWeight(.regular)
+                    .opacity(userViewModel.isSearchBarVisible ? 1 : 0)
+                    .transition(.move(edge: .trailing))
+                    .autocapitalization(.none)  // Disable automatic capitalization
+                    .disableAutocorrection(true) // Disable autocorrection
+                    .background(Color(UIColor.systemGray6))
+                    .cornerRadius(10)
+                    .foregroundColor(Color(UIColor.systemGray2))
+                    .tint(userViewModel.isSearchBarVisible ? Color("OrangeMain") : Color(UIColor.systemGray6))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.white, lineWidth: 2)
+                            .overlay(
+                                Color(UIColor.clear)
+                            )
+                    }
+
+                
+                if userViewModel.isSearchBarVisible {
+                    Button(action: {
+                        userViewModel.searchText = ""
+                        withAnimation(Animation.easeInOut(duration: 0.5).delay(0.0)) {
+                            userViewModel.isSearchBarVisible.toggle()
+                            userViewModel.showSearch.toggle()
+                        }
+                    }) {
+                        Text("Cancel")
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                            .fontWeight(.regular)
+                            .foregroundColor(Color("OrangeMain"))
+                    }
+                    .padding(.horizontal, 4)
+                }
+            }
 
             HStack (spacing: 0) {
                 // This Spacer pushes the next elements to the right
                 if !userViewModel.isSearchBarVisible {
+                    Text("Search")
+                        .padding(.horizontal, 36)
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                        .fontWeight(.regular)
+                        .foregroundColor(Color(UIColor.systemGray2))
+
                     Spacer()
                 }
 
                 HStack {
                     Button(action: {
+                        userViewModel.searchText = ""
                         withAnimation(Animation.easeInOut(duration: 0.5).delay(0.0)) {
                             userViewModel.isSearchBarVisible.toggle()
                             userViewModel.showSearch.toggle()
@@ -52,13 +86,26 @@ struct NavigationBar: View {
                     }) {
                         Image(systemName: "text.magnifyingglass")
                             .font(.system(size: 24))
-                            .foregroundColor(Color("OrangeMain"))
+                            .foregroundColor(Color(UIColor.systemGray2))
                     }
-                    .padding(.horizontal, 4)
+                    .padding(.horizontal, 2)
 
                     if userViewModel.isSearchBarVisible {
                         Spacer()
+                        Button(action: {
+                            withAnimation(Animation.easeInOut(duration: 0.5).delay(0.0)) {
+                                userViewModel.isSearchBarVisible.toggle()
+                                userViewModel.showSearch.toggle()
+                            }
+                        }) {
+                            Text("Cancel")
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                .fontWeight(.regular)
+                                .foregroundColor(Color("OrangeMain"))
+                        }
+                        .padding(.horizontal, 4)
                     }
+
                 }
             }
         }

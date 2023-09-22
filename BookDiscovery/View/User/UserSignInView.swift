@@ -10,7 +10,6 @@ import Firebase
 
 // UserSignInView represents the sign-in screen in the app.
 struct UserSignInView: View {
-    @Binding var isOn: Bool
     // ViewModel to manage user-related data.
     @ObservedObject var userViewModel: UserViewModel
     
@@ -280,6 +279,6 @@ struct UserSignInView: View {
 // SwiftUI Preview
 struct UserSignInView_Previews: PreviewProvider {
     static var previews: some View {
-        UserSignInView(isOn: .constant(false), userViewModel: UserViewModel())
+        UserSignInView(userViewModel: UserViewModel())
     }
 }

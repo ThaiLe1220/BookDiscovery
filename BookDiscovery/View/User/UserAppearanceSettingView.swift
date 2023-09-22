@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct UserAppearanceSettingView: View {
-    @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
     
     var mode = ["Dark", "Light"]
@@ -23,7 +22,7 @@ struct UserAppearanceSettingView: View {
                         Text("Dark Mode")
                             .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+1))
                             .fontWeight(.regular)
-                        Toggle(isOn: $isOn) {
+                        Toggle(isOn: $userViewModel.isOn) {
                         }
                     }
                 }
@@ -61,7 +60,7 @@ struct UserAppearanceSettingView: View {
             .background(Color(UIColor.secondarySystemBackground))
             VStack {
                 HStack {
-                    CustomBackButton(userViewModel: userViewModel, buttonColor: Color( isOn ? UIColor.white : UIColor.black), text: "Settings")
+                    CustomBackButton(userViewModel: userViewModel, buttonColor: Color( userViewModel.isOn ? UIColor.white : UIColor.black), text: "Settings")
                         .padding()
                     Spacer()
                 }
@@ -69,12 +68,12 @@ struct UserAppearanceSettingView: View {
             }
         }
         .navigationBarBackButtonHidden(true) // Hide the default back button
-        .environment(\.colorScheme, isOn ? .dark : .light)
+        .environment(\.colorScheme, userViewModel.isOn ? .dark : .light)
     }
 }
 
 struct UserAppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
-        UserAppearanceSettingView(isOn: .constant(false), userViewModel: UserViewModel())
+        UserAppearanceSettingView(userViewModel: UserViewModel())
     }
 }

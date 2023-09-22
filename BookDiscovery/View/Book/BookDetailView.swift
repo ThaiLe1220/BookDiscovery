@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BookDetailView: View {
-    @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -84,7 +83,7 @@ struct BookDetailView: View {
                         } label: {
                             Text("Overview")
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
-                                .foregroundColor(tabOverview ? (isOn ? .white : .black) : .gray)
+                                .foregroundColor(tabOverview ? (userViewModel.isOn ? .white : .black) : .gray)
                                 .bold(tabOverview)
                                 .padding(.horizontal)
                         }
@@ -95,7 +94,7 @@ struct BookDetailView: View {
                         } label: {
                             Text("Book Details")
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
-                                .foregroundColor(tabDetail ? (isOn ? .white : .black) : .gray)
+                                .foregroundColor(tabDetail ? (userViewModel.isOn ? .white : .black) : .gray)
                                 .bold(tabDetail)
                                 .padding(.horizontal)
                         }
@@ -106,7 +105,7 @@ struct BookDetailView: View {
                         } label: {
                             Text("Reviews (\(reviewViewModel.currentBookReviews.count))")
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
-                                .foregroundColor(tabReview ? (isOn ? .white : .black) : .gray)
+                                .foregroundColor(tabReview ? (userViewModel.isOn ? .white : .black) : .gray)
                                 .bold(tabReview)
                                 .padding(.horizontal)
                         }
@@ -229,7 +228,7 @@ struct BookDetailView: View {
                                             ForEach(reviewViewModel.currentBookReviews, id: \.id) {
                                                 review in
                                                 HStack{
-                                                    CommentView(isOn: $isOn, review: review, userViewModel: userViewModel)
+                                                    CommentView(review: review, userViewModel: userViewModel)
                                                 }
                                             }
                                         }
@@ -302,7 +301,7 @@ struct BookDetailView: View {
                     Button(action: {
                         dismiss()
                     }, label: {
-                        CustomBackButton(userViewModel: userViewModel, buttonColor: Color( isOn ? UIColor.white : UIColor.black), text: "Back")
+                        CustomBackButton(userViewModel: userViewModel, buttonColor: Color(userViewModel.isOn ? UIColor.white : UIColor.black), text: "Back")
                             .padding()
                     })
                     Spacer()
@@ -364,7 +363,7 @@ struct BookDetailView: View {
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), currentBook: testBook)
+        BookDetailView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), currentBook: testBook)
     }
 }
 

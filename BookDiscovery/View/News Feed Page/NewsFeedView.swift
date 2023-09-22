@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct NewsFeedView: View {
-    @Binding var isOn: Bool
-
     @ObservedObject var userViewModel : UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -19,7 +17,7 @@ struct NewsFeedView: View {
             VStack (spacing: 0) {
                 NavigationBar(userViewModel: userViewModel)
 
-                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
@@ -30,7 +28,7 @@ struct NewsFeedView: View {
                 
                 List {
                     ForEach(reviewViewModel.allReviews, id: \.self) { review in
-                        UserReviewView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, review: review)
+                        UserReviewView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, review: review)
                     }
                 }
                 .listStyle(.inset)
@@ -45,6 +43,6 @@ struct NewsFeedView: View {
 
 struct NewsFeedView_Previews: PreviewProvider {
     static var previews: some View {
-        NewsFeedView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
+        NewsFeedView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

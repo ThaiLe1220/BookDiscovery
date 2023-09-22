@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CategoryView: View {
-    @Binding var isOn: Bool
     var category: Category
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
@@ -64,8 +63,8 @@ struct CategoryView: View {
                     ForEach(bookViewModel.books, id: \.id) { book in
                         if book.category.contains(category.name) {
                             VStack {
-                                NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
-                                    BookView(isOn: $isOn, userViewModel: userViewModel, book: book)
+                                NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
+                                    BookView(userViewModel: userViewModel, book: book)
                                 }
                                 Spacer()
                             }
@@ -82,6 +81,6 @@ struct CategoryView: View {
 
 struct CategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryView(isOn: .constant(false), category: testCategory, userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
+        CategoryView(category: testCategory, userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BookListView: View {
-    @Binding var isOn: Bool
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -20,8 +19,8 @@ struct BookListView: View {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(bookViewModel.books, id: \.id) { book in
                     VStack {
-                        NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
-                            BookView(isOn: $isOn, userViewModel: userViewModel, book: book)
+                        NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
+                            BookView(userViewModel: userViewModel, book: book)
                         }
                         Spacer()
                     }
@@ -34,6 +33,6 @@ struct BookListView: View {
 
 struct BookListView_Previews: PreviewProvider {
     static var previews: some View {
-        BookListView(isOn: .constant(false), bookViewModel: BookViewModel(), userViewModel: UserViewModel(), reviewViewModel: ReviewViewModel())
+        BookListView(bookViewModel: BookViewModel(), userViewModel: UserViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

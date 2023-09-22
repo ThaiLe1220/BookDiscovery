@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CommentView: View {
-    @Binding var isOn: Bool
     var review: Review
     @ObservedObject var userViewModel: UserViewModel
     @State private var username: String? = ""
@@ -55,7 +54,7 @@ struct CommentView: View {
             .background {
                 VStack {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(isOn ? .black : .white)
+                        .fill(userViewModel.isOn ? .black : .white)
                 }
             }
             .padding()
@@ -81,6 +80,6 @@ struct CommentView: View {
 
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentView(isOn: .constant(false), review: testReview1, userViewModel: UserViewModel())
+        CommentView(review: testReview1, userViewModel: UserViewModel())
     }
 }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BrowseView: View {
-    @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -19,7 +18,7 @@ struct BrowseView: View {
         NavigationStack {
             VStack (spacing: 0) {
                 NavigationBar(userViewModel: userViewModel)
-                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
@@ -31,7 +30,7 @@ struct BrowseView: View {
                         Color(UIColor.secondarySystemBackground)
                     } else {
                         List(searchResults, id: \.id) { book in
-                            NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book), isActive: $userViewModel.showSettings){
+                            NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book), isActive: $userViewModel.showSettings){
                         Text(book.name)
                             .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+2))
                             .fontWeight(.regular)
@@ -40,7 +39,7 @@ struct BrowseView: View {
                     }
                 }
                 else {
-                    CategoryListView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                    CategoryListView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                         .opacity(userViewModel.showSearch ? 0 : 1)
                 }
 
@@ -83,6 +82,6 @@ struct BrowseView: View {
 
 struct BrowseView_Previews: PreviewProvider {
     static var previews: some View {
-        BrowseView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
+        BrowseView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BookView: View {
-    @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
 
     var book: Book
@@ -20,7 +19,7 @@ struct BookView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 155, height: 199)
-                .shadow(color: isOn ? .white.opacity(0.6) : .gray.opacity(0.4), radius: 2, x: 5, y: 5)
+                .shadow(color: userViewModel.isOn ? .white.opacity(0.6) : .gray.opacity(0.4), radius: 2, x: 5, y: 5)
 
             
             Text(book.name)
@@ -41,7 +40,7 @@ struct BookView: View {
 
 struct BookView_Previews: PreviewProvider {
     static var previews: some View {
-        BookView(isOn: .constant(false), userViewModel: UserViewModel(), book: testBook)
+        BookView(userViewModel: UserViewModel(), book: testBook)
     }
 }
 

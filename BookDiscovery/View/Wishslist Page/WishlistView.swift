@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct WishlistView: View {
-    @Binding var isOn: Bool
     @ObservedObject var userViewModel : UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -21,7 +20,7 @@ struct WishlistView: View {
         NavigationStack {
             VStack (spacing: 0) {
                 NavigationBar(userViewModel: userViewModel)
-                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
@@ -95,9 +94,9 @@ struct WishlistView: View {
                             Button(action: {
                                 //
                             }) {
-                                NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
+                                NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
                                     VStack {
-                                        BookView(isOn: $isOn, userViewModel: userViewModel, book: book)
+                                        BookView(userViewModel: userViewModel, book: book)
                                         Spacer()
                                     }
                                     
@@ -131,6 +130,6 @@ struct WishlistView: View {
 
 struct WishlistView_Previews: PreviewProvider {
     static var previews: some View {
-        WishlistView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
+        WishlistView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }
