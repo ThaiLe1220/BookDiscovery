@@ -26,7 +26,7 @@ struct NavigationBar: View {
             // Conditional Text Field
             HStack {
                 TextField("Search", text: $userViewModel.searchText)
-                    .frame(height: 30)
+                    .frame(height: 34)
                     .padding(.horizontal, 36)
                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                     .fontWeight(.regular)
@@ -34,17 +34,17 @@ struct NavigationBar: View {
                     .transition(.move(edge: .trailing))
                     .autocapitalization(.none)  // Disable automatic capitalization
                     .disableAutocorrection(true) // Disable autocorrection
-                    .background(Color(UIColor.systemGray6))
+                    .background(Color(UIColor.secondarySystemBackground))
                     .cornerRadius(10)
-                    .foregroundColor(Color(UIColor.systemGray2))
+                    .foregroundColor(userViewModel.isOn ? .white : .black)
                     .tint(userViewModel.isSearchBarVisible ? Color("OrangeMain") : Color(UIColor.systemGray6))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.white, lineWidth: 2)
-                            .overlay(
-                                Color(UIColor.clear)
-                            )
-                    }
+//                    .overlay {
+//                        RoundedRectangle(cornerRadius: 12)
+//                            .stroke(Color.white, lineWidth: 2)
+//                            .overlay(
+//                                Color(UIColor.clear)
+//                            )
+//                    }
 
                 
                 if userViewModel.isSearchBarVisible {
@@ -71,7 +71,7 @@ struct NavigationBar: View {
                         .padding(.horizontal, 36)
                         .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                         .fontWeight(.regular)
-                        .foregroundColor(Color(UIColor.systemGray2))
+                        .foregroundColor(Color("GraySub"))
 
                     Spacer()
                 }
@@ -86,9 +86,9 @@ struct NavigationBar: View {
                     }) {
                         Image(systemName: "text.magnifyingglass")
                             .font(.system(size: 24))
-                            .foregroundColor(Color(UIColor.systemGray2))
+                            .foregroundColor(Color("GraySub"))
                     }
-                    .padding(.horizontal, 2)
+                    .padding(.horizontal, 4)
 
                     if userViewModel.isSearchBarVisible {
                         Spacer()
@@ -110,8 +110,7 @@ struct NavigationBar: View {
             }
         }
         .padding(.horizontal, 8)
-        .frame(width: UIScreen.main.bounds.width, height: 40)
-        .padding(.bottom, 4)
+        .frame(width: UIScreen.main.bounds.width, height: 32)
         .onAppear {
             userViewModel.showSearch = false
             userViewModel.showSettings = false

@@ -8,13 +8,18 @@
 import SwiftUI
 
 struct HeaderView: View {
+    @ObservedObject var userViewModel : UserViewModel
+    
     @State private var showProfile = false
+
+    var tabName: String
     
     var body: some View {
         HStack {
-            Text("Tab Name")
-                .font(.title)
+            Text("\(tabName)")
+                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+12))
                 .fontWeight(.bold)
+                .foregroundColor(userViewModel.isOn ? .white : .black)
             Spacer()
             Button(action: {
                 showProfile.toggle()
@@ -22,35 +27,18 @@ struct HeaderView: View {
                 Image(systemName: "person.circle")
                     .resizable()
                     .frame(width: 30, height: 30)
+                    .foregroundColor(Color("OrangeMain"))
             }
             .sheet(isPresented: $showProfile) {
-                UserProfileView()
+                SettingView(userViewModel: userViewModel)
             }
         }
-        .padding()
+        .padding(.horizontal)
     }
 }
-
-struct UserProfileView: View {
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        NavigationView {
-            VStack {
-            }
-            .navigationBarTitle("Account", displayMode: .inline)
-            .navigationBarItems(trailing:
-                Button("Done") {
-                    dismiss()
-                }
-            )
-        }
-    }
-}
-
 
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderView()
+        HeaderView(userViewModel: UserViewModel(), tabName: "Tab Name")
     }
 }

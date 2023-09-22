@@ -33,16 +33,10 @@ struct HomeView: View {
 
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack (spacing: 0) {
-                NavigationBar(userViewModel: userViewModel)
-                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
-                    Text("").hidden()
-                }
-                .opacity(0)
-                .frame(width: 0, height: 0)
-                
-                Divider()
+                HeaderView(userViewModel: userViewModel, tabName: "Home")
+                    .padding(.bottom)
 
                 ScrollViewReader { proxy in
                     ScrollView {
@@ -217,7 +211,7 @@ struct HomeView: View {
 
                 Divider()
             }
-            .background(Color(UIColor.secondarySystemBackground))
+            .background(userViewModel.isOn ? .black : .white)
             .onAppear {
                 totalBooks = bookViewModel.books
 

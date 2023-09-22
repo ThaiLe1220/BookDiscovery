@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingView: View {
     @ObservedObject var userViewModel: UserViewModel
     @State private var userImage: UIImage = UIImage(named: "profile")!
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationView {
@@ -47,9 +48,15 @@ struct SettingView: View {
                 Divider()
 
             }
-            .padding(.top, 45)
+            .padding(.top, 0)
             .background(Color(UIColor.secondarySystemBackground))
-
+            .navigationBarTitle("Account", displayMode: .inline)
+            .navigationBarItems(trailing:
+                Button("Done") {
+                    dismiss()
+                }
+                .foregroundColor(Color("OrangeMain"))
+            )
         }
     }
 
