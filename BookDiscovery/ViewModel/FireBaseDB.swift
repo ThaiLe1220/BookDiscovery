@@ -100,7 +100,7 @@ class FireBaseDB {
         }
     }
 
-    // MARK: - Delete
+    // MARK: - Delete User
     // Function to delete a user based on userID
     func deleteUser(completion: @escaping (Bool) -> Void) {
         // Delete the document with the corresponding userID
@@ -109,7 +109,7 @@ class FireBaseDB {
         
         // Delete Authetication
         Auth.auth().currentUser?.delete() { error in
-            if let error = error {
+            if error != nil {
                 completion(true)
             } else {
                 completion(false)
@@ -118,7 +118,7 @@ class FireBaseDB {
         }
         
         // Delete in user collection
-        db.collection("users").whereField("id", isEqualTo: userID).getDocuments { querySnapshot, error in
+        db.collection("users").whereField("id", isEqualTo: userID ?? "").getDocuments { querySnapshot, error in
             if error != nil {
                 // Return nil if an error occurs
                 completion(false)
@@ -143,7 +143,7 @@ class FireBaseDB {
         }
         
         // Delete in review collection
-        db.collection("reviews").whereField("userID", isEqualTo: userID).getDocuments { querySnapshot, error in
+        db.collection("reviews").whereField("userID", isEqualTo: userID ?? "").getDocuments { querySnapshot, error in
             if error != nil {
                 // Return nil if an error occurs
                 completion(false)
@@ -339,7 +339,18 @@ class FireBaseDB {
         newReview.rating = rating
         newReview.comment = comment
         
-        db.collection("reviews").addDocument(data: ReviewViewModel(from: newReview).toDictionary()) { error in
+        var dictionary: [String: Any] = [:]
+        
+        dictionary["id"] = newReview.id
+        dictionary["userID"] = newReview.userID
+        dictionary["bookID"] = newReview.bookID
+        dictionary["date"] = newReview.date
+        dictionary["rating"] = newReview.rating
+        dictionary["comment"] = newReview.comment
+        dictionary["likes"] = newReview.likes
+        dictionary["votedUserIds"] = newReview.votedUserIds
+                
+        db.collection("reviews").addDocument(data: dictionary) { error in
             if error != nil {
                 completion(nil)
             } else {
@@ -348,8 +359,8 @@ class FireBaseDB {
         }
     }
 
-    // MARK: - get All Reviews
-    func getAllReviews(bookID: String, completion: @escaping ([Review]?) -> Void) {
+    // MARK: - get All Reviews By Book (Unused after 22/9) [Thai Le] hjhj xD
+    func getAllReviewsByBook(bookID: String, completion: @escaping ([Review]?) -> Void) {
         db.collection("reviews").whereField("bookID", isEqualTo: bookID).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error fetching reviews: \(error.localizedDescription)")
@@ -367,6 +378,24 @@ class FireBaseDB {
         }
     }
     
+    // MARK: - get All Reviews
+    func getAllReviews(completion: @escaping ([Review]?) -> Void) {
+        db.collection("reviews").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching reviews: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            var result: [Review] = []
+            for document in querySnapshot!.documents {
+                if let review = try? document.data(as: Review.self) {
+                    result.append(review)
+                }
+            }
+            completion(result)
+        }
+    }
     
 
     // MARK: - Delete Review

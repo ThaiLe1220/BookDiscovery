@@ -13,7 +13,6 @@ struct BookDetailView: View {
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
 
-    
     var currentBook: Book
     
     @State var inWishList: Bool = false
@@ -33,6 +32,7 @@ struct BookDetailView: View {
         ZStack {
             ScrollView {
                 VStack {
+                    // Book Image
                     ZStack {
                         Color(.gray)
                             .opacity(0.2)
@@ -67,6 +67,7 @@ struct BookDetailView: View {
                         }
                     }
                     
+                    // Book Name
                     HStack {
                         Text(bookViewModel.currentBook.name)
                             .foregroundColor(.primary)
@@ -74,6 +75,7 @@ struct BookDetailView: View {
                             .fontWeight(.bold)
                     }
                     
+                    // View navigation (overview, detail, review)
                     HStack {
                         Button {
                             tabOverview = true
@@ -102,7 +104,7 @@ struct BookDetailView: View {
                             tabDetail = false
                             tabReview = true
                         } label: {
-                            Text("Reviews (\(reviewViewModel.reviews.count))")
+                            Text("Reviews (\(reviewViewModel.currentBookReviews.count))")
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                                 .foregroundColor(tabReview ? (isOn ? .white : .black) : .gray)
                                 .bold(tabReview)
@@ -111,35 +113,40 @@ struct BookDetailView: View {
                     }
                     .padding(.vertical, 10)
                     
+                    // Tab overview, detail, review content
                     VStack {
+                        // Tab overview logic
                         if tabOverview {
+                            // Rating View
                             HStack {
                                 Text("Rating: ")
-                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                     .fontWeight(.bold)
+                                    
                                 RatingView(rating: bookViewModel.currentBook.rating)
-                                    .frame(width: 150)
+                                
                                 Text(String(bookViewModel.currentBook.rating))
-                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                     .fontWeight(.regular)
                                 Spacer()
                             }
-                            .padding(.leading)
-                            HStack {
+                            .padding(.horizontal)
+                            .padding(.bottom, 2)
+
+                            // Category View
+                            VStack (alignment: .leading) {
                                 Text("Category: ")
                                     .padding(.horizontal)
-                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                     .fontWeight(.bold)
-                                Spacer()
-                            }
-                            HStack {
+                                
                                 ScrollView(.horizontal) {
                                     HStack {
                                         ForEach(bookViewModel.currentBook.category, id: \.self) { category in
                                             Text(category)
-                                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                                 .fontWeight(.regular)
-                                                .padding(5)
+                                                .padding(4)
                                                 .background {
                                                     Rectangle()
                                                         .fill(Color.random())
@@ -150,27 +157,29 @@ struct BookDetailView: View {
                                 }
                                 .scrollIndicators(.hidden)
                                 .padding(.horizontal)
-                                .padding(.bottom)
                             }
-                            HStack {
+                            
+                            // Author View
+                            HStack (spacing: 0) {
                                 Text("Author:")
                                     .padding(.horizontal)
-                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                     .fontWeight(.bold)
                                 Text(bookViewModel.currentBook.author.name)
-                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                     .fontWeight(.regular)
-                                    .padding(.horizontal)
                                 Spacer()
                             }
                             
+                            // Headline View
                             Text(bookViewModel.currentBook.headline)
-                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
-                                .fontWeight(.regular)
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
+                                .fontWeight(.semibold)
                                 .padding()
                                 .lineSpacing(10)
                         }
                         
+                        // Tab book detail logic
                         if tabDetail {
                             Text((bookViewModel.currentBook.description))
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
@@ -179,6 +188,7 @@ struct BookDetailView: View {
                                 .lineSpacing(10)
                         }
                         
+                        // Tab book review logic
                         if tabReview {
                             VStack {
                                 HStack {
@@ -216,7 +226,7 @@ struct BookDetailView: View {
                                 HStack {
                                     LazyVStack() {
                                         VStack {
-                                            ForEach(reviewViewModel.reviews, id: \.id) {
+                                            ForEach(reviewViewModel.currentBookReviews, id: \.id) {
                                                 review in
                                                 HStack{
                                                     CommentView(isOn: $isOn, review: review, userViewModel: userViewModel)
@@ -232,20 +242,15 @@ struct BookDetailView: View {
                     
                     Spacer(minLength: 40)
                 }
-                .onAppear {
-                    bookViewModel.currentBook = currentBook
-                    reviewViewModel.reviews = []
-                    reviewViewModel.getReviews(bookID: currentBook.id)
-                    for id in userViewModel.currentUser.wishlist {
-                        if (currentBook.id == id) {
-                            inWishList = true
-                        }
-                    }
-                }
+
             }
             
+            // Plus message for add review
             VStack {
+                Divider()
+
                 Spacer()
+                
                 HStack {
                     Spacer()
                     Button(action: {
@@ -266,7 +271,8 @@ struct BookDetailView: View {
 
                     })
                 }
-                VStack {
+                
+                VStack (spacing: 0) {
                     Button{
                         if let amazonURL = URLCaller(name: bookViewModel.currentBook.name).amazonURL() {
                             UIApplication.shared.open(amazonURL)
@@ -284,8 +290,13 @@ struct BookDetailView: View {
                             }
                         }
                     }
+                    
+                    Divider()
                 }
+
             }
+            
+            // Back button for navigation
             VStack {
                 HStack {
                     Button(action: {
@@ -298,13 +309,22 @@ struct BookDetailView: View {
                 }
                 Spacer()
             }
+            
+            
+        }
+        .onAppear {
+            bookViewModel.currentBook = currentBook
+            reviewViewModel.getReviewsByBook(bookID: currentBook.id)
+            
+            for id in userViewModel.currentUser.wishlist {
+                currentBook.id == id ? inWishList = true : nil
+            }
         }
         .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $isCommenting) {
             HStack {
-                InputCommentView(userViewModel: userViewModel, bookID: bookViewModel.currentBook.id, currentBook: currentBook) { result in
+                InputCommentView(userViewModel: userViewModel, reviewViewModel: reviewViewModel, bookID: bookViewModel.currentBook.id, currentBook: currentBook) { result in
                     if let review = result {
-                        reviewViewModel.reviews.append(review)
                         isCommenting = false
                     }
                 }
@@ -339,12 +359,11 @@ struct BookDetailView: View {
         }
     }
     
-    
 }
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), currentBook: emptyBook)
+        BookDetailView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), currentBook: testBook)
     }
 }
 

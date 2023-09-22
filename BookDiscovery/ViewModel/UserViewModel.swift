@@ -88,7 +88,6 @@ class UserViewModel: ObservableObject {
         return emailTest.evaluate(with: email)
     }
     
-    
     // Fetch profile and background images
     func fetchUserImage() {
         ImageStorage().getProfile() { result in

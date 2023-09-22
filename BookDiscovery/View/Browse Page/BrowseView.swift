@@ -60,12 +60,12 @@ struct BrowseView: View {
             userViewModel.isSearchBarVisible = false
         }
         .onChange(of: userViewModel.searchText) { text in
-            text == "" ? searchResults = bookViewModel.books : performSearch()
+            text == "" ? searchResults = bookViewModel.books : searchAllBooks()
         }
     }
     
     // Function to perform the search
-    func performSearch() {
+    func searchAllBooks() {
         searchResults = bookViewModel.books.filter { book in
             book.name.lowercased().contains(userViewModel.searchText.lowercased())
         }
