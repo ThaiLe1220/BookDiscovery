@@ -13,6 +13,7 @@ struct ContentView: View {
     // StateObject to store and observe UserViewModel
     @StateObject var userViewModel = UserViewModel()
     @StateObject var bookViewModel = BookViewModel()
+    @StateObject var reviewViewModel = ReviewViewModel()
 
     @State private var isOn: Bool = false
     @State private var isActive:Bool = false
@@ -22,7 +23,7 @@ struct ContentView: View {
         NavigationView {
             if (isActive) {
                 if userViewModel.isSignedIn {
-                    MainView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: ReviewViewModel())
+                    MainView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                 }
                 else {
                     UserSignInView(isOn: $isOn, userViewModel: userViewModel)

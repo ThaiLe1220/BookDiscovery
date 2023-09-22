@@ -60,6 +60,7 @@
 		DE4E3FF62AB335510000EFEB /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4E3FF42AB335510000EFEB /* ResetPasswordView.swift */; };
 		DE4E3FF72AB335510000EFEB /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4E3FF52AB335510000EFEB /* ChangePasswordView.swift */; };
 		DE5C49BB2AB48B81003EFB6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE5C49BA2AB48B81003EFB6E /* Assets.xcassets */; };
+		DE5DD4912ABD3AC7008F03C8 /* UserReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5DD4902ABD3AC7008F03C8 /* UserReviewView.swift */; };
 		DE74AF6B2AB41D97008C0754 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE74AF6A2AB41D97008C0754 /* MainView.swift */; };
 		DE74AF6D2AB42741008C0754 /* UserAppearanceSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */; };
 		DEFC8B6F2AB462BE00A23D35 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFC8B6E2AB462BE00A23D35 /* Review.swift */; };
@@ -113,6 +114,7 @@
 		DE4E3FF42AB335510000EFEB /* ResetPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		DE4E3FF52AB335510000EFEB /* ChangePasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		DE5C49BA2AB48B81003EFB6E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DE5DD4902ABD3AC7008F03C8 /* UserReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewView.swift; sourceTree = "<group>"; };
 		DE74AF6A2AB41D97008C0754 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAppearanceSettingView.swift; sourceTree = "<group>"; };
 		DEFC8B6E2AB462BE00A23D35 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				DE3B2FCC2AB2FC12000F8B93 /* NewsFeedView.swift */,
+				DE5DD4902ABD3AC7008F03C8 /* UserReviewView.swift */,
 			);
 			path = "News Feed Page";
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				DE3B2FD32AB32552000F8B93 /* BookViewModel.swift in Sources */,
 				A2FAC9EB2AAF0E6000779CAA /* FireBaseDB.swift in Sources */,
 				DE4E3FF62AB335510000EFEB /* ResetPasswordView.swift in Sources */,
+				DE5DD4912ABD3AC7008F03C8 /* UserReviewView.swift in Sources */,
 				DE4E3FE92AB333A50000EFEB /* CommentProfileView.swift in Sources */,
 				DE3B2FC52AB2FA95000F8B93 /* HomeView.swift in Sources */,
 				CD24DD252AB037A6001BF2A6 /* ImagePicker.swift in Sources */,

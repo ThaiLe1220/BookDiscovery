@@ -10,6 +10,7 @@ import Firebase
 
 struct InputCommentView: View {
     @ObservedObject var userViewModel: UserViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
 
     var bookID: String
     
@@ -32,6 +33,7 @@ struct InputCommentView: View {
                 }
                 Divider()
             }
+            
             VStack {
                 Spacer()
                 VStack {
@@ -103,11 +105,15 @@ struct InputCommentView: View {
                                     announcement = "Successful!"
                                     isError = false
                                     completion(review)
+                                    reviewViewModel.currentBookReviews.append(review)
+                                    reviewViewModel.allReviews.append(review)
                                 } else {
                                     completion(nil)
                                 }
                             }
                         }
+                        
+
                     } label: {
                         Text("Send")
                             .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))

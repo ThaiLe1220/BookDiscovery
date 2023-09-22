@@ -66,7 +66,6 @@ struct MainView: View {
             // Fetch current user data and images when view appears
             userViewModel.fetchUserData()
             userViewModel.fetchUserImage()
-            print(userViewModel.currentUser)
         }
     }
     

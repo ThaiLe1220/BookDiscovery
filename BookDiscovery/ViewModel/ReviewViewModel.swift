@@ -9,52 +9,38 @@ import Foundation
 
 class ReviewViewModel: ObservableObject {
     @Published var currentUserReview: Review
-    @Published var reviews: [Review] = []
-    
-    init(from: Review = emptyReview) {
-        self.currentUserReview = from
+    @Published var currentBookReviews: [Review] = []
+    @Published var allReviews: [Review] = []
+
+    init() {
+        self.currentUserReview = emptyReview
+        initAllReviews()
     }
     
-    func getReviews(bookID: String) {
-        FireBaseDB().getAllReviews(bookID: bookID) { result in
+    func getReviewsByBook(bookID: String) {
+        self.currentBookReviews = allReviews.filter { $0.bookID == bookID }
+    }
+    
+    func initAllReviews() {
+        FireBaseDB().getAllReviews() { result in
             DispatchQueue.main.async {
                 if let reviewData = result {
-                    for reviewInfo in reviewData {
-                        self.reviews.append(reviewInfo)
-                    }
+                    self.allReviews = reviewData
                 }
             }
         }
     }
     
-
-    
-    
-    func toDictionary() -> [String: Any] {
-        var dictionary: [String: Any] = [:]
-        
-        dictionary["id"] = self.currentUserReview.id
-        dictionary["userID"] = self.currentUserReview.userID
-        dictionary["bookID"] = self.currentUserReview.bookID
-        dictionary["date"] = self.currentUserReview.date
-        dictionary["rating"] = self.currentUserReview.rating
-        dictionary["comment"] = self.currentUserReview.comment
-        dictionary["likes"] = self.currentUserReview.likes
-        dictionary["votedUserIds"] = self.currentUserReview.votedUserIds
-        
-        return dictionary
-    }
-    
     func getAvg() -> String {
-        if reviews.count == 0 {
+        if currentBookReviews.count == 0 {
             return "0"
         }
         
         var average: Double = 0.0
-        for review in reviews {
+        for review in currentBookReviews {
             average += Double(review.rating)
         }
-        average /= Double(reviews.count)
+        average /= Double(currentBookReviews.count)
         return String(format: "%.1f", average)
     }
 
