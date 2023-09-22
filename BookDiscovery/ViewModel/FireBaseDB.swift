@@ -238,7 +238,6 @@ class FireBaseDB {
 
                 completion(book)
             })
-            
         }
     
     func searchBooks(query: String, completion: @escaping ([Book]?) -> Void) {

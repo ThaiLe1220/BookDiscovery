@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -37,7 +36,7 @@ struct HomeView: View {
         NavigationStack {
             VStack (spacing: 0) {
                 NavigationBar(userViewModel: userViewModel)
-                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
@@ -180,9 +179,9 @@ struct HomeView: View {
                                 Button(action: {
     //
                                 }) {
-                                    NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: tempBook)) {
+                                    NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: tempBook)) {
                                         VStack {
-                                            BookView(isOn: $isOn, userViewModel: userViewModel, book: tempBook)
+                                            BookView(userViewModel: userViewModel, book: tempBook)
 
                                             Spacer()
                                         }
@@ -248,6 +247,6 @@ struct ViewOffsetKey: PreferenceKey {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
+        HomeView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

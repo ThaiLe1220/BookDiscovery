@@ -5,7 +5,6 @@ import Firebase
 
 // UserAccountSettingView SwiftUI View
 struct UserAccountSettingView: View {
-    @Binding var isOn: Bool
     // ViewModel to manage user state
     @ObservedObject var userViewModel: UserViewModel
 
@@ -31,7 +30,7 @@ struct UserAccountSettingView: View {
                     // Profile and background image section
                     ZStack {
                         ProfileBackgroundView(userViewModel: userViewModel)
-                        ProfileImageView(isOn: $isOn, userViewModel: userViewModel)
+                        ProfileImageView(userViewModel: userViewModel)
                             .offset(x: -UIScreen.main.bounds.width/2 + 80, y: 90)
                         
                         // Name editing and button controls
@@ -46,13 +45,13 @@ struct UserAccountSettingView: View {
                                 ))
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+8))
                                 .fontWeight(.semibold)
-                                .foregroundColor(isOn ? .white : .black)
+                                .foregroundColor(userViewModel.isOn ? .white : .black)
                             }
                             else {
                                 Text(userViewModel.currentUser.name == "" ? "Empty Name" : userViewModel.currentUser.name )
                                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+10))
                                     .fontWeight(.semibold)
-                                    .foregroundColor(isOn ? .white : .black)
+                                    .foregroundColor(userViewModel.isOn ? .white : .black)
                             }
                             Spacer()
                         }
@@ -72,7 +71,7 @@ struct UserAccountSettingView: View {
                                 Text("Cancel")
                                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-2))
                                     .fontWeight(.semibold)
-                                    .foregroundColor(isOn ? .white : .black)
+                                    .foregroundColor(userViewModel.isOn ? .white : .black)
                             }
                             .frame(width: 80, height: 5)
                             .padding(.vertical, 12)
@@ -99,7 +98,7 @@ struct UserAccountSettingView: View {
                                 Text(enabledEdit ? "Update" : "Edit")
                                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-2))
                                     .fontWeight(.semibold)
-                                    .foregroundColor(isOn ? .white : .black)
+                                    .foregroundColor(userViewModel.isOn ? .white : .black)
                             }
                             .frame(width: enabledEdit ? 80 : 60, height: 5)
                             .padding(.vertical, 12)
@@ -248,7 +247,7 @@ struct UserAccountSettingView: View {
                         }
                     }
                     .padding(12)
-                    .background(isOn ? .black : .white)
+                    .background(userViewModel.isOn ? .black : .white)
                     .cornerRadius(5)
                     .padding(.horizontal, 16)
                     
@@ -277,7 +276,7 @@ struct UserAccountSettingView: View {
                         .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                         .fontWeight(.regular)
                         .padding(12)
-                        .background(isOn ? .black : .white)
+                        .background(userViewModel.isOn ? .black : .white)
                         .cornerRadius(5)
                         .padding(.horizontal, 16)
                     }
@@ -296,7 +295,7 @@ struct UserAccountSettingView: View {
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.red)
                     .padding(12)
-                    .background(isOn ? .black : .white)
+                    .background(userViewModel.isOn ? .black : .white)
                     .cornerRadius(5)
                     .padding(.horizontal, 16)
                     
@@ -322,7 +321,7 @@ struct UserAccountSettingView: View {
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.red)
                         .padding(12)
-                        .background(isOn ? .black : .white)
+                        .background(userViewModel.isOn ? .black : .white)
                         .cornerRadius(5)
                         .padding(.horizontal, 16)
                     }
@@ -348,7 +347,7 @@ struct UserAccountSettingView: View {
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.red)
                         .padding(12)
-                        .background(isOn ? .black : .white)
+                        .background(userViewModel.isOn ? .black : .white)
                         .cornerRadius(5)
                         .padding(.horizontal, 16)
                     }
@@ -377,6 +376,6 @@ struct UserAccountSettingView: View {
 // Preview for SwiftUI
 struct UserAccountSettingView_Previews: PreviewProvider {
     static var previews: some View {
-        UserAccountSettingView(isOn: .constant(false), userViewModel: UserViewModel())
+        UserAccountSettingView(userViewModel: UserViewModel())
     }
 }

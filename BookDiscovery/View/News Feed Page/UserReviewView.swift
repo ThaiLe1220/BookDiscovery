@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct UserReviewView: View {
-    @Binding var isOn: Bool
-
     @ObservedObject var userViewModel : UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -19,7 +17,7 @@ struct UserReviewView: View {
     var body: some View {
         VStack {
             HStack{
-                CommentView(isOn: $isOn, review: review, userViewModel: userViewModel)
+                CommentView(review: review, userViewModel: userViewModel)
                     .onAppear {
                         reviewViewModel.allReviews.sort(by: {$0.date > $1.date})
                     }
@@ -28,7 +26,7 @@ struct UserReviewView: View {
             HStack {
                 ForEach(bookViewModel.books, id: \.self) { book in
                     if (book.id == review.bookID) {
-                            NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
+                            NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
                                 HStack {
                                     VStack {
                                         Image(uiImage: book.image!)
@@ -63,6 +61,6 @@ struct UserReviewView: View {
 
 struct UserReviewView_Previews: PreviewProvider {
     static var previews: some View {
-        UserReviewView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), review: ReviewViewModel().allReviews[0])
+        UserReviewView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel(), review: ReviewViewModel().allReviews[0])
     }
 }
