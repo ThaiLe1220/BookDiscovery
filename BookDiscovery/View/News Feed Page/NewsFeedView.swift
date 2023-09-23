@@ -13,27 +13,40 @@ struct NewsFeedView: View {
     @ObservedObject var reviewViewModel: ReviewViewModel
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack (spacing: 0) {
-                NavigationBar(userViewModel: userViewModel)
-
-                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
-                    Text("").hidden()
-                }
-                .opacity(0)
-                .frame(width: 0, height: 0)
+                HeaderView(userViewModel: userViewModel, tabName: "Review")
+                
+//                NavigationBar(userViewModel: userViewModel)
+//                    .padding(.top, 8)
+//                    .padding(.bottom, 16)
+//
+//                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+//                    Text("").hidden()
+//                }
+//                .opacity(0)
+//                .frame(width: 0, height: 0)
                 
                 Divider()
-                Spacer()
-                
+                    .padding(.vertical, 10)
+                HStack {
+                    Text("All Reviews")
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                        .foregroundColor(userViewModel.isOn ? .white : .black)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal)
+
+                    Spacer()
+                }
+                .padding(.bottom)
+
                 List {
                     ForEach(reviewViewModel.allReviews, id: \.self) { review in
                         UserReviewView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, review: review)
                     }
                 }
-                .listStyle(.inset)
+                .listStyle(.plain)
                 
-                Spacer()
                 Divider()
 
             }

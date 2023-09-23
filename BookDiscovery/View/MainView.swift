@@ -50,8 +50,10 @@ struct MainView: View {
                     }
     
                 /// Search View
-                SettingView(userViewModel: userViewModel)
-                    .tabItem {Label("Account", systemImage: "person")}
+//                SettingView(userViewModel: userViewModel)
+                VStack {
+                }
+                    .tabItem {Label("Account", systemImage: "message.circle.fill")}
                     .tag(4)
                     .onAppear {
                         userViewModel.showSettings = false

@@ -40,6 +40,7 @@ struct BrowseView: View {
                             .padding(.horizontal)
                         Spacer()
                     }
+                    
                     if userViewModel.showSearch {
                         if searchResults.isEmpty {
                             Color(userViewModel.isOn ? .black : .white)
@@ -89,13 +90,6 @@ struct BrowseView: View {
                 print(error?.localizedDescription ?? "Unknown Error")
             }
         }
-    }
-}
-
-struct ViewOffsetKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-        value += nextValue()
     }
 }
 

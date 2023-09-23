@@ -22,7 +22,7 @@ class UserViewModel: ObservableObject {
     @Published var selectedTheme: String = "System"
     @Published var selectedFont: String = "Helvetica"
     @Published var selectedFontSize: CGFloat = 16.0
-    @Published var selectedTab: Int = 2
+    @Published var selectedTab: Int = 0
     @Published var searchHistory: [String] = []
     @Published var isOn: Bool = false
     @Published var showSettings: Bool = false
