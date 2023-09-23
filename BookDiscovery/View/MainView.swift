@@ -10,7 +10,6 @@ import Firebase
 import UserNotifications
 
 struct MainView: View {
-    // StateObject to store and observe UserViewModel
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -52,8 +51,9 @@ struct MainView: View {
                 /// Search View
 //                SettingView(userViewModel: userViewModel)
                 VStack {
+                    ChatListView(messageViewModel: MessageViewModel(userID: userViewModel.currentUser.id ?? "1"))
                 }
-                    .tabItem {Label("Account", systemImage: "message.circle.fill")}
+                    .tabItem {Label("Chat", systemImage: "message.circle.fill")}
                     .tag(4)
                     .onAppear {
                         userViewModel.showSettings = false

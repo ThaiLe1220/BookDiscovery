@@ -14,7 +14,6 @@ struct ToastView: View {
         VStack {
             Text(message)
                 .foregroundColor(.white)
-                .padding(.horizontal, 16)
                 .padding(.vertical, 8)
                 .background(Color.black.opacity(0.8))
                 .cornerRadius(12)

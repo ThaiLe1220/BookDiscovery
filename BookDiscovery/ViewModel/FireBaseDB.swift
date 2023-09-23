@@ -64,6 +64,26 @@ class FireBaseDB {
             }
     }
 
+    func fetchUsername(userID: String, completion: @escaping (String) -> Void) {
+        // Query Firestore to find documents where "id" field matches the userID
+        db.collection("users").whereField("id", isEqualTo: userID).getDocuments { querySnapshot, error in
+            if error != nil {
+                // Return nil if an error occurs
+                completion("")
+            } else {
+                // Parse the fetched user data into a User object
+                if let document = querySnapshot?.documents.first,
+                   let user = document["name"] as? String {
+                    // Return the User object
+                    completion(user)
+                } else {
+                    // Return nil if no user is found
+                    completion("")
+                }
+            }
+        }
+    }
+    
     // MARK: - Update
     // Function to update existing user data
     func updateUser(user: User, completion: @escaping (Bool, Error?) -> Void) {
@@ -393,7 +413,6 @@ class FireBaseDB {
             completion(result)
         }
     }
-    
 
     // MARK: - Delete Review
     func deleteReview(reviewID: String, completion: @escaping (Bool?) -> Void) {
@@ -449,4 +468,65 @@ class FireBaseDB {
         
     }
     
+    func getAllMessagesFrom(userID: String, completion: @escaping ([Message]?) -> Void) {
+        // Create an array to store query results
+        var result: [Message] = []
+
+        // Define a dispatch group to wait for both queries to complete
+        let dispatchGroup = DispatchGroup()
+
+        // Query for documents where "sender" field matches the userID
+        dispatchGroup.enter()
+        db.collection("messages").whereField("sender", isEqualTo: userID).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching sender messages: \(error.localizedDescription)")
+            } else {
+                for document in querySnapshot!.documents {
+                    if let message = try? document.data(as: Message.self) {
+                        result.append(message)
+                    }
+                }
+            }
+            dispatchGroup.leave()
+        }
+
+        // Query for documents where "receiver" field matches the userID
+        dispatchGroup.enter()
+        db.collection("messages").whereField("receiver", isEqualTo: userID).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching receiver messages: \(error.localizedDescription)")
+            } else {
+                for document in querySnapshot!.documents {
+                    if let message = try? document.data(as: Message.self) {
+                        result.append(message)
+                    }
+                }
+            }
+            dispatchGroup.leave()
+        }
+
+        // Notify when both queries have completed
+        dispatchGroup.notify(queue: .main) {
+            // Here, 'result' will contain messages where either "sender" or "receiver" matches the userID
+            completion(result)
+        }
+    }
+    
+    func addMessage(message: Message, completion: @escaping (Bool?) -> Void) {
+        var messageDocument = [
+            "id": message.id,
+            "sender": message.sender,
+            "receiver": message.receiver,
+            "date": message.date,
+            "content": message.content
+        ]
+        
+        db.collection("messages").addDocument(data: messageDocument) { error in
+            if error != nil {
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
 }
