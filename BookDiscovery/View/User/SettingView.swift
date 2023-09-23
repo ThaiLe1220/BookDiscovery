@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct SettingView: View {
-    @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
     @State private var userImage: UIImage = UIImage(named: "profile")!
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationView {
@@ -12,21 +12,23 @@ struct SettingView: View {
 
                 // Settings Options List
                 List {
-                    NavigationLink(destination: UserAccountSettingView(isOn: $isOn, userViewModel: userViewModel)) {
+                    NavigationLink(destination: UserAccountSettingView(userViewModel: userViewModel)) {
                         HStack {
                             Text("")
-                            ProfileImageView(isOn: $isOn, userViewModel: userViewModel)
+                            ProfileImageView(userViewModel: userViewModel)
                                 .scaleEffect(0.55)
                                 .frame(width: 80, height: 80)
                             
                             VStack (alignment: .leading, spacing: 4) {
                                 Text("\(userViewModel.currentUser.name)")
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .foregroundColor(isOn ? .white : .black)
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+4))
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(userViewModel.isOn ? .white : .black)
                                 
                                 Text("\(userViewModel.currentUser.email)")
-                                    .font(.system(size: 14, weight: .light))
-                                    .foregroundColor(isOn ? .white : .black)
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-2))
+                                    .fontWeight(.light)
+                                    .foregroundColor(userViewModel.isOn ? .white : .black)
                             }
                             .foregroundColor(Color(UIColor.darkGray))
                             Spacer()
@@ -36,7 +38,7 @@ struct SettingView: View {
                     }
 
                     settingRow(name: "Notifications", destination: UserNotificationSettingView())
-                    settingRow(name: "Appearances", destination: UserAppearanceSettingView(isOn: $isOn, userViewModel: userViewModel))
+                    settingRow(name: "Appearances", destination: UserAppearanceSettingView(userViewModel: userViewModel))
                     settingRow(name: "Help & Support", destination: UserHelpSettingView())
                     settingRow(name: "About", destination: UserAboutSettingView())
                 }
@@ -46,9 +48,15 @@ struct SettingView: View {
                 Divider()
 
             }
-            .padding(.top, 45)
+            .padding(.top, 0)
             .background(Color(UIColor.secondarySystemBackground))
-
+            .navigationBarTitle("Account", displayMode: .inline)
+            .navigationBarItems(trailing:
+                Button("Done") {
+                    dismiss()
+                }
+                .foregroundColor(Color("OrangeMain"))
+            )
         }
     }
 
@@ -56,6 +64,8 @@ struct SettingView: View {
         NavigationLink(destination: destination) {
             HStack {
                 Text(name)
+                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                    .fontWeight(.regular)
                 Spacer()
             }
         }
@@ -82,6 +92,6 @@ struct UserAboutSettingView: View {
 
 struct UserSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView(isOn: .constant(false), userViewModel: UserViewModel())
+        SettingView(userViewModel: UserViewModel())
     }
 }

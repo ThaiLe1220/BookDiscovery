@@ -10,7 +10,6 @@ import UIKit
 
 // UserSignUpView is responsible for handling user registration
 struct ProfileImageView: View {
-    @Binding var isOn: Bool
     // ViewModel to manage user state
     @ObservedObject var userViewModel: UserViewModel
     @State private var isShowingImagePicker = false
@@ -51,6 +50,6 @@ struct ProfileImageView: View {
 
 struct ProfileImageView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileImageView(isOn: .constant(false), userViewModel: UserViewModel())
+        ProfileImageView(userViewModel: UserViewModel())
     }
 }

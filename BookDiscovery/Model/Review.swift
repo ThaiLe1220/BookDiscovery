@@ -32,21 +32,21 @@ let emptyReview = Review(
 
 let testReview1 = Review(
     id: "1",
-    userID: "User ID/Username 1",
-    bookID: "Current Book ID",
-    date: "",
+    userID: "-1",
+    bookID: "-1",
+    date: "13/12/2000",
     rating: 5,
     comment: "Test Review 1",
     likes: 0,
-    votedUserIds: ["1"]
+    votedUserIds: ["-1"]
 )
 
 
 let testReview2 = Review(
     id: "2",
-    userID: "User ID/Username 2",
-    bookID: "Current Book ID",
-    date: "",
+    userID: "-1",
+    bookID: "-1",
+    date: "13/12/2000",
     rating: 3,
     comment: "Test Review 2",
     likes: 0,

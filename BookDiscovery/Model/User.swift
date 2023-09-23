@@ -40,8 +40,18 @@ let testUser = User(
     name: "eugene",
     address: Address(street: "nguyen huu canh", city: "ho chi minh city", country: "viet nam"),
     bio: "I love books in general",
-    wishlist: ["0", "1"],
-    searchHistory: ["0", "1"]
+    wishlist: ["-1", "-2"],
+    searchHistory: ["hjhj", "1231"]
+)
+
+let testUser2 = User(
+    id: "-2",
+    email: "lehongthai@hihicute.com",
+    name: "eugenememe",
+    address: Address(street: "10XT Rennie Street", city: "London", country: "UK"),
+    bio: "I love books in general, but dont like reading book xD",
+    wishlist: ["-1"],
+    searchHistory: ["LOL", "chao anh Bao :))"]
 )
 
 

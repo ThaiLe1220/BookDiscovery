@@ -11,13 +11,11 @@ struct RatingView: View {
     var rating: Double
     
     var body: some View {
-        HStack {
+        HStack (spacing: 3) {
             ForEach(0..<5) { index in
                 Image(systemName: calculateStarName(for: index))
-                    .resizable()
-                    .scaledToFit()
                     .foregroundColor(calculateStarColor(for: index))
-                    .font(.system(size: 24))
+                    .font(.system(size: 17))
             }
         }
     }

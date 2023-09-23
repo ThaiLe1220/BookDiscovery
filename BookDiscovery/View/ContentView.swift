@@ -13,8 +13,8 @@ struct ContentView: View {
     // StateObject to store and observe UserViewModel
     @StateObject var userViewModel = UserViewModel()
     @StateObject var bookViewModel = BookViewModel()
+    @StateObject var reviewViewModel = ReviewViewModel()
 
-    @State private var isOn: Bool = false
     @State private var isActive:Bool = false
 
     // The main body of the ContentView
@@ -22,16 +22,16 @@ struct ContentView: View {
         NavigationView {
             if (isActive) {
                 if userViewModel.isSignedIn {
-                    MainView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: ReviewViewModel())
+                    MainView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                 }
                 else {
-                    UserSignInView(isOn: $isOn, userViewModel: userViewModel)
+                    UserSignInView(userViewModel: userViewModel)
                 }
             }
             else {
                 SplashScreenView(isActive: $isActive)
             }
-        }.environment(\.colorScheme, isOn ? .dark : .light)
+        }.environment(\.colorScheme, userViewModel.isOn ? .dark : .light)
     }
 }
 

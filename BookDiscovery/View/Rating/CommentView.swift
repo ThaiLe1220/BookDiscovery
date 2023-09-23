@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CommentView: View {
-    @Binding var isOn: Bool
     var review: Review
     @ObservedObject var userViewModel: UserViewModel
     @State private var username: String? = ""
@@ -17,42 +16,58 @@ struct CommentView: View {
     var body: some View {
         ZStack {
             VStack{
-                HStack{
-                    HStack {
-                        CommentProfileView(profileImage: userImage)
-                            .frame(width: 65)
-                            .padding(.horizontal)
-                        Text(username!)
+                HStack (spacing: 0) {
+                    CommentProfileView(profileImage: userImage)
+                        .scaleEffect(0.8)
+                        .frame(width: 50, height: 50)
+                        .padding(.horizontal, 8)
+                    
+                    VStack (alignment: .leading) {
+                        HStack {
+                            Text((username == "" ? "empty name" : username)!)
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+1))
+                                .fontWeight(.bold)
+                            
+                            Spacer()
+                        }
+
+                        
+                        Spacer()
+                        HStack {
+                            Text(review.date)
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-2))
+                                .fontWeight(.regular)
+                                .italic()
+                            
+                            Spacer()
+                            
+                            RatingView(rating: review.rating)
+                                .scaleEffect(0.6)
+                                .frame(width: 80)
+                        }
+
                     }
-                    .offset(y: -20)
-                    Spacer()
-                    HStack{
-                        RatingView(rating: review.rating)
-                            .frame(width: 100)
-                    }
-                    .offset(y: -20)
-                    .padding(.horizontal)
+                    .frame(width: .infinity, height: 50)
                 }
-                HStack{
+                .frame(height: 50)
+                .padding(.top, 8)
+                
+                HStack () {
                     Text(review.comment)
                         .multilineTextAlignment(.leading)
-                        .padding(.horizontal)
+                        .padding(8)
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                        .fontWeight(.regular)
                     Spacer()
                 }
-                HStack {
-                    Spacer()
-                    Text(review.date)
-                        .padding(.bottom)
-                        .padding(.horizontal)
-                }
+                .padding(.vertical, 4)
             }
             .background {
                 VStack {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(isOn ? .black : .white)
+                        .fill(userViewModel.isOn ? .black : .white)
                 }
             }
-            .padding()
         }
         .onAppear {
             FireBaseDB().fetchUserNameBy(userID: review.userID) { username in
@@ -75,6 +90,6 @@ struct CommentView: View {
 
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentView(isOn: .constant(false), review: testReview1, userViewModel: UserViewModel())
+        CommentView(review: testReview1, userViewModel: UserViewModel())
     }
 }

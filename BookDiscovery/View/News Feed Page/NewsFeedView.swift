@@ -8,87 +8,47 @@
 import SwiftUI
 
 struct NewsFeedView: View {
-    @Binding var isOn: Bool
-
     @ObservedObject var userViewModel : UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
 
-    @State private var allReviews: [Review] = []
-    
     var body: some View {
-        NavigationStack {
-            VStack {
-                Spacer()
-                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
-                    Text("").hidden()
-                }
-                .opacity(0)
-                .frame(width: 0, height: 0)
+        NavigationView {
+            VStack (spacing: 0) {
+                HeaderView(userViewModel: userViewModel, tabName: "Review")
                 
+//                NavigationBar(userViewModel: userViewModel)
+//                    .padding(.top, 8)
+//                    .padding(.bottom, 16)
+//
+//                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+//                    Text("").hidden()
+//                }
+//                .opacity(0)
+//                .frame(width: 0, height: 0)
+                
+                Divider()
+                    .padding(.vertical, 10)
+                HStack {
+                    Text("All Reviews")
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                        .foregroundColor(userViewModel.isOn ? .white : .black)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal)
+
+                    Spacer()
+                }
+                .padding(.bottom)
+
                 List {
-                    ForEach(allReviews, id: \.self) { review in
-                        VStack {
-                            HStack{
-                                CommentView(isOn: $isOn, review: review, userViewModel: userViewModel)
-                                    .onAppear {
-                                        allReviews.sort(by: {$0.date > $1.date})
-                                    }
-                            }
-                            HStack {
-                                ForEach(bookViewModel.books, id: \.self) { book in
-                                    if (book.id == review.bookID) {
-
-                                            NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
-                                                HStack {
-                                                    VStack {
-                                                        Image(uiImage: book.image!)
-                                                            .resizable()
-                                                            .scaledToFit()
-                                                            .frame(width: 50, height: 64)
-                                                    }
-                                                    Spacer()
-                                                    VStack {
-                                                        Text(book.name)
-                                                        Text(book.author.name)
-                                                    }
-
-                                                    Spacer()
-                                                }
-                                                
-                                            }
-                                    }
-                                }
-                            }
-                            .padding()
-                            .background{
-                                Rectangle()
-                                    .fill(Color(UIColor.secondarySystemBackground))
-                                    .cornerRadius(20)
-                            }
-                        }
-                        .background{
-                            Rectangle()
-                                .fill(Color(UIColor.systemBackground))
-                                .cornerRadius(20)
-                        }
+                    ForEach(reviewViewModel.allReviews, id: \.self) { review in
+                        UserReviewView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, review: review)
                     }
                 }
-                .listStyle(.inset)
-            }
-        }
-        .onAppear {
-            allReviews = []
-            for book in bookViewModel.books {
-                FireBaseDB().getAllReviews(bookID: book.id) { result in
-                    DispatchQueue.main.async {
-                        if let reviewData = result {
-                            for reviewInfo in reviewData {
-                                allReviews.append(reviewInfo)
-                            }
-                        }
-                    }
-                }
+                .listStyle(.plain)
+                
+                Divider()
+
             }
         }
     }
@@ -96,6 +56,6 @@ struct NewsFeedView: View {
 
 struct NewsFeedView_Previews: PreviewProvider {
     static var previews: some View {
-        NewsFeedView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
+        NewsFeedView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

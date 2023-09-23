@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Binding var isOn: Bool
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -34,16 +33,10 @@ struct HomeView: View {
 
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack (spacing: 0) {
-                NavigationBar(userViewModel: userViewModel)
-                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
-                    Text("").hidden()
-                }
-                .opacity(0)
-                .frame(width: 0, height: 0)
-                
-                Divider()
+                HeaderView(userViewModel: userViewModel, tabName: "Home")
+                    .padding(.bottom)
 
                 ScrollViewReader { proxy in
                     ScrollView {
@@ -113,7 +106,8 @@ struct HomeView: View {
                             HStack {
                                 Text("Recommened Books")
                                     .padding(.horizontal)
-                                    .font(.system(size: 22, weight: .bold))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+6))
+                                    .fontWeight(.bold)
                                     .foregroundColor(Color("OrangeMain"))
                                 Spacer()
                                 Menu {
@@ -179,9 +173,9 @@ struct HomeView: View {
                                 Button(action: {
     //
                                 }) {
-                                    NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: tempBook)) {
+                                    NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: tempBook)) {
                                         VStack {
-                                            BookView(book: tempBook)
+                                            BookView(userViewModel: userViewModel, book: tempBook)
 
                                             Spacer()
                                         }
@@ -217,7 +211,7 @@ struct HomeView: View {
 
                 Divider()
             }
-            .background(Color(UIColor.secondarySystemBackground))
+            .background(userViewModel.isOn ? .black : .white)
             .onAppear {
                 totalBooks = bookViewModel.books
 
@@ -247,6 +241,6 @@ struct ViewOffsetKey: PreferenceKey {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
+        HomeView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

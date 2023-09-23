@@ -10,8 +10,6 @@ import Firebase
 import UserNotifications
 
 struct MainView: View {
-    
-    @Binding var isOn:Bool
     // StateObject to store and observe UserViewModel
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
@@ -21,7 +19,7 @@ struct MainView: View {
         VStack {
             TabView (selection: $userViewModel.selectedTab){
                 /// Browse View
-                HomeView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                HomeView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("Home", systemImage: "house")}
                     .tag(0)
                     .onAppear {
@@ -29,32 +27,33 @@ struct MainView: View {
                     }
     
                 /// Browse View
-                BrowseView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                BrowseView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("Browse", systemImage: "square.grid.2x2")}
                     .tag(1)
                     .onAppear {
                         userViewModel.showSettings = false
                     }
-    
-                /// Search View
-                SettingView(isOn: $isOn, userViewModel: userViewModel)
-                    .tabItem {Label("Account", systemImage: "person")}
+                /// Notifications
+                NewsFeedView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                    .tabItem {Label("New Feed", systemImage: "newspaper.fill")}
                     .tag(2)
                     .onAppear {
                         userViewModel.showSettings = false
                     }
     
                 /// My Books
-                WishlistView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                WishlistView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("My Books", systemImage: "heart.circle")}
                     .tag(3)
                     .onAppear {
                         userViewModel.showSettings = false
                     }
     
-                /// Notifications
-                NewsFeedView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
-                    .tabItem {Label("New Feed", systemImage: "newspaper.fill")}
+                /// Search View
+//                SettingView(userViewModel: userViewModel)
+                VStack {
+                }
+                    .tabItem {Label("Account", systemImage: "message.circle.fill")}
                     .tag(4)
                     .onAppear {
                         userViewModel.showSettings = false
@@ -67,7 +66,6 @@ struct MainView: View {
             // Fetch current user data and images when view appears
             userViewModel.fetchUserData()
             userViewModel.fetchUserImage()
-            print(userViewModel.currentUser)
         }
     }
     
@@ -77,6 +75,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
+        MainView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

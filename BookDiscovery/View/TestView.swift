@@ -7,35 +7,25 @@
 
 import SwiftUI
 
-import SwiftUI
-
-struct CustomDismissView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
-    var body: some View {
-        NavigationView {
-            VStack {
-                Text("Custom Dismiss View")
-                
-                // Add a custom button to dismiss the view
-                Button("Dismiss") {
-                    presentationMode.wrappedValue.dismiss()
-                }
-                .padding()
-            }
-            .navigationBarItems(leading: EmptyView()) // Remove any leading navigation items
-        }
-        .navigationBarBackButtonHidden(true) // Hide the default back button
-
-    }
-}
 
 struct TestView: View {
-    var body: some View {
-        NavigationView {
-            NavigationLink("Go to Custom Dismiss View", destination: CustomDismissView())
-        }
-    }
+    let fonts = ["Arial", "Courier New", "Georgia", "Gill Sans", "Helvetica", "Helvetica Neue", "Times New Roman", "Verdana", "Zapfino", "Palatino"]
+     
+     var body: some View {
+         ScrollView {
+             VStack(alignment: .leading, spacing: 10) {
+                 ForEach(fonts, id: \.self) { font in
+                     Text("\(font)")
+                         .font(.custom(font, size: 20))
+                         .padding(.vertical, 5)
+                         .background(Color.gray.opacity(0.1))
+                         .cornerRadius(5)
+                 }
+             }
+             .padding()
+         }
+         .navigationTitle("Font Styles")
+     }
 }
 
 struct TestView_Previews: PreviewProvider {

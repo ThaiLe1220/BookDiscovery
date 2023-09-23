@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CustomBackButton: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @ObservedObject var userViewModel: UserViewModel
+
     var buttonColor : Color
     var text: String
 
@@ -22,7 +24,7 @@ struct CustomBackButton: View {
                     .foregroundColor(buttonColor)
                 Text("\(text)")
                     .foregroundColor(buttonColor)
-                    .font(.system(size: 18))
+                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+2))
             }
         }
     }

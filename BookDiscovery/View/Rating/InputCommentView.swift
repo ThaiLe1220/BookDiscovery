@@ -9,6 +9,9 @@ import SwiftUI
 import Firebase
 
 struct InputCommentView: View {
+    @ObservedObject var userViewModel: UserViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
+
     var bookID: String
     
     var currentBook: Book
@@ -30,11 +33,14 @@ struct InputCommentView: View {
                 }
                 Divider()
             }
+            
             VStack {
                 Spacer()
                 VStack {
                     HStack {
                         Text(currentBook.name)
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                            .fontWeight(.regular)
                         Spacer()
                         ForEach(1..<6) { i in
                             Image(systemName: numStar >= i  ? "star.fill" : "star")
@@ -53,17 +59,22 @@ struct InputCommentView: View {
                         }
                     }
                     HStack {
-                        Text(currentBook.author.name)
-                            .font(.system(size: 20).bold())
+                        Text(currentBook.author)
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+4))
+                            .fontWeight(.bold)
                         Spacer()
                     }
                     HStack {
                         Text("Write down your experience below:")
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                            .fontWeight(.regular)
                         Spacer()
                     }
                 }
                 Spacer()
                 TextEditor(text: $content)
+                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+4))
+                    .fontWeight(.regular)
                     .frame(minHeight: 100)
                     .border(.gray, width: 1)
                     .onChange(of: content) { newValue in
@@ -72,6 +83,8 @@ struct InputCommentView: View {
                 
                 HStack {
                     Text(announcement)
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                        .fontWeight(.regular)
                         .padding(.horizontal)
                         .foregroundColor(isError ? .red : .green)
                     
@@ -92,13 +105,19 @@ struct InputCommentView: View {
                                     announcement = "Successful!"
                                     isError = false
                                     completion(review)
+                                    reviewViewModel.currentBookReviews.append(review)
+                                    reviewViewModel.allReviews.append(review)
                                 } else {
                                     completion(nil)
                                 }
                             }
                         }
+                        
+
                     } label: {
                         Text("Send")
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                            .fontWeight(.regular)
                     }
                 }
             }

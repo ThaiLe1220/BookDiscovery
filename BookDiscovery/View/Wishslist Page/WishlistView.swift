@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct WishlistView: View {
-    @Binding var isOn: Bool
     @ObservedObject var userViewModel : UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -20,83 +19,91 @@ struct WishlistView: View {
     var body: some View {
         NavigationStack {
             VStack (spacing: 0) {
+                HeaderView(userViewModel: userViewModel, tabName: "Wishlist")
+                
                 NavigationBar(userViewModel: userViewModel)
-                NavigationLink(destination: SettingView(isOn: $isOn, userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
+                    .padding(.top, 8)
+                    .padding(.bottom, 16)
+                
+                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
                     Text("").hidden()
                 }
                 .opacity(0)
                 .frame(width: 0, height: 0)
                 
-                Divider()
+                HStack {
+                    Text("Your Library")
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                        .foregroundColor(userViewModel.isOn ? .white : .black)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal)
+                    Spacer()
+                    Menu {
+                        Menu {
+                            Button {
+                                wishListBooks.sort(by: {$0.rating < $1.rating})
+                            } label: {
+                                HStack {
+                                    Text("Ascending")
+                                }
+                            }
+                            
+                            Button {
+                                wishListBooks.sort(by: {$0.rating > $1.rating})
+                            } label: {
+                                HStack {
+                                    Text("Descending")
+                                }
+                            }
+
+                        } label: {
+                            HStack {
+                                Text("Rating")
+                            }
+                        }
+
+                        Menu {
+                            Button {
+                                wishListBooks.sort(by: {$0.name < $1.name})
+                            } label: {
+                                HStack {
+                                    Text("A-Z")
+                                }
+                            }
+                            Button {
+                                wishListBooks.sort(by: {$0.name > $1.name})
+                            } label: {
+                                HStack {
+                                    Text("Z-A")
+                                }
+                            }
+
+                        } label: {
+                            HStack {
+                                Text("Name")
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "line.3.horizontal.decrease.circle")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(Color("OrangeMain"))
+                            .padding(.horizontal)
+                    }
+                }
+                .frame(height: 25)
+
                 
                 ScrollView {
-                    HStack {
-                        Text("Wish List")
-                            .font(.title.bold())
-                            .padding(.leading)
-                        Spacer()
-                        Menu {
-                            Menu {
-                                Button {
-                                    wishListBooks.sort(by: {$0.rating < $1.rating})
-                                } label: {
-                                    HStack {
-                                        Text("Ascending")
-                                    }
-                                }
-                                
-                                Button {
-                                    wishListBooks.sort(by: {$0.rating > $1.rating})
-                                } label: {
-                                    HStack {
-                                        Text("Descending")
-                                    }
-                                }
-
-                            } label: {
-                                HStack {
-                                    Text("Rating")
-                                }
-                            }
-
-                            Menu {
-                                Button {
-                                    wishListBooks.sort(by: {$0.name < $1.name})
-                                } label: {
-                                    HStack {
-                                        Text("A-Z")
-                                    }
-                                }
-                                Button {
-                                    wishListBooks.sort(by: {$0.name > $1.name})
-                                } label: {
-                                    HStack {
-                                        Text("Z-A")
-                                    }
-                                }
-
-                            } label: {
-                                HStack {
-                                    Text("Name")
-                                }
-                            }
-                        } label: {
-                            Image(systemName: "line.3.horizontal.decrease.circle")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                                .foregroundColor(Color("OrangeMain"))
-                                .padding(.horizontal)
-                        }
-                    }
                     LazyVGrid(columns: columns, spacing: 15) {
                         // Only display 10 books at once
                         ForEach(wishListBooks, id: \.self) { book in
                             Button(action: {
                                 //
                             }) {
-                                NavigationLink(destination: BookDetailView(isOn: $isOn, userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
+                                NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book)) {
                                     VStack {
-                                        BookView(book: book)
+                                        BookView(userViewModel: userViewModel, book: book)
                                         Spacer()
                                     }
                                     
@@ -104,7 +111,6 @@ struct WishlistView: View {
                             }
                         }
                     }
-
                 }
                 Spacer()
                 Divider()
@@ -130,6 +136,6 @@ struct WishlistView: View {
 
 struct WishlistView_Previews: PreviewProvider {
     static var previews: some View {
-        WishlistView(isOn: .constant(false), userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
+        WishlistView(userViewModel: UserViewModel(), bookViewModel: BookViewModel(), reviewViewModel: ReviewViewModel())
     }
 }

@@ -5,7 +5,6 @@ import Firebase
 
 // UserAccountSettingView SwiftUI View
 struct UserAccountSettingView: View {
-    @Binding var isOn: Bool
     // ViewModel to manage user state
     @ObservedObject var userViewModel: UserViewModel
 
@@ -31,7 +30,7 @@ struct UserAccountSettingView: View {
                     // Profile and background image section
                     ZStack {
                         ProfileBackgroundView(userViewModel: userViewModel)
-                        ProfileImageView(isOn: $isOn, userViewModel: userViewModel)
+                        ProfileImageView(userViewModel: userViewModel)
                             .offset(x: -UIScreen.main.bounds.width/2 + 80, y: 90)
                         
                         // Name editing and button controls
@@ -44,13 +43,15 @@ struct UserAccountSettingView: View {
                                         userViewModel.currentUser.name = newValue
                                     }
                                 ))
-                                .font(.system(size: 26, weight: .semibold))
-                                .foregroundColor(isOn ? .white : .black)
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+8))
+                                .fontWeight(.semibold)
+                                .foregroundColor(userViewModel.isOn ? .white : .black)
                             }
                             else {
                                 Text(userViewModel.currentUser.name == "" ? "Empty Name" : userViewModel.currentUser.name )
-                                    .font(.system(size: 26, weight: .semibold))
-                                    .foregroundColor(isOn ? .white : .black)
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+10))
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(userViewModel.isOn ? .white : .black)
                             }
                             Spacer()
                         }
@@ -68,8 +69,9 @@ struct UserAccountSettingView: View {
                                 }
                             } label: {
                                 Text("Cancel")
-                                    .font(.system(size: 14, weight: .semibold))
-                                    .foregroundColor(isOn ? .white : .black)
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-2))
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(userViewModel.isOn ? .white : .black)
                             }
                             .frame(width: 80, height: 5)
                             .padding(.vertical, 12)
@@ -94,8 +96,9 @@ struct UserAccountSettingView: View {
                                 
                             } label: {
                                 Text(enabledEdit ? "Update" : "Edit")
-                                    .font(.system(size: 14, weight: .semibold))
-                                    .foregroundColor(isOn ? .white : .black)
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-2))
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(userViewModel.isOn ? .white : .black)
                             }
                             .frame(width: enabledEdit ? 80 : 60, height: 5)
                             .padding(.vertical, 12)
@@ -114,7 +117,8 @@ struct UserAccountSettingView: View {
                         HStack {
                             HStack {
                                 Text("Email: ")
-                                    .font(.system(size: 16, weight: .semibold))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .fontWeight(.semibold)
                                     .foregroundColor(Color("GreyMain"))
                                 Spacer()
                             }
@@ -122,7 +126,8 @@ struct UserAccountSettingView: View {
 
                             Text(userViewModel.currentUser.email )
                                 .padding(.horizontal)
-                                .font(.system(size: 16, weight: .regular))
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                .fontWeight(.regular)
                                 .foregroundColor(Color("OrangeMain"))
 
                             Spacer()
@@ -132,7 +137,8 @@ struct UserAccountSettingView: View {
                         HStack {
                             HStack {
                                 Text("Street: ")
-                                    .font(.system(size: 16, weight: .semibold))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .fontWeight(.semibold)
                                     .foregroundColor(Color("GreyMain"))
                                 Spacer()
                             }
@@ -146,7 +152,8 @@ struct UserAccountSettingView: View {
                                     }
                                 ))
                                 .padding(.horizontal)
-                                .font(.system(size: 16, weight: .regular))
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                .fontWeight(.regular)
                                 .foregroundColor(Color("OrangeMain"))
                                 .background(
                                     RoundedRectangle(cornerRadius: 5)
@@ -155,8 +162,10 @@ struct UserAccountSettingView: View {
                                 )
                                 
                             } else {
-                                Text(userViewModel.currentUser.address.street == "" ? "please update information" : userViewModel.currentUser.address.street)                                        .padding(.horizontal)
-                                    .font(.system(size: userViewModel.currentUser.address.street == "" ? 14 : 16, weight: .regular))
+                                Text(userViewModel.currentUser.address.street == "" ? "please update information" : userViewModel.currentUser.address.street)
+                                    .padding(.horizontal)
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.currentUser.address.street == "" ? userViewModel.selectedFontSize-2 : userViewModel.selectedFontSize))
+                                    .fontWeight(.regular)
                                     .foregroundColor(Color(userViewModel.currentUser.address.street == "" ? "GreyMain" : "OrangeMain"))
                                     .italic(userViewModel.currentUser.address.street.isEmpty)
                                 
@@ -167,7 +176,8 @@ struct UserAccountSettingView: View {
                         HStack {
                             HStack {
                                 Text("City: ")
-                                    .font(.system(size: 16, weight: .semibold))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .fontWeight(.semibold)
                                     .foregroundColor(Color("GreyMain"))
                                 Spacer()
                             }
@@ -189,8 +199,10 @@ struct UserAccountSettingView: View {
                                         .frame(height: 25)
                                 )
                             } else {
-                                Text(userViewModel.currentUser.address.city == "" ? "please update information" : userViewModel.currentUser.address.city)                                    .padding(.horizontal)
-                                    .font(.system(size: userViewModel.currentUser.address.city == "" ? 14 : 16, weight: .regular))
+                                Text(userViewModel.currentUser.address.city == "" ? "please update information" : userViewModel.currentUser.address.city)
+                                    .padding(.horizontal)
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.currentUser.address.city == "" ? userViewModel.selectedFontSize-2 : userViewModel.selectedFontSize))
+                                    .fontWeight(.regular)
                                     .foregroundColor(Color(userViewModel.currentUser.address.city == "" ? "GreyMain" : "OrangeMain"))
                                     .italic(userViewModel.currentUser.address.city.isEmpty)
                             }
@@ -200,7 +212,8 @@ struct UserAccountSettingView: View {
                         HStack {
                             HStack {
                                 Text("Country: ")
-                                    .font(.system(size: 16, weight: .semibold))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .fontWeight(.semibold)
                                     .foregroundColor(Color("GreyMain"))
                                 Spacer()
                             }
@@ -214,7 +227,8 @@ struct UserAccountSettingView: View {
                                     }
                                 ))
                                 .padding(.horizontal)
-                                .font(.system(size: 16, weight: .regular))
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                .fontWeight(.regular)
                                 .foregroundColor(Color("OrangeMain"))
                                 .background(
                                     RoundedRectangle(cornerRadius: 5)
@@ -224,16 +238,16 @@ struct UserAccountSettingView: View {
                             } else {
                                 Text(userViewModel.currentUser.address.country == "" ? "please update information" : userViewModel.currentUser.address.country)
                                     .padding(.horizontal)
-                                    .font(.system(size: userViewModel.currentUser.address.country == "" ? 14 : 16, weight: .regular))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.currentUser.address.country == "" ? userViewModel.selectedFontSize-2 : userViewModel.selectedFontSize))
+                                    .fontWeight(.regular)
                                     .foregroundColor(Color(userViewModel.currentUser.address.country == "" ? "GreyMain" : "OrangeMain"))
                                     .italic(userViewModel.currentUser.address.country.isEmpty)
                             }
-                            
                             Spacer()
                         }
                     }
                     .padding(12)
-                    .background(isOn ? .black : .white)
+                    .background(userViewModel.isOn ? .black : .white)
                     .cornerRadius(5)
                     .padding(.horizontal, 16)
                     
@@ -248,36 +262,40 @@ struct UserAccountSettingView: View {
                                         userViewModel.currentUser.bio = newValue
                                     }
                                 ), axis: .vertical)
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                .fontWeight(.regular)
 
                             } else {
                                 Text(userViewModel.currentUser.bio )
-                                    .font(.system(size: 16, weight: .regular))
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                    .fontWeight(.regular)
                                     .foregroundColor(Color(UIColor.gray))
                             }
                             Spacer()
                         }
-                        .font(.system(size: 16, weight: .regular))
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                        .fontWeight(.regular)
                         .padding(12)
-                        .background(isOn ? .black : .white)
+                        .background(userViewModel.isOn ? .black : .white)
                         .cornerRadius(5)
                         .padding(.horizontal, 16)
                     }
-//                    .frame(width: UIScreen.main.bounds.width, height: 100)
-
                 }
                 
                 // Buttons Section
                 VStack (spacing: 8) {
                     // Button to go to ChangePasswordView
-                    NavigationLink(destination: ChangePasswordView()) {
+                    NavigationLink(destination: ChangePasswordView(userViewModel: userViewModel)) {
                         Spacer()
                         Text("Change Password")
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                            .fontWeight(.semibold)
                         Spacer()
                     }
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.red)
                     .padding(12)
-                    .background(isOn ? .black : .white)
+                    .background(userViewModel.isOn ? .black : .white)
                     .cornerRadius(5)
                     .padding(.horizontal, 16)
                     
@@ -296,18 +314,18 @@ struct UserAccountSettingView: View {
                         HStack {
                             Spacer()
                             Text("Sign out")
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                .fontWeight(.semibold)
                             Spacer()
                         }
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.red)
                         .padding(12)
-                        .background(isOn ? .black : .white)
+                        .background(userViewModel.isOn ? .black : .white)
                         .cornerRadius(5)
                         .padding(.horizontal, 16)
                     }
-                    
-                    Divider()
-                    
+                                        
                     // Delete button
                     Button {
                         FireBaseDB().deleteUser() { success in
@@ -322,12 +340,14 @@ struct UserAccountSettingView: View {
                         HStack {
                             Spacer()
                             Text("Delete Account")
+                                .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                                .fontWeight(.semibold)
                             Spacer()
                         }
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.red)
                         .padding(12)
-                        .background(isOn ? .black : .white)
+                        .background(userViewModel.isOn ? .black : .white)
                         .cornerRadius(5)
                         .padding(.horizontal, 16)
                     }
@@ -337,7 +357,7 @@ struct UserAccountSettingView: View {
             .edgesIgnoringSafeArea(.all)
             VStack {
                 HStack {
-                    CustomBackButton(buttonColor: Color(UIColor.black), text: "Settings")
+                    CustomBackButton(userViewModel: userViewModel, buttonColor: Color(UIColor.black), text: "Settings")
                         .padding()
                     Spacer()
                 }
@@ -356,6 +376,6 @@ struct UserAccountSettingView: View {
 // Preview for SwiftUI
 struct UserAccountSettingView_Previews: PreviewProvider {
     static var previews: some View {
-        UserAccountSettingView(isOn: .constant(false), userViewModel: UserViewModel())
+        UserAccountSettingView(userViewModel: UserViewModel())
     }
 }
