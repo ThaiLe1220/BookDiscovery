@@ -35,7 +35,8 @@ struct ContentView: View {
             else {
                 SplashScreenView(isActive: $isActive)
             }
-        }.environment(\.colorScheme, userViewModel.isOn ? .dark : .light)
+        }
+        .environment(\.colorScheme, userViewModel.isOn ? .dark : .light)
     }
 }
 

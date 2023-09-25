@@ -236,6 +236,7 @@ struct BookDetailView: View {
                                                 }
                                             }
                                         }
+                                        .padding(8)
                                     }
                                 }
                             }
@@ -247,7 +248,8 @@ struct BookDetailView: View {
                 }
 
             }
-            
+            .scrollIndicators(.hidden)
+
             // Plus message for add review
             VStack {
                 Divider()
@@ -298,6 +300,7 @@ struct BookDetailView: View {
                 }
 
             }
+            .offset(y: -20)
             
             // Back button for navigation
             VStack {

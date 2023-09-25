@@ -53,7 +53,6 @@ struct MainView: View {
             }
             .accentColor(Color("OrangeMain")) // Change the color of the selected tab item
         }
-        .background(Color(UIColor.secondarySystemBackground))
         .onAppear {
             // Fetch current user data and images when view appears
             userViewModel.fetchUserData()

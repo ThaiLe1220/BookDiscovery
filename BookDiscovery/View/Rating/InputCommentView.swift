@@ -64,8 +64,9 @@ struct InputCommentView: View {
                     }
                     HStack {
                         Text(currentBook.author)
-                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+4))
-                            .fontWeight(.bold)
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-2))
+                            .fontWeight(.light)
+                            .italic()
                         Spacer()
                     }
                     HStack {
@@ -81,6 +82,8 @@ struct InputCommentView: View {
                     .fontWeight(.regular)
                     .frame(minHeight: 100)
                     .border(.gray, width: 1)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
                     .onChange(of: content) { newValue in
                         announcement = ""
                     }

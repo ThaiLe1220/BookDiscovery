@@ -53,12 +53,12 @@ struct UserAppearanceSettingView: View {
   
 
                 
-                // Placeholder for future development ideas
-                Section(header: Text("More Options").font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-3))) {
-//                    Button("Future Option 1") {
-//                        // Placeholder for future implementation
-//                    }
-                }
+//                // Placeholder for future development ideas
+//                Section(header: Text("More Options").font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-3))) {
+////                    Button("Future Option 1") {
+////                        // Placeholder for future implementation
+////                    }
+//                }
             }
             .padding(.top, 45)
             .background(Color(UIColor.secondarySystemBackground))

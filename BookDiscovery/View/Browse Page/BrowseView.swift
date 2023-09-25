@@ -21,7 +21,7 @@ struct BrowseView: View {
     @State var searchResults: [Book] = []
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack (spacing: 0) {
                     HeaderView(userViewModel: userViewModel, tabName: "Search")
@@ -54,6 +54,17 @@ struct BrowseView: View {
                                     Text(book.name)
                                         .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+2))
                                         .fontWeight(.regular)
+                                        .onTapGesture {
+                                            userViewModel.currentUser.searchHistory.append(book.name)
+                                            
+                                            FireBaseDB().updateUser(user: userViewModel.currentUser) { success, error in
+                                                if success {
+                                                    print("search query added to search history")
+                                                } else {
+                                                    print(error?.localizedDescription ?? "Unknown Error")
+                                                }
+                                            }
+                                        }
                                 }
                             }
                         }
@@ -70,10 +81,11 @@ struct BrowseView: View {
         }
         .background(userViewModel.isOn ? .black : .white)
         .onAppear {
-            userViewModel.searchText = ""
             userViewModel.showSearch = false
-            searchResults = bookViewModel.books
             userViewModel.isSearchBarVisible = false
+            userViewModel.searchText = ""
+            searchResults = bookViewModel.books
+
         }
         .onChange(of: userViewModel.searchText) { text in
             text == "" ? searchResults = bookViewModel.books : searchAllBooks()
@@ -84,15 +96,6 @@ struct BrowseView: View {
     func searchAllBooks() {
         searchResults = bookViewModel.books.filter { book in
             book.name.lowercased().contains(userViewModel.searchText.lowercased())
-        }
-        
-        userViewModel.currentUser.searchHistory.append(userViewModel.searchText)
-        FireBaseDB().updateUser(user: userViewModel.currentUser) { success, error in
-            if success {
-                print("search query added to search history")
-            } else {
-                print(error?.localizedDescription ?? "Unknown Error")
-            }
         }
     }
 }

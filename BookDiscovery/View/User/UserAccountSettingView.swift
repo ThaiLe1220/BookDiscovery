@@ -56,6 +56,8 @@ struct UserAccountSettingView: View {
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+8))
                                 .fontWeight(.semibold)
                                 .foregroundColor(userViewModel.isOn ? .white : .black)
+                                .autocapitalization(.none)  // Disable automatic capitalization
+                                .disableAutocorrection(true) // Disable autocorrection
                             }
                             else {
                                 Text(userViewModel.currentUser.name == "" ? "Empty Name" : userViewModel.currentUser.name )
@@ -170,6 +172,8 @@ struct UserAccountSettingView: View {
                                         .foregroundColor(Color(UIColor.systemGray6))
                                         .frame(height: 25)
                                 )
+                                .autocapitalization(.none)  // Disable automatic capitalization
+                                .disableAutocorrection(true) // Disable autocorrection
                                 
                             } else {
                                 Text(userViewModel.currentUser.address.street == "" ? "please update information" : userViewModel.currentUser.address.street)
@@ -208,6 +212,9 @@ struct UserAccountSettingView: View {
                                         .foregroundColor(Color(UIColor.systemGray6))
                                         .frame(height: 25)
                                 )
+                                .autocapitalization(.none)  // Disable automatic capitalization
+                                .disableAutocorrection(true) // Disable autocorrection
+                                
                             } else {
                                 Text(userViewModel.currentUser.address.city == "" ? "please update information" : userViewModel.currentUser.address.city)
                                     .padding(.horizontal)
@@ -245,6 +252,9 @@ struct UserAccountSettingView: View {
                                         .foregroundColor(Color(UIColor.systemGray6))
                                         .frame(height: 25)
                                 )
+                                .autocapitalization(.none)  // Disable automatic capitalization
+                                .disableAutocorrection(true) // Disable autocorrection
+                                
                             } else {
                                 Text(userViewModel.currentUser.address.country == "" ? "please update information" : userViewModel.currentUser.address.country)
                                     .padding(.horizontal)
@@ -274,6 +284,8 @@ struct UserAccountSettingView: View {
                                 ), axis: .vertical)
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                                 .fontWeight(.regular)
+                                .autocapitalization(.none)  // Disable automatic capitalization
+                                .disableAutocorrection(true) // Disable autocorrection
 
                             } else {
                                 Text(userViewModel.currentUser.bio )

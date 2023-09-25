@@ -29,10 +29,8 @@ struct HomeView: View {
     let recommendedBooks: [Book] = [testBook1, testBook, testBook1, testBook]
     let continueReadingBooks: [Book] = [/* your array of Book objects user is currently reading */]
     let hotReviews: [Review] = [/* your array of hot Review objects */]
-    let popularBooks: [Book] = [/* your array of popular Book objects */]
     let categories: [String] = ["Science Fiction", "Romance", "Thrillers", "Non-fiction"]
     let newReleases: [Book] = [/* your array of newly released Book objects */]
-    let editorsPick: [Book] = [/* your array of editor's pick Book objects */]
 
     
     var body: some View {
@@ -105,6 +103,7 @@ struct HomeView: View {
                             }
                         }
                         .frame(height: 170)  // 170 for image and 20 for the dots
+                        
                         VStack {
                             HStack {
                                 Text("Recommened Books")
@@ -170,6 +169,7 @@ struct HomeView: View {
                             Spacer()
                         }
                         .offset(y: -15)
+                        
                         LazyVGrid(columns: columns, spacing: 15) {
                             // Only display 10 books at once
                             ForEach(Array(totalBooks.prefix(displayedBooksCount)), id: \.self) { tempBook in

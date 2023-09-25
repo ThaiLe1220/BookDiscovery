@@ -42,14 +42,6 @@ struct NavigationBar: View {
                     .cornerRadius(10)
                     .foregroundColor(userViewModel.isOn ? .white : .black)
                     .tint(userViewModel.isSearchBarVisible ? Color("OrangeMain") : Color(UIColor.systemGray6))
-//                    .overlay {
-//                        RoundedRectangle(cornerRadius: 12)
-//                            .stroke(Color.white, lineWidth: 2)
-//                            .overlay(
-//                                Color(UIColor.clear)
-//                            )
-//                    }
-
                 
                 if userViewModel.isSearchBarVisible {
                     Button(action: {
@@ -71,14 +63,24 @@ struct NavigationBar: View {
             HStack (spacing: 0) {
                 // This Spacer pushes the next elements to the right
                 if !userViewModel.isSearchBarVisible {
-                    Text("Search")
-                        .padding(.horizontal, 36)
-                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
-                        .fontWeight(.regular)
-                        .foregroundColor(Color("GraySub"))
-
-                    Spacer()
+                    HStack {
+                        Text("Search Books")
+                            .padding(.horizontal, 36)
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                            .fontWeight(.regular)
+                            .foregroundColor(Color("GraySub"))
+                        
+                        Spacer()
+                    }
+                    .onTapGesture {
+                        userViewModel.searchText = ""
+                        withAnimation(Animation.easeInOut(duration: 0.5).delay(0.0)) {
+                            userViewModel.isSearchBarVisible.toggle()
+                            userViewModel.showSearch.toggle()
+                        }
+                    }
                 }
+                
 
                 HStack {
                     Button(action: {
