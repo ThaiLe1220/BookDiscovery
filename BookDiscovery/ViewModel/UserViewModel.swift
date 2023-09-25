@@ -1,9 +1,13 @@
-//
-//  UserModel.swift
-//  Book Lover
-//
-//  Created by Loc Phan Vinh on 11/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 11/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 // Import the Foundation framework
 import Foundation

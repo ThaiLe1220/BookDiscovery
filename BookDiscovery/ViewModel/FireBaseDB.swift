@@ -1,9 +1,13 @@
-//
-//  FireBaseDB.swift
-//  Book Lover
-//
-//  Created by Loc Phan Vinh on 11/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 11/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 // Import the necessary libraries for Firebase and Firestore functionalities
 import Foundation
@@ -467,66 +471,5 @@ class FireBaseDB {
         })
         
     }
-    
-    func getAllMessagesFrom(userID: String, completion: @escaping ([Message]?) -> Void) {
-        // Create an array to store query results
-        var result: [Message] = []
 
-        // Define a dispatch group to wait for both queries to complete
-        let dispatchGroup = DispatchGroup()
-
-        // Query for documents where "sender" field matches the userID
-        dispatchGroup.enter()
-        db.collection("messages").whereField("sender", isEqualTo: userID).getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error fetching sender messages: \(error.localizedDescription)")
-            } else {
-                for document in querySnapshot!.documents {
-                    if let message = try? document.data(as: Message.self) {
-                        result.append(message)
-                    }
-                }
-            }
-            dispatchGroup.leave()
-        }
-
-        // Query for documents where "receiver" field matches the userID
-        dispatchGroup.enter()
-        db.collection("messages").whereField("receiver", isEqualTo: userID).getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error fetching receiver messages: \(error.localizedDescription)")
-            } else {
-                for document in querySnapshot!.documents {
-                    if let message = try? document.data(as: Message.self) {
-                        result.append(message)
-                    }
-                }
-            }
-            dispatchGroup.leave()
-        }
-
-        // Notify when both queries have completed
-        dispatchGroup.notify(queue: .main) {
-            // Here, 'result' will contain messages where either "sender" or "receiver" matches the userID
-            completion(result)
-        }
-    }
-    
-    func addMessage(message: Message, completion: @escaping (Bool?) -> Void) {
-        var messageDocument = [
-            "id": message.id,
-            "sender": message.sender,
-            "receiver": message.receiver,
-            "date": message.date,
-            "content": message.content
-        ]
-        
-        db.collection("messages").addDocument(data: messageDocument) { error in
-            if error != nil {
-                completion(false)
-            } else {
-                completion(true)
-            }
-        }
-    }
 }
