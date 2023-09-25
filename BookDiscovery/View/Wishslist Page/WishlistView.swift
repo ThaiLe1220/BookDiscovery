@@ -29,12 +29,6 @@ struct WishlistView: View {
                     .padding(.top, 8)
                     .padding(.bottom, 16)
                 
-                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
-                    Text("").hidden()
-                }
-                .opacity(0)
-                .frame(width: 0, height: 0)
-                
                 HStack {
                     Text("Your Library")
                         .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))

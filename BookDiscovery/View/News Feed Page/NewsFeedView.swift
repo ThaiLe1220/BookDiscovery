@@ -21,16 +21,6 @@ struct NewsFeedView: View {
             VStack (spacing: 0) {
                 HeaderView(userViewModel: userViewModel, tabName: "Review")
                 
-//                NavigationBar(userViewModel: userViewModel)
-//                    .padding(.top, 8)
-//                    .padding(.bottom, 16)
-//
-//                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
-//                    Text("").hidden()
-//                }
-//                .opacity(0)
-//                .frame(width: 0, height: 0)
-                
                 Divider()
                     .padding(.vertical, 10)
                 HStack {

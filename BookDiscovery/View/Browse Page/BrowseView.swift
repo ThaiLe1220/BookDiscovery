@@ -22,62 +22,55 @@ struct BrowseView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack (spacing: 0) {
-                    HeaderView(userViewModel: userViewModel, tabName: "Search")
-                    
-                    NavigationBar(userViewModel: userViewModel)
-                        .padding(.top, 8)
-                        .padding(.bottom, 16)
-                    
-                    NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
-                        Text("").hidden()
-                    }
-                    .opacity(0)
-                    .frame(width: 0, height: 0)
-                    
-                    HStack {
-                        Text("Browse Categories")
-                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
-                            .foregroundColor(userViewModel.isOn ? .white : .black)
-                            .fontWeight(.semibold)
-                            .padding(.horizontal)
-                        Spacer()
-                    }
-                    
-                    if userViewModel.showSearch {
-                        if searchResults.isEmpty {
-                            Color(userViewModel.isOn ? .black : .white)
-                        } else {
-                            List(searchResults, id: \.id) { book in
-                                NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book), isActive: $userViewModel.showSettings){
-                                    Text(book.name)
-                                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+2))
-                                        .fontWeight(.regular)
-                                        .onTapGesture {
-                                            userViewModel.currentUser.searchHistory.append(book.name)
-                                            
-                                            FireBaseDB().updateUser(user: userViewModel.currentUser) { success, error in
-                                                if success {
-                                                    print("search query added to search history")
-                                                } else {
-                                                    print(error?.localizedDescription ?? "Unknown Error")
-                                                }
+            VStack (spacing: 0) {
+                HeaderView(userViewModel: userViewModel, tabName: "Search")
+                
+                NavigationBar(userViewModel: userViewModel)
+                    .padding(.top, 8)
+                    .padding(.bottom, 16)
+                
+                HStack {
+                    Text("Browse Categories")
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                        .foregroundColor(userViewModel.isOn ? .white : .black)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal)
+                    Spacer()
+                }
+                
+                if userViewModel.showSearch {
+                    if searchResults.isEmpty {
+                        Color(userViewModel.isOn ? .black : .white)
+                    } else {
+                        List(searchResults, id: \.id) { book in
+                            NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book), isActive: $userViewModel.showSettings){
+                                Text(book.name)
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+2))
+                                    .fontWeight(.regular)
+                                    .onTapGesture {
+                                        userViewModel.currentUser.searchHistory.append(book.name)
+                                        
+                                        FireBaseDB().updateUser(user: userViewModel.currentUser) { success, error in
+                                            if success {
+                                                print("search query added to search history")
+                                            } else {
+                                                print(error?.localizedDescription ?? "Unknown Error")
                                             }
                                         }
-                                }
+                                    }
                             }
                         }
                     }
-                    else {
-                        CategoryListView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
-                            .opacity(userViewModel.showSearch ? 0 : 1)
-                    }
-                    
-                    
-                    Divider()
                 }
+                else {
+                    CategoryListView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                        .opacity(userViewModel.showSearch ? 0 : 1)
+                }
+                
+                
+                Divider()
             }
+      
         }
         .background(userViewModel.isOn ? .black : .white)
         .onAppear {
