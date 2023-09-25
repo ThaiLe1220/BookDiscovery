@@ -37,9 +37,10 @@ struct BookDetailView: View {
                 VStack {
                     // Book Image
                     ZStack {
-                        Color(.gray)
+                        Color(.gray)    // Background color with opacity
+
                             .opacity(0.2)
-                        Image(uiImage: bookViewModel.currentBook.image!)
+                        Image(uiImage: bookViewModel.currentBook.image!)    // Display the book image
                             .resizable()
                             .scaledToFit()
                             .frame(width: 200)
@@ -47,11 +48,11 @@ struct BookDetailView: View {
                         VStack {
                             HStack {
                                 Spacer()
-                                Button {
+                                Button {            // Button to toggle wishlist status
                                     inWishList.toggle()
                                     wishlistToggle()
                                 } label: {
-                                    Image(systemName: inWishList ? "minus.square" : "plus.square")
+                                    Image(systemName: inWishList ? "minus.square" : "plus.square") // if not in wishList, display '+', if its in, display '-'
                                         .foregroundColor(inWishList ? .red : .green)
                                         .padding()
                                         .font(.system(size: 25))
@@ -60,7 +61,7 @@ struct BookDetailView: View {
                             Spacer()
                             HStack {
                                 Spacer()
-                                if inWishList {
+                                if inWishList { // This is to display if user has already added the book into wishlist
                                     Image(systemName: "checkmark.circle.fill")
                                         .foregroundColor(.green)
                                         .font(.system(size: 20))
@@ -72,7 +73,7 @@ struct BookDetailView: View {
                     
                     // Book Name
                     HStack {
-                        Text(bookViewModel.currentBook.name)
+                        Text(bookViewModel.currentBook.name) // Next, this is to display the book name first
                             .foregroundColor(.primary)
                             .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                             .fontWeight(.bold)
@@ -81,11 +82,11 @@ struct BookDetailView: View {
                     // View navigation (overview, detail, review)
                     HStack {
                         Button {
-                            tabOverview = true
+                            tabOverview = true // This is the initialization for the app, previously display the tab Overview
                             tabDetail = false
                             tabReview = false
                         } label: {
-                            Text("Overview")
+                            Text("Overview") // Display Overview
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                                 .foregroundColor(tabOverview ? (userViewModel.isOn ? .white : .black) : .gray)
                                 .bold(tabOverview)
@@ -93,7 +94,7 @@ struct BookDetailView: View {
                         }
                         Button {
                             tabOverview = false
-                            tabDetail = true
+                            tabDetail = true // Next , if user select tabDetails, display TabDetails under
                             tabReview = false
                         } label: {
                             Text("Book Details")
@@ -105,7 +106,7 @@ struct BookDetailView: View {
                         Button {
                             tabOverview = false
                             tabDetail = false
-                            tabReview = true
+                            tabReview = true // then lastly, iuf user slect tabReview, dipslay TabReiview under
                         } label: {
                             Text("Reviews (\(reviewViewModel.currentBookReviews.count))")
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
@@ -122,13 +123,13 @@ struct BookDetailView: View {
                         if tabOverview {
                             // Rating View
                             HStack {
-                                Text("Rating: ")
+                                Text("Rating: ") // Display Rating text
                                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                     .fontWeight(.bold)
                                     
-                                RatingView(rating: bookViewModel.currentBook.rating)
+                                RatingView(rating: bookViewModel.currentBook.rating) // Display Rating View for the Book
                                 
-                                Text(String(bookViewModel.currentBook.rating))
+                                Text(String(bookViewModel.currentBook.rating)) // On the right of the stars, display the rating in numbers
                                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                     .fontWeight(.regular)
                                 Spacer()
@@ -138,21 +139,21 @@ struct BookDetailView: View {
 
                             // Category View
                             VStack (alignment: .leading) {
-                                Text("Category: ")
+                                Text("Category: ") // Under the rating, display the Category, first is the text
                                     .padding(.horizontal)
                                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                     .fontWeight(.bold)
                                 
                                 ScrollView(.horizontal) {
-                                    HStack {
+                                    HStack {// For the scroll view in horizontal, display the the category of the book in lists by using ForEach,
                                         ForEach(bookViewModel.currentBook.category, id: \.self) { category in
-                                            Text(category)
+                                            Text(category) // In the loop, display the category text
                                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                                 .fontWeight(.regular)
                                                 .padding(4)
                                                 .background {
                                                     Rectangle()
-                                                        .fill(Color.random())
+                                                        .fill(Color.random()) //This is for the background color of the category that will be generated random
                                                         .cornerRadius(5)
                                                 }
                                         }
@@ -164,18 +165,18 @@ struct BookDetailView: View {
                             
                             // Author View
                             HStack (spacing: 0) {
-                                Text("Author:")
+                                Text("Author:") // Next, display the author of the app, first is the text author
                                     .padding(.horizontal)
                                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                     .fontWeight(.bold)
-                                Text(bookViewModel.currentBook.author)
+                                Text(bookViewModel.currentBook.author) // then the author's name
                                     .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                     .fontWeight(.regular)
                                 Spacer()
                             }
                             
                             // Headline View
-                            Text(bookViewModel.currentBook.headline)
+                            Text(bookViewModel.currentBook.headline) // Next, this is to display the headline of the book
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-1))
                                 .fontWeight(.semibold)
                                 .padding()
@@ -184,6 +185,7 @@ struct BookDetailView: View {
                         
                         // Tab book detail logic
                         if tabDetail {
+                            // This one is simple, this is to display the bookView Description in this tab
                             Text((bookViewModel.currentBook.description))
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                                 .fontWeight(.regular)
@@ -195,20 +197,20 @@ struct BookDetailView: View {
                         if tabReview {
                             VStack {
                                 HStack {
-                                    Text("Average: ")
+                                    Text("Average: ") // This is to display the average text
                                         .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                                         .fontWeight(.regular)
                                         .padding(.leading, 30)
-                                    Text(reviewViewModel.getAvg())
+                                    Text(reviewViewModel.getAvg()) // then on the right of it, display the rating in numbers
                                         .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
                                         .fontWeight(.regular)
                                     
-                                    Image(systemName: "star.fill")
+                                    Image(systemName: "star.fill") // display the stars
                                         .foregroundColor(.yellow)
                                     
                                     Spacer()
                                     
-                                    Picker("Select an option", selection: $selectedOption) {
+                                    Picker("Select an option", selection: $selectedOption) { // Select an option to displya based on the star selected
                                         ForEach(0...5, id: \.self) { index in
                                             if index == 0 {
                                                 Text("All")
@@ -226,13 +228,14 @@ struct BookDetailView: View {
                                     .padding()
                                 }
                                 
+                                // This part is to collect the Review data from the FIrebase, then display them into this tab
                                 HStack {
                                     LazyVStack() {
                                         VStack {
                                             ForEach(reviewViewModel.currentBookReviews, id: \.id) {
                                                 review in
                                                 HStack{
-                                                    CommentView(review: review, userViewModel: userViewModel)
+                                                    CommentView(review: review, userViewModel: userViewModel) // Input the data review for CommentView to generate images
                                                 }
                                             }
                                         }
@@ -256,10 +259,13 @@ struct BookDetailView: View {
 
                 Spacer()
                 
+                /*
+                 This parts handle the Add new Review function
+                 */
                 HStack {
                     Spacer()
                     Button(action: {
-                        isCommenting = true
+                        isCommenting = true // Toggle to display comment tab
                     }, label: {
                         Image(systemName: "plus.message.fill")
                             .resizable()
@@ -277,13 +283,13 @@ struct BookDetailView: View {
                     })
                 }
                 
-                VStack (spacing: 0) {
+                VStack (spacing: 0) { // This is to get the link of the book to amazon Search
                     Button{
                         if let amazonURL = URLCaller(name: bookViewModel.currentBook.name).amazonURL() {
                             UIApplication.shared.open(amazonURL)
                         }
                     } label: {
-                        if !tabReview {
+                        if !tabReview { //If it is not in Review Comment Tab, display the button to buy the book
                             ZStack {
                                 Rectangle()
                                     .foregroundColor(Color("Amazon-Orange"))
@@ -319,16 +325,16 @@ struct BookDetailView: View {
             
         }
         .onAppear {
-            bookViewModel.currentBook = currentBook
+            bookViewModel.currentBook = currentBook // get the current book from the bookViewModel
             reviewViewModel.getReviewsByBook(bookID: currentBook.id)
             
-            for id in userViewModel.currentUser.wishlist {
+            for id in userViewModel.currentUser.wishlist { // Check if wishlist has this book in the system
                 currentBook.id == id ? inWishList = true : nil
             }
             print(bookViewModel.currentBook)
         }
         .navigationBarBackButtonHidden(true)
-        .sheet(isPresented: $isCommenting) {
+        .sheet(isPresented: $isCommenting) { // This is to display the inputCommentView
             HStack {
                 InputCommentView(userViewModel: userViewModel, reviewViewModel: reviewViewModel, bookID: bookViewModel.currentBook.id, currentBook: currentBook) { result in
                     if let review = result {
@@ -341,8 +347,8 @@ struct BookDetailView: View {
         }
     }
 
-    func wishlistToggle() {
-        if (inWishList) {
+    func wishlistToggle() { // This one handles the WishList
+        if (inWishList) { // if the Wishlist
             userViewModel.currentUser.wishlist.append(currentBook.id)
             FireBaseDB().updateUser(user: userViewModel.currentUser) { (success, error) in
                 if success {
