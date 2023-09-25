@@ -1,13 +1,18 @@
-//
-//  Category.swift
-//  BookDiscovery
-//
-//  Created by Loc Phan Vinh on 18/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 18/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import Foundation
 
 struct Category {
+    // MARK: - Attributes
     var id: String
     var name: String
     var description: String

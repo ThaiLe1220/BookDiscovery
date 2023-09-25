@@ -1,34 +1,31 @@
-//
-//  NotificationsView.swift
-//  BookDiscovery
-//
-//  Created by Thai, Le Hong on 14/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 14/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 
 struct NewsFeedView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel : UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
 
+    // MARK: - Main View
     var body: some View {
         NavigationView {
             VStack (spacing: 0) {
                 HeaderView(userViewModel: userViewModel, tabName: "Review")
                 
-//                NavigationBar(userViewModel: userViewModel)
-//                    .padding(.top, 8)
-//                    .padding(.bottom, 16)
-//
-//                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
-//                    Text("").hidden()
-//                }
-//                .opacity(0)
-//                .frame(width: 0, height: 0)
-                
                 Divider()
                     .padding(.vertical, 10)
+                // MARK: - List of Reviews
                 HStack {
                     Text("All Reviews")
                         .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))

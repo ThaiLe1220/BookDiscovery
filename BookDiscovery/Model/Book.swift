@@ -1,14 +1,20 @@
-//
-//  Book.swift
-//  BookDiscovery
-//
-//  Created by Loc Phan Vinh on 14/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 14/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
+
 
 import Foundation
 import UIKit
 
 struct Book: Codable, Identifiable, Hashable {
+    // MARK: - Attributes
     var id: String
     var name: String
     var category: [String]
@@ -19,42 +25,42 @@ struct Book: Codable, Identifiable, Hashable {
     var author: String
     var image: UIImage? {
         
-        if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let imageUrl = documentsDirectory.appendingPathComponent("book-\(id).jpg")
+    if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+        let imageUrl = documentsDirectory.appendingPathComponent("book-\(id).jpg")
 
-            if let loadedImage = UIImage(contentsOfFile: imageUrl.path) {
-                return loadedImage
-            }
-            
-            guard let url = URL(string: imageURL) else { return UIImage(named: "thumbnail") }
-            
-            URLSession.shared.dataTask(with: url) { data, _, error in
-                if let data = data, error == nil {
-                    if let uiImage = UIImage(data: data) {
+        if let loadedImage = UIImage(contentsOfFile: imageUrl.path) {
+            return loadedImage
+        }
+        
+        guard let url = URL(string: imageURL) else { return UIImage(named: "thumbnail") }
+        
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let data = data, error == nil {
+                if let uiImage = UIImage(data: data) {
 
-                        if let data = uiImage.jpegData(compressionQuality: 1.0) {
-                            if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                                let fileURL = documentsDirectory.appendingPathComponent("book-\(id).jpg")
-                                do {
-                                    try data.write(to: fileURL)
-                                    print("Image saved at: \(fileURL)")
-                                } catch {
-                                    print("Error saving image: \(error)")
-                                }
+                    if let data = uiImage.jpegData(compressionQuality: 1.0) {
+                        if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                            let fileURL = documentsDirectory.appendingPathComponent("book-\(id).jpg")
+                            do {
+                                try data.write(to: fileURL)
+                                print("Image saved at: \(fileURL)")
+                            } catch {
+                                print("Error saving image: \(error)")
                             }
                         }
                     }
                 }
-            }.resume()
-            
-            let newImageUrl = documentsDirectory.appendingPathComponent("book-\(id).jpg")
-            
-            if let reloadedImage = UIImage(contentsOfFile: newImageUrl.path) {
-                return reloadedImage
             }
+        }.resume()
+        
+        let newImageUrl = documentsDirectory.appendingPathComponent("book-\(id).jpg")
+        
+        if let reloadedImage = UIImage(contentsOfFile: newImageUrl.path) {
+            return reloadedImage
         }
+    }
 
-        return UIImage(named: "thumbnail")
+    return UIImage(named: "thumbnail")
     }
     
     

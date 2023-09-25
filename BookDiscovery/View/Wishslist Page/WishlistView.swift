@@ -1,13 +1,18 @@
-//
-//  WishlistView.swift
-//  BookDiscovery
-//
-//  Created by Thai, Le Hong on 14/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 14/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 
 struct WishlistView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel : UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -16,20 +21,16 @@ struct WishlistView: View {
 
     @State var wishListBooks: [Book] = []
     
+    // MARK: - Main View
     var body: some View {
         NavigationStack {
             VStack (spacing: 0) {
+                // MARK: - Header
                 HeaderView(userViewModel: userViewModel, tabName: "Wishlist")
                 
                 NavigationBar(userViewModel: userViewModel)
                     .padding(.top, 8)
                     .padding(.bottom, 16)
-                
-                NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
-                    Text("").hidden()
-                }
-                .opacity(0)
-                .frame(width: 0, height: 0)
                 
                 HStack {
                     Text("Your Library")
@@ -38,6 +39,7 @@ struct WishlistView: View {
                         .fontWeight(.semibold)
                         .padding(.horizontal)
                     Spacer()
+                    // MARK: - Filter
                     Menu {
                         Menu {
                             Button {
@@ -93,7 +95,7 @@ struct WishlistView: View {
                 }
                 .frame(height: 25)
 
-                
+                // MARK: - List of Books
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 15) {
                         // Only display 10 books at once

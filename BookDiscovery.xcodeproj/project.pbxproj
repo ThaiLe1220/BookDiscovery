@@ -33,6 +33,7 @@
 		CD24DD252AB037A6001BF2A6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD242AB037A6001BF2A6 /* ImagePicker.swift */; };
 		CD24DD272AB047A9001BF2A6 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD262AB047A9001BF2A6 /* ToastView.swift */; };
 		CD24DD292AB04E09001BF2A6 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD24DD282AB04E09001BF2A6 /* ImagePickerView.swift */; };
+		CDB4BDED2AC16471004E54F7 /* UserAboutSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4BDEC2AC16471004E54F7 /* UserAboutSettingView.swift */; };
 		CDD2FFF92AB16C140016A86D /* ImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD2FFF82AB16C140016A86D /* ImageStorage.swift */; };
 		CDD2FFFB2AB181F50016A86D /* ProfileBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD2FFFA2AB181F50016A86D /* ProfileBackgroundView.swift */; };
 		CDF565EA2AB5A14F008E46FD /* InputCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF565E92AB5A14F008E46FD /* InputCommentView.swift */; };
@@ -87,6 +88,7 @@
 		CD24DD242AB037A6001BF2A6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		CD24DD262AB047A9001BF2A6 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		CD24DD282AB04E09001BF2A6 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		CDB4BDEC2AC16471004E54F7 /* UserAboutSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAboutSettingView.swift; sourceTree = "<group>"; };
 		CDD2FFF82AB16C140016A86D /* ImageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorage.swift; sourceTree = "<group>"; };
 		CDD2FFFA2AB181F50016A86D /* ProfileBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBackgroundView.swift; sourceTree = "<group>"; };
 		CDF565E92AB5A14F008E46FD /* InputCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCommentView.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				DE3B2FBE2AB2DDCC000F8B93 /* SettingView.swift */,
 				DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */,
 				A2FAC9F32AAF0FC200779CAA /* UserAccountSettingView.swift */,
+				CDB4BDEC2AC16471004E54F7 /* UserAboutSettingView.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				DE3B2FD02AB3253D000F8B93 /* Book.swift in Sources */,
 				CDF565EA2AB5A14F008E46FD /* InputCommentView.swift in Sources */,
 				DE3B2FC72AB2FB99000F8B93 /* BrowseView.swift in Sources */,
+				CDB4BDED2AC16471004E54F7 /* UserAboutSettingView.swift in Sources */,
 				CDD2FFF92AB16C140016A86D /* ImageStorage.swift in Sources */,
 				954557882AAF0C32003F1C7E /* BookDiscoveryApp.swift in Sources */,
 				DEFC8B6F2AB462BE00A23D35 /* Review.swift in Sources */,

@@ -1,15 +1,20 @@
-//
-//  SplashScreen.swift
-//  BookDiscovery
-//
-//  Created by Vu Tran Hoang on 20/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 20/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 
 import SwiftUI
 
 struct SplashScreenView: View {
+    // MARK: - Variables
     @Binding var isActive : Bool
     @State private var size = 0.8
     @State private var opacity = 0.5
@@ -25,7 +30,7 @@ struct SplashScreenView: View {
 
                 Text("BlogReads")
                     .foregroundColor(.black.opacity(0.80))
-            }
+            } // VStack
             .scaleEffect(size)
             .opacity(opacity)
             .onAppear {
@@ -34,7 +39,7 @@ struct SplashScreenView: View {
                     self.opacity = 1.00
                 }
             }
-        }
+        } // VStack
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 withAnimation {

@@ -1,16 +1,18 @@
-//
-//  MainView.swift
-//  BookDiscovery
-//
-//  Created by Thai, Le Hong on 15/09/2023.
-//
-
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 15/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 import SwiftUI
 import Firebase
 import UserNotifications
 
 struct MainView: View {
-    // StateObject to store and observe UserViewModel
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -18,7 +20,7 @@ struct MainView: View {
     var body: some View {
         VStack {
             TabView (selection: $userViewModel.selectedTab){
-                /// Browse View
+                // Browse View
                 HomeView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("Home", systemImage: "house")}
                     .tag(0)
@@ -26,14 +28,14 @@ struct MainView: View {
                         userViewModel.showSettings = false
                     }
     
-                /// Browse View
+                // Browse View
                 BrowseView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("Browse", systemImage: "square.grid.2x2")}
                     .tag(1)
                     .onAppear {
                         userViewModel.showSettings = false
                     }
-                /// Notifications
+                // Notifications
                 NewsFeedView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("New Feed", systemImage: "newspaper.fill")}
                     .tag(2)
@@ -41,27 +43,16 @@ struct MainView: View {
                         userViewModel.showSettings = false
                     }
     
-                /// My Books
+                // My Books
                 WishlistView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("My Books", systemImage: "heart.circle")}
                     .tag(3)
                     .onAppear {
                         userViewModel.showSettings = false
                     }
-    
-                /// Search View
-//                SettingView(userViewModel: userViewModel)
-                VStack {
-                }
-                    .tabItem {Label("Account", systemImage: "message.circle.fill")}
-                    .tag(4)
-                    .onAppear {
-                        userViewModel.showSettings = false
-                    }
             }
             .accentColor(Color("OrangeMain")) // Change the color of the selected tab item
         }
-        .background(Color(UIColor.secondarySystemBackground))
         .onAppear {
             // Fetch current user data and images when view appears
             userViewModel.fetchUserData()

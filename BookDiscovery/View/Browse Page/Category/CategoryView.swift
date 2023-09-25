@@ -1,13 +1,18 @@
-//
-//  CategoryView.swift
-//  BookDiscovery
-//
-//  Created by Loc Phan Vinh on 18/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 18/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 
 struct CategoryView: View {
+    // MARK: - Variables
     var category: Category
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
@@ -15,10 +20,12 @@ struct CategoryView: View {
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
+    // MARK: - Main View
     var body: some View {
         ScrollView {
             VStack (spacing: 0) {
                 ZStack {
+                    // MARK: - Cateory's image
                     Image(category.image)
                         .resizable()
                         .scaledToFill()
@@ -59,6 +66,7 @@ struct CategoryView: View {
                 
                 Divider()
                 
+                // MARK: - List of Books from category
                 LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(bookViewModel.books, id: \.id) { book in
                         if book.category.contains(category.name) {

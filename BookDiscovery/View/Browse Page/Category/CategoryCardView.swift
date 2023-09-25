@@ -1,21 +1,28 @@
-//
-//  CategoryCardView.swift
-//  BookDiscovery
-//
-//  Created by Loc Phan Vinh on 19/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 19/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 
 struct CategoryCardView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
     
     var category: Category
 
+    // MARK: - Main View
     var body: some View {
         ZStack {
+            // MARK: - Category's image
             Image(category.image)
                 .resizable()
                 .clipShape(Path { path in
@@ -26,6 +33,7 @@ struct CategoryCardView: View {
                 .foregroundColor(.black)
                 .opacity(0.3)
 
+            // MARK: - Category's name
             VStack {
                 Spacer ()
                 HStack {

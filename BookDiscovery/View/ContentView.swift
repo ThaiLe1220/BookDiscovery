@@ -1,9 +1,13 @@
-//
-//  ContentView.swift
-//  BookDiscovery
-//
-//  Created by Lê Ngọc Trâm on 11/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 11/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 import Firebase
@@ -31,7 +35,8 @@ struct ContentView: View {
             else {
                 SplashScreenView(isActive: $isActive)
             }
-        }.environment(\.colorScheme, userViewModel.isOn ? .dark : .light)
+        }
+        .environment(\.colorScheme, userViewModel.isOn ? .dark : .light)
     }
 }
 

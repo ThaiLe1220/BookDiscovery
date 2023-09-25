@@ -1,9 +1,13 @@
-//
-//  InputCommentView.swift
-//  BookDiscovery
-//
-//  Created by Loc Phan Vinh on 15/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 15/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 import Firebase
@@ -60,8 +64,9 @@ struct InputCommentView: View {
                     }
                     HStack {
                         Text(currentBook.author)
-                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+4))
-                            .fontWeight(.bold)
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-2))
+                            .fontWeight(.light)
+                            .italic()
                         Spacer()
                     }
                     HStack {
@@ -77,6 +82,8 @@ struct InputCommentView: View {
                     .fontWeight(.regular)
                     .frame(minHeight: 100)
                     .border(.gray, width: 1)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
                     .onChange(of: content) { newValue in
                         announcement = ""
                     }

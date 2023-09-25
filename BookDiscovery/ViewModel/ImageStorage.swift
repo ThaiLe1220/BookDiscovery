@@ -1,9 +1,13 @@
-//
-//  ImageUploader.swift
-//  BookDiscovery
-//
-//  Created by Loc Phan Vinh on 13/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 13/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 // Import required frameworks
 import Foundation
@@ -103,6 +107,7 @@ class ImageStorage {
         }
     }
     
+    // MARK: - Get profile image with ID
     func getProfileWithId(userId: String, completion: @escaping(UIImage?) -> Void){
         let imageRef = storage.reference().child("users/\(userId)/profile.jpg")
         
@@ -158,7 +163,7 @@ class ImageStorage {
         }
     }
     
-    
+    // MARK: - Delete image from user
     func deleteImagesFrom(userID: String, completion: @escaping (Bool?) -> Void) {
         let folderRef = storage.reference().child("users/\(userID)") // Replace with the actual folder name you want to delete
 

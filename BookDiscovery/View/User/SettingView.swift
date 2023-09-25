@@ -1,10 +1,23 @@
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 14/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
+
 import SwiftUI
 
 struct SettingView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel: UserViewModel
     @State private var userImage: UIImage = UIImage(named: "profile")!
     @Environment(\.dismiss) var dismiss
 
+    // MARK: - Main View
     var body: some View {
         NavigationView {
             VStack (spacing: 0) {
@@ -37,9 +50,9 @@ struct SettingView: View {
 
                     }
 
-                    settingRow(name: "Notifications", destination: UserNotificationSettingView())
+
                     settingRow(name: "Appearances", destination: UserAppearanceSettingView(userViewModel: userViewModel))
-                    settingRow(name: "Help & Support", destination: UserHelpSettingView())
+
                     settingRow(name: "About", destination: UserAboutSettingView())
                 }
                 .listStyle(PlainListStyle())
@@ -58,6 +71,7 @@ struct SettingView: View {
                 .foregroundColor(Color("OrangeMain"))
             )
         }
+        .environment(\.colorScheme, userViewModel.isOn ? .dark : .light)
     }
 
     private func settingRow<V: View>(name: String, destination: V) -> some View {
@@ -72,23 +86,6 @@ struct SettingView: View {
     }
 }
 
-struct UserNotificationSettingView: View {
-    var body: some View {
-        Text("User Notification Settings")
-    }
-}
-
-struct UserHelpSettingView: View {
-    var body: some View {
-        Text("User Help & Support")
-    }
-}
-
-struct UserAboutSettingView: View {
-    var body: some View {
-        Text("About the App")
-    }
-}
 
 struct UserSettingsView_Previews: PreviewProvider {
     static var previews: some View {

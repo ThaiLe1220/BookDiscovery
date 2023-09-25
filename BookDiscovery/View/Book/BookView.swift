@@ -1,9 +1,13 @@
-//
-//  BookView.swift
-//  BookDiscovery
-//
-//  Created by Loc Phan Vinh on 14/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 14/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 
@@ -19,7 +23,7 @@ struct BookView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 155, height: 199)
-                .shadow(color: userViewModel.isOn ? .white.opacity(0.6) : .gray.opacity(0.4), radius: 2, x: 5, y: 5)
+                .shadow(color: userViewModel.isOn ? .white.opacity(0.6) : .black.opacity(0.6), radius: 2, x: 4, y: 4)
 
             
             Text(book.name)
@@ -27,13 +31,12 @@ struct BookView: View {
                 .fontWeight(.regular)
                 .lineLimit(2)
                 .frame(height: 38)
-                .glowBorder(color: .white, lineWidth: 4)
+            
             RatingView(rating: book.rating)
                 .frame(height: 12)
-                .glowBorder(color: .white, lineWidth: 2)
 
         }
-        .frame(width: 160, height: 235)
+        .frame(width: 160, height: 255)
     }
 }
 

@@ -1,14 +1,19 @@
-//
-//  ChangePasswordView.swift
-//  BookDiscovery
-//
-//  Created by Huy Hua Nam on 14/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 14/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 
 
 struct ChangePasswordView: View {
+    // MARK: - Variables
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @ObservedObject var userViewModel: UserViewModel
@@ -19,6 +24,7 @@ struct ChangePasswordView: View {
     @State private var alertMessage: String = ""
     @State private var changeButtonScale: CGFloat = 1.0
     
+    // MARK: - Main View
     var body: some View {
         ZStack {
             GeometryReader { geometry in

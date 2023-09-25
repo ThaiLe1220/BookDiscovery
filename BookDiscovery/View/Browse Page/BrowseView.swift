@@ -1,13 +1,18 @@
-//
-//  HomeView.swift
-//  BookDiscovery
-//
-//  Created by Thai, Le Hong on 14/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 14/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 
 struct BrowseView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -16,60 +21,71 @@ struct BrowseView: View {
     
     @State var searchResults: [Book] = []
 
+    // MARK: - Main View
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack (spacing: 0) {
-                    HeaderView(userViewModel: userViewModel, tabName: "Search")
-                    
-                    NavigationBar(userViewModel: userViewModel)
-                        .padding(.top, 8)
-                        .padding(.bottom, 16)
-                    
-                    NavigationLink(destination: SettingView(userViewModel: userViewModel), isActive: $userViewModel.showSettings) {
-                        Text("").hidden()
-                    }
-                    .opacity(0)
-                    .frame(width: 0, height: 0)
-                    
-                    HStack {
-                        Text("Browse Categories")
-                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
-                            .foregroundColor(userViewModel.isOn ? .white : .black)
-                            .fontWeight(.semibold)
-                            .padding(.horizontal)
-                        Spacer()
-                    }
-                    
-                    if userViewModel.showSearch {
-                        if searchResults.isEmpty {
-                            Color(userViewModel.isOn ? .black : .white)
-                        } else {
-                            List(searchResults, id: \.id) { book in
-                                NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book), isActive: $userViewModel.showSettings){
-                                    Text(book.name)
-                                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+2))
-                                        .fontWeight(.regular)
-                                }
+        NavigationStack {
+            VStack (spacing: 0) {
+                // MARK: - Header
+                HeaderView(userViewModel: userViewModel, tabName: "Search")
+                
+                // MARK: - Search bar
+                NavigationBar(userViewModel: userViewModel)
+                    .padding(.top, 8)
+                    .padding(.bottom, 16)
+                
+                HStack {
+                    Text("Browse Categories")
+                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                        .foregroundColor(userViewModel.isOn ? .white : .black)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal)
+                    Spacer()
+                }
+                
+                
+                if userViewModel.showSearch {
+                    if searchResults.isEmpty {
+                        Color(userViewModel.isOn ? .black : .white)
+                    } else {
+                        // MARK: - List of books
+                        List(searchResults, id: \.id) { book in
+                            NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book), isActive: $userViewModel.showSettings){
+                                Text(book.name)
+                                    .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+2))
+                                    .fontWeight(.regular)
+                                    .onTapGesture {
+                                        userViewModel.currentUser.searchHistory.append(book.name)
+                                        
+                                        FireBaseDB().updateUser(user: userViewModel.currentUser) { success, error in
+                                            if success {
+                                                print("search query added to search history")
+                                            } else {
+                                                print(error?.localizedDescription ?? "Unknown Error")
+                                            }
+                                        }
+                                    }
                             }
                         }
                     }
-                    else {
-                        CategoryListView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
-                            .opacity(userViewModel.showSearch ? 0 : 1)
-                    }
-                    
-                    
-                    Divider()
                 }
+                else {
+                    // MARK: - List of category
+                    CategoryListView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
+                        .opacity(userViewModel.showSearch ? 0 : 1)
+                }
+                
+                
+                Divider()
             }
+      
         }
         .background(userViewModel.isOn ? .black : .white)
         .onAppear {
-            userViewModel.searchText = ""
             userViewModel.showSearch = false
-            searchResults = bookViewModel.books
             userViewModel.isSearchBarVisible = false
+            userViewModel.searchText = ""
+            searchResults = bookViewModel.books
+
         }
         .onChange(of: userViewModel.searchText) { text in
             text == "" ? searchResults = bookViewModel.books : searchAllBooks()
@@ -80,15 +96,6 @@ struct BrowseView: View {
     func searchAllBooks() {
         searchResults = bookViewModel.books.filter { book in
             book.name.lowercased().contains(userViewModel.searchText.lowercased())
-        }
-        
-        userViewModel.currentUser.searchHistory.append(userViewModel.searchText)
-        FireBaseDB().updateUser(user: userViewModel.currentUser) { success, error in
-            if success {
-                print("search query added to search history")
-            } else {
-                print(error?.localizedDescription ?? "Unknown Error")
-            }
         }
     }
 }

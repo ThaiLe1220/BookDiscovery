@@ -1,9 +1,13 @@
-//
-//  UserAppearanceSettingView.swift
-//  BookDiscovery
-//
-//  Created by Thai, Le Hong on 15/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 15/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 
@@ -49,12 +53,12 @@ struct UserAppearanceSettingView: View {
   
 
                 
-                // Placeholder for future development ideas
-                Section(header: Text("More Options").font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-3))) {
-//                    Button("Future Option 1") {
-//                        // Placeholder for future implementation
-//                    }
-                }
+//                // Placeholder for future development ideas
+//                Section(header: Text("More Options").font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-3))) {
+////                    Button("Future Option 1") {
+////                        // Placeholder for future implementation
+////                    }
+//                }
             }
             .padding(.top, 45)
             .background(Color(UIColor.secondarySystemBackground))

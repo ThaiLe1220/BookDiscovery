@@ -1,9 +1,13 @@
-//
-//  FireBaseDB.swift
-//  Book Lover
-//
-//  Created by Loc Phan Vinh on 11/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 11/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 // Import the necessary libraries for Firebase and Firestore functionalities
 import Foundation
@@ -19,6 +23,7 @@ let db = Firestore.firestore()
 
 // Define the FireBaseDB class
 class FireBaseDB {
+    // MARK: - USER ########################
     // MARK: - Add User
     // Function to add a new user to the Firestore "users" collection
     func addUser(userID: String, userEmail: String, userName: String, completion: @escaping (Bool) -> Void) {
@@ -64,6 +69,27 @@ class FireBaseDB {
             }
     }
 
+    // MARK: - Fetch User's name
+    func fetchUsername(userID: String, completion: @escaping (String) -> Void) {
+        // Query Firestore to find documents where "id" field matches the userID
+        db.collection("users").whereField("id", isEqualTo: userID).getDocuments { querySnapshot, error in
+            if error != nil {
+                // Return nil if an error occurs
+                completion("")
+            } else {
+                // Parse the fetched user data into a User object
+                if let document = querySnapshot?.documents.first,
+                   let user = document["name"] as? String {
+                    // Return the User object
+                    completion(user)
+                } else {
+                    // Return nil if no user is found
+                    completion("")
+                }
+            }
+        }
+    }
+    
     // MARK: - Update
     // Function to update existing user data
     func updateUser(user: User, completion: @escaping (Bool, Error?) -> Void) {
@@ -209,6 +235,7 @@ class FireBaseDB {
         }
     }
 
+    // MARK: - Get all books
     func getAllBooks(completion: @escaping (Book?) -> Void) {
             // Get a reference to the Firebase Realtime Database
             let databaseRef = Database.database().reference()
@@ -240,6 +267,7 @@ class FireBaseDB {
             })
         }
     
+    // MARK: - Search Books with name
     func searchBooks(query: String, completion: @escaping ([Book]?) -> Void) {
         // Get a reference to the Firebase Realtime Database
         let databaseRef = Database.database().reference()
@@ -276,6 +304,7 @@ class FireBaseDB {
         }
     }
     
+    // MARK: - Fetch Book Image URL
     func fetchBookImageURL(bookID: String, completion: @escaping (URL?) -> Void) {
     // Get a reference to the Firebase Realtime Database
        let databaseRef = Database.database().reference()
@@ -296,6 +325,7 @@ class FireBaseDB {
        }
     }
     
+    // MARK: - Fetch User's name with ID
     func fetchUserNameBy(userID: String, completion: @escaping (String?) -> Void) {
         // Query Firestore to find documents where "id" field matches the userID
         db.collection("users").whereField("id", isEqualTo: userID).getDocuments { querySnapshot, error in
@@ -393,7 +423,6 @@ class FireBaseDB {
             completion(result)
         }
     }
-    
 
     // MARK: - Delete Review
     func deleteReview(reviewID: String, completion: @escaping (Bool?) -> Void) {
@@ -448,5 +477,5 @@ class FireBaseDB {
         })
         
     }
-    
+
 }

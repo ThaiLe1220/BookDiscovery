@@ -1,19 +1,25 @@
-//
-//  UserReviewView.swift
-//  BookDiscovery
-//
-//  Created by Thai, Le Hong on 22/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 22/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 
 struct UserReviewView: View {
+     // MARK: - Variables
     @ObservedObject var userViewModel : UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
     
     var review: Review
     
+    // MARK: - Main View
     var body: some View {
         VStack (spacing: 0) {
             HStack {
@@ -22,6 +28,7 @@ struct UserReviewView: View {
                         reviewViewModel.allReviews.sort(by: {$0.date > $1.date})
                     }
             }
+
 
             HStack (spacing: 0) {
                 ForEach(bookViewModel.books, id: \.self) { book in

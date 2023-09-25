@@ -1,9 +1,13 @@
-//
-//  NavigationBar.swift
-//  BookDiscovery
-//
-//  Created by Thai, Le Hong on 14/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 14/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 
@@ -38,14 +42,6 @@ struct NavigationBar: View {
                     .cornerRadius(10)
                     .foregroundColor(userViewModel.isOn ? .white : .black)
                     .tint(userViewModel.isSearchBarVisible ? Color("OrangeMain") : Color(UIColor.systemGray6))
-//                    .overlay {
-//                        RoundedRectangle(cornerRadius: 12)
-//                            .stroke(Color.white, lineWidth: 2)
-//                            .overlay(
-//                                Color(UIColor.clear)
-//                            )
-//                    }
-
                 
                 if userViewModel.isSearchBarVisible {
                     Button(action: {
@@ -67,14 +63,24 @@ struct NavigationBar: View {
             HStack (spacing: 0) {
                 // This Spacer pushes the next elements to the right
                 if !userViewModel.isSearchBarVisible {
-                    Text("Search")
-                        .padding(.horizontal, 36)
-                        .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
-                        .fontWeight(.regular)
-                        .foregroundColor(Color("GraySub"))
-
-                    Spacer()
+                    HStack {
+                        Text("Search Books")
+                            .padding(.horizontal, 36)
+                            .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))
+                            .fontWeight(.regular)
+                            .foregroundColor(Color("GraySub"))
+                        
+                        Spacer()
+                    }
+                    .onTapGesture {
+                        userViewModel.searchText = ""
+                        withAnimation(Animation.easeInOut(duration: 0.5).delay(0.0)) {
+                            userViewModel.isSearchBarVisible.toggle()
+                            userViewModel.showSearch.toggle()
+                        }
+                    }
                 }
+                
 
                 HStack {
                     Button(action: {

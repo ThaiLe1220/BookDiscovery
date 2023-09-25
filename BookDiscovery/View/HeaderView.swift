@@ -1,19 +1,23 @@
-//
-//  SwiftUIView.swift
-//  BookDiscovery
-//
-//  Created by Thai, Le Hong on 22/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 22/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 
 struct HeaderView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel : UserViewModel
-    
     @State private var showProfile = false
-
     var tabName: String
     
+    // MARK: - Main View
     var body: some View {
         HStack {
             Text("\(tabName)")
@@ -21,6 +25,7 @@ struct HeaderView: View {
                 .fontWeight(.bold)
                 .foregroundColor(userViewModel.isOn ? .white : .black)
             Spacer()
+            // MARK: - Setting button
             Button(action: {
                 showProfile.toggle()
             }) {

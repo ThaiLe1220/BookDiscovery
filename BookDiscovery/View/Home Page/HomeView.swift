@@ -1,13 +1,17 @@
-//
-//  HomeView.swift
-//  BookDiscovery
-//
-//  Created by Thai, Le Hong on 14/09/2023.
-//
-
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 14/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 import SwiftUI
 
 struct HomeView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -26,18 +30,17 @@ struct HomeView: View {
     let recommendedBooks: [Book] = [testBook1, testBook, testBook1, testBook]
     let continueReadingBooks: [Book] = [/* your array of Book objects user is currently reading */]
     let hotReviews: [Review] = [/* your array of hot Review objects */]
-    let popularBooks: [Book] = [/* your array of popular Book objects */]
     let categories: [String] = ["Science Fiction", "Romance", "Thrillers", "Non-fiction"]
     let newReleases: [Book] = [/* your array of newly released Book objects */]
-    let editorsPick: [Book] = [/* your array of editor's pick Book objects */]
 
-    
+    // MARK: - Main View
     var body: some View {
         NavigationView {
             VStack (spacing: 0) {
                 HeaderView(userViewModel: userViewModel, tabName: "Home")
                     .padding(.bottom)
 
+                // MARK: - Banners
                 ScrollViewReader { proxy in
                     ScrollView {
                         GeometryReader { geometry in
@@ -102,6 +105,8 @@ struct HomeView: View {
                             }
                         }
                         .frame(height: 170)  // 170 for image and 20 for the dots
+                        
+                        // MARK: - Recommend Book
                         VStack {
                             HStack {
                                 Text("Recommened Books")
@@ -167,6 +172,7 @@ struct HomeView: View {
                             Spacer()
                         }
                         .offset(y: -15)
+                        
                         LazyVGrid(columns: columns, spacing: 15) {
                             // Only display 10 books at once
                             ForEach(Array(totalBooks.prefix(displayedBooksCount)), id: \.self) { tempBook in

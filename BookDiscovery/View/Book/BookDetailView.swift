@@ -1,9 +1,13 @@
-//
-//  BookDetailView.swift
-//  BookDiscovery
-//
-//  Created by Loc Phan Vinh on 15/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author/Group: 3 - Book Discovery
+  Created  date: 15/09/2023
+  Last modified: 25/09/2023
+  Acknowledgement: N/A
+*/
 
 import SwiftUI
 
@@ -232,6 +236,7 @@ struct BookDetailView: View {
                                                 }
                                             }
                                         }
+                                        .padding(8)
                                     }
                                 }
                             }
@@ -243,7 +248,8 @@ struct BookDetailView: View {
                 }
 
             }
-            
+            .scrollIndicators(.hidden)
+
             // Plus message for add review
             VStack {
                 Divider()
@@ -294,6 +300,7 @@ struct BookDetailView: View {
                 }
 
             }
+            .offset(y: -20)
             
             // Back button for navigation
             VStack {
