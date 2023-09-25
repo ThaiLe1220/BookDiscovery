@@ -12,6 +12,7 @@
 import SwiftUI
 
 struct WishlistView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel : UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -20,9 +21,11 @@ struct WishlistView: View {
 
     @State var wishListBooks: [Book] = []
     
+    // MARK: - Main View
     var body: some View {
         NavigationStack {
             VStack (spacing: 0) {
+                // MARK: - Header
                 HeaderView(userViewModel: userViewModel, tabName: "Wishlist")
                 
                 NavigationBar(userViewModel: userViewModel)
@@ -36,6 +39,7 @@ struct WishlistView: View {
                         .fontWeight(.semibold)
                         .padding(.horizontal)
                     Spacer()
+                    // MARK: - Filter
                     Menu {
                         Menu {
                             Button {
@@ -91,7 +95,7 @@ struct WishlistView: View {
                 }
                 .frame(height: 25)
 
-                
+                // MARK: - List of Books
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 15) {
                         // Only display 10 books at once

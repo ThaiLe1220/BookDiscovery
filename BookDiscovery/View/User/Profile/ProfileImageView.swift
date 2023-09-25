@@ -32,6 +32,7 @@ struct ProfileImageView: View {
                 )
                 .shadow(radius: 7)
             
+            // MARK: - Camera/Update Image Button
             Button {
                 isShowingImagePicker.toggle()
             } label: {

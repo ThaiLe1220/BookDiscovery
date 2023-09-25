@@ -12,10 +12,12 @@
 import SwiftUI
 
 struct NewsFeedView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel : UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
 
+    // MARK: - Main View
     var body: some View {
         NavigationView {
             VStack (spacing: 0) {
@@ -23,6 +25,7 @@ struct NewsFeedView: View {
                 
                 Divider()
                     .padding(.vertical, 10)
+                // MARK: - List of Reviews
                 HStack {
                     Text("All Reviews")
                         .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize))

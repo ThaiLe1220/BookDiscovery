@@ -12,6 +12,7 @@
 import SwiftUI
 
 struct CategoryView: View {
+    // MARK: - Variables
     var category: Category
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
@@ -19,10 +20,12 @@ struct CategoryView: View {
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
+    // MARK: - Main View
     var body: some View {
         ScrollView {
             VStack (spacing: 0) {
                 ZStack {
+                    // MARK: - Cateory's image
                     Image(category.image)
                         .resizable()
                         .scaledToFill()
@@ -63,6 +66,7 @@ struct CategoryView: View {
                 
                 Divider()
                 
+                // MARK: - List of Books from category
                 LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(bookViewModel.books, id: \.id) { book in
                         if book.category.contains(category.name) {

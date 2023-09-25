@@ -13,10 +13,10 @@ import SwiftUI
 
 struct UserAboutSettingView: View {
     let authors = [
-        "Le Hong Thai - s",
-        "Hua Nam Huy - s",
-        "Nguyen Giang Huy - s",
-        "Tran Hoang Vu - s",
+        "Le Hong Thai - s3752577",
+        "Hua Nam Huy - s3881103",
+        "Nguyen Giang Huy - s3836454",
+        "Tran Hoang Vu - s3915185",
         "Phan Vinh Loc - s3938497"
     ]
     

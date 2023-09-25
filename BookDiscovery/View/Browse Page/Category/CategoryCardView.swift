@@ -12,14 +12,17 @@
 import SwiftUI
 
 struct CategoryCardView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
     
     var category: Category
 
+    // MARK: - Main View
     var body: some View {
         ZStack {
+            // MARK: - Category's image
             Image(category.image)
                 .resizable()
                 .clipShape(Path { path in
@@ -30,6 +33,7 @@ struct CategoryCardView: View {
                 .foregroundColor(.black)
                 .opacity(0.3)
 
+            // MARK: - Category's name
             VStack {
                 Spacer ()
                 HStack {

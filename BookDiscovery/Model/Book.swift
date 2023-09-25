@@ -14,6 +14,7 @@ import Foundation
 import UIKit
 
 struct Book: Codable, Identifiable, Hashable {
+    // MARK: - Attributes
     var id: String
     var name: String
     var category: [String]

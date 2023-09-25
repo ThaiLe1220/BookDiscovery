@@ -12,6 +12,7 @@
 import SwiftUI
 
 struct BrowseView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -20,11 +21,14 @@ struct BrowseView: View {
     
     @State var searchResults: [Book] = []
 
+    // MARK: - Main View
     var body: some View {
         NavigationStack {
             VStack (spacing: 0) {
+                // MARK: - Header
                 HeaderView(userViewModel: userViewModel, tabName: "Search")
                 
+                // MARK: - Search bar
                 NavigationBar(userViewModel: userViewModel)
                     .padding(.top, 8)
                     .padding(.bottom, 16)
@@ -38,10 +42,12 @@ struct BrowseView: View {
                     Spacer()
                 }
                 
+                
                 if userViewModel.showSearch {
                     if searchResults.isEmpty {
                         Color(userViewModel.isOn ? .black : .white)
                     } else {
+                        // MARK: - List of books
                         List(searchResults, id: \.id) { book in
                             NavigationLink(destination: BookDetailView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel, currentBook: book), isActive: $userViewModel.showSettings){
                                 Text(book.name)
@@ -63,6 +69,7 @@ struct BrowseView: View {
                     }
                 }
                 else {
+                    // MARK: - List of category
                     CategoryListView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                         .opacity(userViewModel.showSearch ? 0 : 1)
                 }

@@ -12,13 +12,16 @@
 import Foundation
 
 class URLCaller {
+    // MARK: - Attributes
     @Published var bookName: String = ""
     
+    // MARK: - Constructor
     init(name: String = "") {
         let modified_name = name.replacingOccurrences(of: " ", with: "+")
         self.bookName = modified_name
     }
     
+    // MARK: - Call URL
     func amazonURL() -> URL? {
         let amazonSearchURLString = "https://www.amazon.com/s?k=\(bookName)"
         return URL(string: amazonSearchURLString)

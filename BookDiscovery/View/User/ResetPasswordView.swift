@@ -12,6 +12,7 @@
 import SwiftUI
 
 struct ResetPasswordView: View {
+    // MARK: - Variables
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @ObservedObject var userViewModel: UserViewModel // ViewModel for managing user data
@@ -24,6 +25,7 @@ struct ResetPasswordView: View {
     @State private var isValidEmail: Bool = false
     @State private var buttonScale: CGFloat = 1.0
 
+    // MARK: - Main View
     var body: some View {
         ZStack {
             // Background image

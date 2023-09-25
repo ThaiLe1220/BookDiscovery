@@ -12,12 +12,12 @@
 import SwiftUI
 
 struct HeaderView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel : UserViewModel
-    
     @State private var showProfile = false
-
     var tabName: String
     
+    // MARK: - Main View
     var body: some View {
         HStack {
             Text("\(tabName)")
@@ -25,6 +25,7 @@ struct HeaderView: View {
                 .fontWeight(.bold)
                 .foregroundColor(userViewModel.isOn ? .white : .black)
             Spacer()
+            // MARK: - Setting button
             Button(action: {
                 showProfile.toggle()
             }) {

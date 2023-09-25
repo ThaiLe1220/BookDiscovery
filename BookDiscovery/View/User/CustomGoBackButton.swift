@@ -12,12 +12,14 @@
 import SwiftUI
 
 struct CustomBackButton: View {
+    // MARK: - Variables
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @ObservedObject var userViewModel: UserViewModel
 
     var buttonColor : Color
     var text: String
 
+    // MARK: - Main View
     var body: some View {
         Button(action: {
             self.presentationMode.wrappedValue.dismiss()

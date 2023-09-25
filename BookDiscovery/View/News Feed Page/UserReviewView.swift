@@ -12,12 +12,14 @@
 import SwiftUI
 
 struct UserReviewView: View {
+     // MARK: - Variables
     @ObservedObject var userViewModel : UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
     
     var review: Review
     
+    // MARK: - Main View
     var body: some View {
         VStack (spacing: 0) {
             HStack {
@@ -26,6 +28,7 @@ struct UserReviewView: View {
                         reviewViewModel.allReviews.sort(by: {$0.date > $1.date})
                     }
             }
+
 
             HStack (spacing: 0) {
                 ForEach(bookViewModel.books, id: \.self) { book in

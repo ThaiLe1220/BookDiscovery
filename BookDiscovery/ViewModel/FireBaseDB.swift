@@ -23,6 +23,7 @@ let db = Firestore.firestore()
 
 // Define the FireBaseDB class
 class FireBaseDB {
+    // MARK: - USER ########################
     // MARK: - Add User
     // Function to add a new user to the Firestore "users" collection
     func addUser(userID: String, userEmail: String, userName: String, completion: @escaping (Bool) -> Void) {
@@ -68,6 +69,7 @@ class FireBaseDB {
             }
     }
 
+    // MARK: - Fetch User's name
     func fetchUsername(userID: String, completion: @escaping (String) -> Void) {
         // Query Firestore to find documents where "id" field matches the userID
         db.collection("users").whereField("id", isEqualTo: userID).getDocuments { querySnapshot, error in
@@ -233,6 +235,7 @@ class FireBaseDB {
         }
     }
 
+    // MARK: - Get all books
     func getAllBooks(completion: @escaping (Book?) -> Void) {
             // Get a reference to the Firebase Realtime Database
             let databaseRef = Database.database().reference()
@@ -264,6 +267,7 @@ class FireBaseDB {
             })
         }
     
+    // MARK: - Search Books with name
     func searchBooks(query: String, completion: @escaping ([Book]?) -> Void) {
         // Get a reference to the Firebase Realtime Database
         let databaseRef = Database.database().reference()
@@ -300,6 +304,7 @@ class FireBaseDB {
         }
     }
     
+    // MARK: - Fetch Book Image URL
     func fetchBookImageURL(bookID: String, completion: @escaping (URL?) -> Void) {
     // Get a reference to the Firebase Realtime Database
        let databaseRef = Database.database().reference()
@@ -320,6 +325,7 @@ class FireBaseDB {
        }
     }
     
+    // MARK: - Fetch User's name with ID
     func fetchUserNameBy(userID: String, completion: @escaping (String?) -> Void) {
         // Query Firestore to find documents where "id" field matches the userID
         db.collection("users").whereField("id", isEqualTo: userID).getDocuments { querySnapshot, error in

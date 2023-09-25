@@ -20,7 +20,7 @@ struct MainView: View {
     var body: some View {
         VStack {
             TabView (selection: $userViewModel.selectedTab){
-                /// Browse View
+                // Browse View
                 HomeView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("Home", systemImage: "house")}
                     .tag(0)
@@ -28,14 +28,14 @@ struct MainView: View {
                         userViewModel.showSettings = false
                     }
     
-                /// Browse View
+                // Browse View
                 BrowseView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("Browse", systemImage: "square.grid.2x2")}
                     .tag(1)
                     .onAppear {
                         userViewModel.showSettings = false
                     }
-                /// Notifications
+                // Notifications
                 NewsFeedView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("New Feed", systemImage: "newspaper.fill")}
                     .tag(2)
@@ -43,7 +43,7 @@ struct MainView: View {
                         userViewModel.showSettings = false
                     }
     
-                /// My Books
+                // My Books
                 WishlistView(userViewModel: userViewModel, bookViewModel: bookViewModel, reviewViewModel: reviewViewModel)
                     .tabItem {Label("My Books", systemImage: "heart.circle")}
                     .tag(3)

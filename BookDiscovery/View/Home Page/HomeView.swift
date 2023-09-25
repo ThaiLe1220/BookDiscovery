@@ -11,6 +11,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
@@ -32,13 +33,14 @@ struct HomeView: View {
     let categories: [String] = ["Science Fiction", "Romance", "Thrillers", "Non-fiction"]
     let newReleases: [Book] = [/* your array of newly released Book objects */]
 
-    
+    // MARK: - Main View
     var body: some View {
         NavigationView {
             VStack (spacing: 0) {
                 HeaderView(userViewModel: userViewModel, tabName: "Home")
                     .padding(.bottom)
 
+                // MARK: - Banners
                 ScrollViewReader { proxy in
                     ScrollView {
                         GeometryReader { geometry in
@@ -104,6 +106,7 @@ struct HomeView: View {
                         }
                         .frame(height: 170)  // 170 for image and 20 for the dots
                         
+                        // MARK: - Recommend Book
                         VStack {
                             HStack {
                                 Text("Recommened Books")

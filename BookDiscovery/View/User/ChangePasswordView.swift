@@ -13,6 +13,7 @@ import SwiftUI
 
 
 struct ChangePasswordView: View {
+    // MARK: - Variables
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @ObservedObject var userViewModel: UserViewModel
@@ -23,6 +24,7 @@ struct ChangePasswordView: View {
     @State private var alertMessage: String = ""
     @State private var changeButtonScale: CGFloat = 1.0
     
+    // MARK: - Main View
     var body: some View {
         ZStack {
             GeometryReader { geometry in

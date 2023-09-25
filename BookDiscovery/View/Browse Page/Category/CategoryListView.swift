@@ -12,13 +12,16 @@
 import SwiftUI
 
 struct CategoryListView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var reviewViewModel: ReviewViewModel
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
+    // MARK: - Main View
     var body: some View {
+        // MARK: - List of categories
         ScrollView {
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(bookViewModel.categories, id: \.id) { category in

@@ -12,6 +12,7 @@
 import Foundation
 
 struct Review: Codable, Identifiable, Hashable {
+    // MARK: - Attributes
     var id: String
     var userID: String
     var bookID: String
@@ -21,6 +22,7 @@ struct Review: Codable, Identifiable, Hashable {
     var likes: Int
     var votedUserIds: [String]
 }
+
 
 let emptyReview = Review(
     id: "",

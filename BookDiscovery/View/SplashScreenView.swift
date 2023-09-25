@@ -14,6 +14,7 @@ import SwiftUI
 import SwiftUI
 
 struct SplashScreenView: View {
+    // MARK: - Variables
     @Binding var isActive : Bool
     @State private var size = 0.8
     @State private var opacity = 0.5
@@ -29,7 +30,7 @@ struct SplashScreenView: View {
 
                 Text("BlogReads")
                     .foregroundColor(.black.opacity(0.80))
-            }
+            } // VStack
             .scaleEffect(size)
             .opacity(opacity)
             .onAppear {
@@ -38,7 +39,7 @@ struct SplashScreenView: View {
                     self.opacity = 1.00
                 }
             }
-        }
+        } // VStack
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 withAnimation {

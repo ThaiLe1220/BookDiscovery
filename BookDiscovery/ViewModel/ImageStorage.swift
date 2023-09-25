@@ -107,6 +107,7 @@ class ImageStorage {
         }
     }
     
+    // MARK: - Get profile image with ID
     func getProfileWithId(userId: String, completion: @escaping(UIImage?) -> Void){
         let imageRef = storage.reference().child("users/\(userId)/profile.jpg")
         
@@ -162,7 +163,7 @@ class ImageStorage {
         }
     }
     
-    
+    // MARK: - Delete image from user
     func deleteImagesFrom(userID: String, completion: @escaping (Bool?) -> Void) {
         let folderRef = storage.reference().child("users/\(userID)") // Replace with the actual folder name you want to delete
 

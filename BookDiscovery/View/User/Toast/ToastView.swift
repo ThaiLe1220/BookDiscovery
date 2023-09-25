@@ -11,8 +11,10 @@
 import SwiftUI
 
 struct ToastView: View {
+    // MARK: - Variables
     let message: String
     
+    // MARK: - Main View
     var body: some View {
         VStack {
             Text(message)
@@ -23,6 +25,5 @@ struct ToastView: View {
                 .padding(.horizontal, 20)
         }
         .transition(.move(edge: .top))
-//        .animation(.easeInOut)
     }
 }

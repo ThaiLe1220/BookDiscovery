@@ -12,10 +12,12 @@
 import SwiftUI
 
 struct SettingView: View {
+    // MARK: - Variables
     @ObservedObject var userViewModel: UserViewModel
     @State private var userImage: UIImage = UIImage(named: "profile")!
     @Environment(\.dismiss) var dismiss
 
+    // MARK: - Main View
     var body: some View {
         NavigationView {
             VStack (spacing: 0) {
