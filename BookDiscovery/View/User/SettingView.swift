@@ -37,9 +37,9 @@ struct SettingView: View {
 
                     }
 
-                    settingRow(name: "Notifications", destination: UserNotificationSettingView())
+
                     settingRow(name: "Appearances", destination: UserAppearanceSettingView(userViewModel: userViewModel))
-                    settingRow(name: "Help & Support", destination: UserHelpSettingView())
+
                     settingRow(name: "About", destination: UserAboutSettingView())
                 }
                 .listStyle(PlainListStyle())
@@ -58,6 +58,7 @@ struct SettingView: View {
                 .foregroundColor(Color("OrangeMain"))
             )
         }
+        .environment(\.colorScheme, userViewModel.isOn ? .dark : .light)
     }
 
     private func settingRow<V: View>(name: String, destination: V) -> some View {
@@ -72,23 +73,6 @@ struct SettingView: View {
     }
 }
 
-struct UserNotificationSettingView: View {
-    var body: some View {
-        Text("User Notification Settings")
-    }
-}
-
-struct UserHelpSettingView: View {
-    var body: some View {
-        Text("User Help & Support")
-    }
-}
-
-struct UserAboutSettingView: View {
-    var body: some View {
-        Text("About the App")
-    }
-}
 
 struct UserSettingsView_Previews: PreviewProvider {
     static var previews: some View {

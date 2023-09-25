@@ -47,17 +47,6 @@ struct MainView: View {
                     .onAppear {
                         userViewModel.showSettings = false
                     }
-    
-                /// Search View
-//                SettingView(userViewModel: userViewModel)
-                VStack {
-                    ChatListView(messageViewModel: MessageViewModel(userID: userViewModel.currentUser.id ?? "1"))
-                }
-                    .tabItem {Label("Chat", systemImage: "message.circle.fill")}
-                    .tag(4)
-                    .onAppear {
-                        userViewModel.showSettings = false
-                    }
             }
             .accentColor(Color("OrangeMain")) // Change the color of the selected tab item
         }
