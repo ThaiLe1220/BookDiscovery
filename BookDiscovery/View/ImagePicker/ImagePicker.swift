@@ -13,35 +13,46 @@ import Foundation
 
 import SwiftUI
 
+// ImagePicker conforms to UIViewControllerRepresentable,
+// allowing you to use a UIKit-based UIImagePickerController in a SwiftUI view.
 struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var selectedImage: UIImage?
+    @Binding var selectedImage: UIImage?     // Binding to the UIImage optional that will hold the selected image
 
-    func makeUIViewController(context: Context) -> UIImagePickerController {
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {     // Create and configure the UIImagePickerController instance
+
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
         return picker
     }
 
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}    // Function needed for UIViewControllerRepresentable protocol, but not used here, so left empty
 
-    func makeCoordinator() -> Coordinator {
+    func makeCoordinator() -> Coordinator {// Create a Coordinator instance to act as the UIImagePickerController delegate
+
         Coordinator(self)
     }
 
-    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        var parent: ImagePicker
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {     // The Coordinator class is responsible for delegating the UIImagePickerController actions
 
-        init(_ parent: ImagePicker) {
+        var parent: ImagePicker         // Reference to the parent ImagePicker view
+
+
+        init(_ parent: ImagePicker) {         // Initializer
+
             self.parent = parent
         }
 
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let selectedImage = info[.originalImage] as? UIImage {
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {         // Did finish picking media
+
+            if let selectedImage = info[.originalImage] as? UIImage {             // Extract the selected image and set it in the parent view
+
                 parent.selectedImage = selectedImage
             }
         }
 
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {         // Handle image picker cancellation
+
         }
     }
 }

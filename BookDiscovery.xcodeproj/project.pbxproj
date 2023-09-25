@@ -205,7 +205,6 @@
 				DE5C49B42AB47E1C003EFB6E /* Browse Page */,
 				DE5C49B32AB47E0B003EFB6E /* Home Page */,
 				CDD2FFFD2AB1854B0016A86D /* User */,
-				DE4E3FDE2AB333450000EFEB /* Book */,
 				DE4E3FE12AB333590000EFEB /* Rating */,
 				CDD2FFFE2AB185710016A86D /* ImagePicker */,
 			);
@@ -261,6 +260,7 @@
 				DE74AF6C2AB42741008C0754 /* UserAppearanceSettingView.swift */,
 				A2FAC9F32AAF0FC200779CAA /* UserAccountSettingView.swift */,
 				CDB4BDEC2AC16471004E54F7 /* UserAboutSettingView.swift */,
+				DE4E3FDE2AB333450000EFEB /* Book */,
 			);
 			path = User;
 			sourceTree = "<group>";

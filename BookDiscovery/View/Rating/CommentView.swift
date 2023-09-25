@@ -11,23 +11,32 @@
 
 import SwiftUI
 
+// CommentView struct renders the comment UI for each review\
 struct CommentView: View {
-    var review: Review
-    @ObservedObject var userViewModel: UserViewModel
-    @State private var username: String? = ""
+    var review: Review     // The review to display imported from the Book Review
+    @ObservedObject var userViewModel: UserViewModel    // The UserViewModel to get user-specific settings, such as font
+
+    @State private var username: String? = ""    // State variables to hold the username and user image
+
     @State private var userImage: UIImage = UIImage(named: "profile")!
     
-    var body: some View {
-        ZStack {
-            VStack{
-                HStack (spacing: 0) {
-                    CommentProfileView(profileImage: userImage)
+    var body: some View {    // Main View body
+
+        ZStack {        // ZStack allows overlapping of views
+
+            VStack{            // Main vertical stack to organize components
+
+                HStack (spacing: 0) {                // Horizontal Stack for the user profile picture and metadata
+
+                    CommentProfileView(profileImage: userImage)                    // Profile image view to display
+
                         .scaleEffect(0.8)
                         .frame(width: 50, height: 50)
                         .padding(.horizontal, 8)
                     
-                    VStack (alignment: .leading) {
-                        HStack {
+                    VStack (alignment: .leading) {                    // Vertical stack for the username and the review date
+
+                        HStack {                        // Username of the reviewer
                             Text((username == "" ? "empty name" : username)!)
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize+1))
                                 .fontWeight(.bold)
@@ -37,7 +46,7 @@ struct CommentView: View {
 
                         
                         Spacer()
-                        HStack {
+                        HStack {                        // Review date and rating
                             Text(review.date)
                                 .font(.custom(userViewModel.selectedFont, size: userViewModel.selectedFontSize-2))
                                 .fontWeight(.regular)
@@ -45,7 +54,7 @@ struct CommentView: View {
                             
                             Spacer()
                             
-                            RatingView(rating: review.rating)
+                            RatingView(rating: review.rating) // This is the ratingView of the user on the book
                                 .scaleEffect(0.6)
                                 .frame(width: 80)
                         }
@@ -56,7 +65,8 @@ struct CommentView: View {
                 .frame(height: 50)
                 .padding(.top, 8)
                 
-                HStack () {
+                HStack () {                // Under them all, this is to display user's comment on the book
+
                     Text(review.comment)
                         .multilineTextAlignment(.leading)
                         .padding(8)
@@ -66,23 +76,23 @@ struct CommentView: View {
                 }
                 .padding(.vertical, 4)
             }
-            .background {
+            .background {            // Background color for the view
                 VStack {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(userViewModel.isOn ? .black : .white)
                 }
             }
         }
-        .onAppear {
+        .onAppear {        // Fetching the username and profile image on appear
             FireBaseDB().fetchUserNameBy(userID: review.userID) { username in
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { // Async waiting for the data
                     if let username = username {
                         self.username = username
                     }
                 }
             }
             ImageStorage().getProfileWithId(userId: review.userID) { image in
-                DispatchQueue.main.async {
+                DispatchQueue.main.async {// Async waiting for the data
                     if let userimg = image {
                         userImage = userimg
                     }
@@ -91,6 +101,7 @@ struct CommentView: View {
         }
     }
 }
+// Preview for the CommentView
 
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
